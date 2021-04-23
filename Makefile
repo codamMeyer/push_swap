@@ -3,7 +3,7 @@ CHECKER=checker
 LIBFT=libft
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror #-fsanitize=address -fsanitize=leak
-TEST_CFLAGS=-ggdb3 $(CFLAGS) -fsanitize=address -fsanitize=leak
+TEST_CFLAGS=-ggdb3 $(CFLAGS) #-fsanitize=address -fsanitize=leak
 DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
 INC_PATH=-I./$(LIBFT)
 LDFLAGS=-L./$(LIBFT) -lft
