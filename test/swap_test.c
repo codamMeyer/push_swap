@@ -19,3 +19,10 @@ CTEST2(swap, sorted)
 	(void)data;
 	ASSERT_TRUE(1);
 }
+
+
+CTEST2(swap, sorted2)
+{
+	(void)data;
+	ASSERT_TRUE(1);
+}
