@@ -1,0 +1,25 @@
+language: cpp
+compiler: gcc
+
+env: CMAKE_CMD_OPTION="-DENABLE_TESTING=1 "
+
+matrix:
+  include:
+    - os: linux
+      sudo: false
+      dist: trusty
+      compiler: gcc
+addons:
+  apt:
+    packages:
+      - make
+      - lcov
+
+script:
+  - make -j 2
+  - make test -j 2
+  - make test_run
+
+# Disable notifications
+notifications:
+  email: false
