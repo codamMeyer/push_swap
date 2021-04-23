@@ -16,7 +16,6 @@ addons:
       - lcov
 
 script:
-  - make -j 2
   - make test -j 2
   - make test_run
 
