@@ -15,10 +15,10 @@ compiler: gcc
 #       - make
 #       - lcov
 python:
-  - "3.7"
+  - "3.7.1"
 
 install:
-  - python3.7 -m pip install --upgrade norminette
+  - python3.7.1 -m pip install --upgrade norminette
 
 jobs:
   include:
