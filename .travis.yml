@@ -18,7 +18,7 @@ python:
   - "3.8"
 
 install:
-  - pip install --upgrade norminette
+  - pip3 install --upgrade norminette
 
 jobs:
   include:
