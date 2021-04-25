@@ -32,7 +32,7 @@ $(LIBFT):
 test_run: test
 	./tester
 
-test: $(CHECKER_INC_FILES) $(CHECKER_FILES) $(TEST_FILES)
+test: $(LIBFT) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(TEST_FILES)
 	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(CHECKER_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
 
 clean:

@@ -15,6 +15,9 @@ compiler: gcc
 #       - make
 #       - lcov
 
+install:
+  - pip3 install --upgrade norminette
+
 jobs:
   include:
     - stage: build
@@ -27,6 +30,7 @@ jobs:
     - stage: norminette
       script:
        - echo "Running norminette\n"
+       - ./run_norminette.sh
     
 # Disable notifications
 notifications:
