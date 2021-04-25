@@ -15,11 +15,19 @@ addons:
       - make
       - lcov
 
-script:
-  - make
-  - make test -j 2
-  - make test_run
-
+jobs:
+  include:
+    - stage: build
+      script:
+        - make
+        - make test
+    - stage: test
+      script:
+        - make test_run
+    - stage: norminette
+      script:
+        - echo "Running norminette\n"
+    
 # Disable notifications
 notifications:
   email: false
