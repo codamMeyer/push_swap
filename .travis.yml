@@ -14,9 +14,11 @@ compiler: gcc
 #     packages:
 #       - make
 #       - lcov
+python:
+  - "3.8"
 
 install:
-  - pip3 install --upgrade norminette
+  - pip install --upgrade norminette
 
 jobs:
   include:
