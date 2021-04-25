@@ -14,11 +14,14 @@ compiler: gcc
 #     packages:
 #       - make
 #       - lcov
-python:
-  - "3.7.1"
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 
 install:
-  - python3.7.1 -m pip install --upgrade norminette
+  - python3 -m pip install --upgrade norminette
 
 jobs:
   include:
