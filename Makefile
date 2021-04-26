@@ -11,15 +11,20 @@ LDFLAGS=-L./$(LIBFT) -lft
 PUSH_SWAP_FILES= src_push_swap/push_swap.c
 PUSH_SWAP_INC_FILES= src_push_swap/push_swap.h
 
-CHECKER_FILES= 				\
-	src_checker/stack.c 	\
-	src_checker/checker.c 	\
-	src_checker/processor.c
+CHECKER_FILES= 								\
+	src_checker/stack.c 					\
+	src_checker/stack_swap.c 				\
+	src_checker/checker.c 					\
+	src_checker/processor_swap.c			\
+	src_checker/processor_push.c			\
+	src_checker/processor_rotate.c			\
+	src_checker/processor_reverse_rotate.c	\
+
 
 CHECKER_INC_FILES=	 		\
 	src_checker/stack.h		\
 	src_checker/checker.h	\
-	src_checker/processor.h
+	src_checker/processor.h	
 
 TEST_FILES=					\
 	test/main.c 			\

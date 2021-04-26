@@ -48,7 +48,7 @@ void	reverse_rotate(t_stack *stack)
 
 t_optional_int	pop(t_stack *stack)
 {
-	t_optional_int element;
+	t_optional_int	element;
 
 	if (!size(stack))
 	{
@@ -59,16 +59,4 @@ t_optional_int	pop(t_stack *stack)
 	element.initialized = TRUE;
 	--(stack->top);
 	return (element);
-}
-
-void	swap_top_elements(t_stack *stack)
-{
-	int tmp;
-
-	if (size(stack) < 2)
-		return ;
-
-	tmp = stack->elements[stack->top];
-	stack->elements[stack->top] = stack->elements[stack->top - 1];
-	stack->elements[stack->top - 1] = tmp;
 }
