@@ -1,19 +1,19 @@
 # push_swap [![codamMeyer](https://circleci.com/gh/codamMeyer/push_swap.svg?style=shield)](https://app.circleci.com/pipelines/github/codamMeyer/push_swap?branch=main)
 
 # Instructions
-- [ ] **sa**
+- [x] **sa**
 
         swap a - swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements).
 
-- [ ] **sb**
+- [x] **sb**
 
         swap b - swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements).
 
-- [ ] **ss** 
+- [x] **ss** 
 
         sa and sb at the same time.
 
-- [ ] **pa**
+- [x] **pa**
 
          push a - take the first element at the top of b and put it at the top of a. Do nothing if b is empty.
 
@@ -44,8 +44,6 @@
 - [ ] **rrr** 
 
         rra and rrb at the same time.
-
-
 
 # Functions
 

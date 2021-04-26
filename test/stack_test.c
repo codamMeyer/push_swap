@@ -236,8 +236,6 @@ CTEST2(pop_test, two_elements_stack)
     ASSERT_EQUAL(1, size(data->stack));
 }
 
-
-
 ////////////////////////////////////////////
 //              swap_test                 //
 ////////////////////////////////////////////
@@ -265,15 +263,13 @@ CTEST2(swap_test, empty_stack)
     ASSERT_EQUAL(0, size(data->stack));
 }
 
-CTEST2(swap_test, two_elements_stack)
+CTEST2(swap_test, one_element_stack)
 {
     push(data->stack, 1);
-    push(data->stack, 2);
     swap_top_elements(data->stack);
 
-    ASSERT_EQUAL(2, size(data->stack));
+    ASSERT_EQUAL(1, size(data->stack));
     ASSERT_EQUAL(1, data->stack->elements[data->stack->top]);
-    ASSERT_EQUAL(2, data->stack->elements[data->stack->top - 1]);
 }
 
 CTEST2(swap_test, five_elements_stack)

@@ -14,14 +14,17 @@ PUSH_SWAP_INC_FILES= src_push_swap/push_swap.h
 CHECKER_FILES= 				\
 	src_checker/stack.c 	\
 	src_checker/checker.c 	\
+	src_checker/processor.c
 
 CHECKER_INC_FILES=	 		\
 	src_checker/stack.h		\
 	src_checker/checker.h	\
+	src_checker/processor.h
 
-TEST_FILES=				\
-	test/main.c 		\
-	test/stack_test.c	\
+TEST_FILES=					\
+	test/main.c 			\
+	test/stack_test.c		\
+	test/processor_test.c	\
 
 all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
 
