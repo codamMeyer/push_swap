@@ -10,12 +10,18 @@ LDFLAGS=-L./$(LIBFT) -lft
 
 PUSH_SWAP_FILES= src_push_swap/push_swap.c
 PUSH_SWAP_INC_FILES= src_push_swap/push_swap.h
-CHECKER_FILES= src_checker/checker.c 
-CHECKER_INC_FILES= src_checker/checker.h
+
+CHECKER_FILES= 				\
+	src_checker/stack.c 	\
+	src_checker/checker.c 	\
+
+CHECKER_INC_FILES=	 		\
+	src_checker/stack.h		\
+	src_checker/checker.h	\
 
 TEST_FILES=				\
 	test/main.c 		\
-	test/swap_test.c	\
+	test/stack_test.c	\
 
 all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
 
@@ -31,6 +37,7 @@ $(LIBFT):
 
 test_run: test
 	./tester
+	./run_norminette.sh
 
 test: $(LIBFT) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(TEST_FILES)
 	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(CHECKER_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
