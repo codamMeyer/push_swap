@@ -135,3 +135,68 @@ CTEST2(rotate_test, four_elements_stack)
     ASSERT_EQUAL(1, data->stack->elements[3]);
 }
 
+
+////////////////////////////////////////////
+//           reverse_rotate_test          //
+////////////////////////////////////////////
+
+CTEST_DATA(reverse_rotate_test)
+{
+	t_stack stack_;
+    t_stack *stack;
+};
+
+CTEST_SETUP(reverse_rotate_test)
+{
+    data->stack = &data->stack_;
+	data->stack->top = -1;
+}
+
+CTEST_TEARDOWN(reverse_rotate_test)
+{
+	(void)data;
+}
+
+CTEST2(reverse_rotate_test, empty_stack)
+{
+    reverse_rotate(data->stack);
+    ASSERT_EQUAL(0, size(data->stack));
+}
+
+CTEST2(reverse_rotate_test, one_element_stack)
+{
+	push(data->stack, 8);
+    reverse_rotate(data->stack);
+    ASSERT_EQUAL(1, size(data->stack));
+    ASSERT_EQUAL(8, data->stack->elements[data->stack->top]);
+}
+
+CTEST2(reverse_rotate_test, two_elements_stack)
+{
+	push(data->stack, 1);
+    push(data->stack, 2);
+
+    reverse_rotate(data->stack);
+    ASSERT_EQUAL(2, size(data->stack));
+    ASSERT_EQUAL(1, data->stack->elements[data->stack->top]);
+    ASSERT_EQUAL(2, data->stack->elements[0]);
+
+}
+
+CTEST2(reverse_rotate_test, four_elements_stack)
+{
+	push(data->stack, 1);
+    push(data->stack, 4);
+    push(data->stack, 3);
+    push(data->stack, 2);
+
+    reverse_rotate(data->stack);
+    ASSERT_EQUAL(4, size(data->stack));
+    ASSERT_EQUAL(3, data->stack->top);
+
+    ASSERT_EQUAL(4, data->stack->elements[0]);
+    ASSERT_EQUAL(3, data->stack->elements[1]);
+    ASSERT_EQUAL(2, data->stack->elements[2]);
+    ASSERT_EQUAL(1, data->stack->elements[3]);
+}
+

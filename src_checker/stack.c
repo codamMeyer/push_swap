@@ -13,14 +13,13 @@ void	push(t_stack *stack, int element)
 
 void	rotate(t_stack *stack)
 {
-	const int	stack_size = size(stack);
 	int			tmp;
 	int			i;
 
-	if (stack_size < 2)
+	if (size(stack) < 2)
 		return ;
 	tmp = stack->elements[stack->top];
-	i = stack_size - 1;
+	i = stack->top;
 	while (i > 0)
 	{
 		stack->elements[i] = stack->elements[i - 1];
@@ -28,3 +27,22 @@ void	rotate(t_stack *stack)
 	}
 	stack->elements[i] = tmp;
 }
+
+void	reverse_rotate(t_stack *stack)
+{
+	const int	stack_size = size(stack);
+	int			tmp;
+	int			i;
+
+	if (stack_size < 2)
+		return ;
+	tmp = stack->elements[0];
+	i = 0;
+	while (i < stack_size - 1)
+	{
+		stack->elements[i] = stack->elements[i + 1];
+		++i;
+	}
+	stack->elements[i] = tmp;
+}
+
