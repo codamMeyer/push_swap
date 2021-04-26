@@ -72,41 +72,66 @@ CTEST2(push_test, to_non_empty_stack)
     ASSERT_EQUAL(2, size(data->stack));
 }
 
+////////////////////////////////////////////
+//             rotate_test                //
+////////////////////////////////////////////
 
-//////////////////////////////////////////////
-//               rotate_test                //
-//////////////////////////////////////////////
+CTEST_DATA(rotate_test)
+{
+	t_stack stack_;
+    t_stack *stack;
+};
 
-// CTEST_DATA(rotate_test)
-// {
-// 	t_stack stack_;
-//     t_stack *stack;
-// };
+CTEST_SETUP(rotate_test)
+{
+    data->stack = &data->stack_;
+	data->stack->top = -1;
+}
 
-// CTEST_SETUP(rotate_test)
-// {
-//     data->stack = &data->stack_;
-// 	data->stack->top = -1;
-// }
+CTEST_TEARDOWN(rotate_test)
+{
+	(void)data;
+}
 
-// CTEST_TEARDOWN(rotate_test)
-// {
-// 	(void)data;
-// }
+CTEST2(rotate_test, empty_stack)
+{
+    rotate(data->stack);
+    ASSERT_EQUAL(0, size(data->stack));
+}
 
-// CTEST2(rotate_test, empty_stack)
-// {
-//     ASSERT_EQUAL(0, data->stack->top);
-//     ASSERT_EQUAL(6, data->stack->elements[data->stack->top]);
-//     ASSERT_EQUAL(1, size(data->stack));
-// }
+CTEST2(rotate_test, one_element_stack)
+{
+	push(data->stack, 8);
+    rotate(data->stack);
+    ASSERT_EQUAL(1, size(data->stack));
+    ASSERT_EQUAL(8, data->stack->elements[data->stack->top]);
+}
 
-// CTEST2(rotate_test, two_elements_stack)
-// {
-//     data->stack->top = 0;
-//     data->stack->elements[data->stack->top] = 5;
-// 	push(data->stack, 8);
-//     ASSERT_EQUAL(1, data->stack->top);
-//     ASSERT_EQUAL(8, data->stack->elements[data->stack->top]);
-//     ASSERT_EQUAL(2, size(data->stack));
-// }
+CTEST2(rotate_test, two_elements_stack)
+{
+	push(data->stack, 1);
+    push(data->stack, 2); 
+    rotate(data->stack);
+    ASSERT_EQUAL(2, size(data->stack));
+    ASSERT_EQUAL(1, data->stack->elements[data->stack->top]);
+    ASSERT_EQUAL(2, data->stack->elements[0]);
+}
+
+
+CTEST2(rotate_test, four_elements_stack)
+{
+	push(data->stack, 3);
+    push(data->stack, 2);
+    push(data->stack, 1);
+    push(data->stack, 4);
+      
+    rotate(data->stack);
+    ASSERT_EQUAL(4, size(data->stack));
+    ASSERT_EQUAL(3, data->stack->top);
+
+    ASSERT_EQUAL(4, data->stack->elements[0]);
+    ASSERT_EQUAL(3, data->stack->elements[1]);
+    ASSERT_EQUAL(2, data->stack->elements[2]);
+    ASSERT_EQUAL(1, data->stack->elements[3]);
+}
+
