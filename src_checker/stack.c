@@ -45,4 +45,3 @@ void	reverse_rotate(t_stack *stack)
 	}
 	stack->elements[i] = tmp;
 }
-
