@@ -32,30 +32,32 @@ void pb(t_stack_pair *stacks)
 
 void ra(t_stack_pair *stacks)
 {
-	(void)stacks;
+	rotate(&(stacks->a));
 }
 
 void rb(t_stack_pair *stacks)
 {
-	(void)stacks;
+	rotate(&(stacks->b));
 }
 
 void rr(t_stack_pair *stacks)
 {
-	(void)stacks;
+	ra(stacks);
+	rb(stacks);
 }
 
 void rra(t_stack_pair *stacks)
 {
-	(void)stacks;
+	reverse_rotate(&(stacks->a));
 }
 
 void rrb(t_stack_pair *stacks)
 {
-	(void)stacks;
+	reverse_rotate(&(stacks->b));
 }
 
 void rrr(t_stack_pair *stacks)
 {
-	(void)stacks;
+	rra(stacks);
+	rrb(stacks);
 }

@@ -17,31 +17,31 @@
 
          push a - take the first element at the top of b and put it at the top of a. Do nothing if b is empty.
 
-- [ ] **pb** 
+- [x] **pb** 
 
         push b - take the first element at the top of a and put it at the top of b. Do nothing if a is empty.
 
-- [ ] **ra** 
+- [x] **ra** 
 
         rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
 
-- [ ] **rb** 
+- [x] **rb** 
 
         rotate b - shift up all elements of stack b by 1. The first element becomes the last one.
 
-- [ ] **rr**
+- [x] **rr**
 
         ra and rb at the same time.
 
-- [ ] **rra**
+- [x] **rra**
 
         reverse rotate a - shift down all elements of stack a by 1. The last element becomes the first one.
 
-- [ ] **rrb**
+- [x] **rrb**
 
         reverse rotate b - shift down all elements of stack b by 1. The last element becomes the first one.
 
-- [ ] **rrr** 
+- [x] **rrr** 
 
         rra and rrb at the same time.
 

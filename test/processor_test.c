@@ -132,10 +132,60 @@ CTEST_TEARDOWN(ra_rb_rr_test)
 	(void)data;
 }
 
-CTEST2_SKIP(ra_rb_rr_test, ra_empty_stack)
+CTEST2(ra_rb_rr_test, ra_empty_stack)
 {
-	(void)data;
-    ASSERT_TRUE(1);
+	ra(data->stacks);
+    ASSERT_EQUAL(0, size(&(data->stacks->a)));
+}
+
+CTEST2(ra_rb_rr_test, ra_non_empty_stack)
+{
+	push(&(data->stacks->a), 1);
+	push(&(data->stacks->a), 2);
+	push(&(data->stacks->a), 3);
+
+	ra(data->stacks);
+	ASSERT_EQUAL(3, data->stacks->a.elements[0]);
+	ASSERT_EQUAL(2, data->stacks->a.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->a)));
+}
+
+CTEST2(ra_rb_rr_test, rb_empty_stack)
+{
+	rb(data->stacks);
+    ASSERT_EQUAL(0, size(&(data->stacks->b)));
+}
+
+CTEST2(ra_rb_rr_test, rb_non_empty_stack)
+{
+	push(&(data->stacks->b), 1);
+	push(&(data->stacks->b), 2);
+	push(&(data->stacks->b), 3);
+
+	rb(data->stacks);
+	ASSERT_EQUAL(3, data->stacks->b.elements[0]);
+	ASSERT_EQUAL(2, data->stacks->b.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->b)));
+}
+
+CTEST2(ra_rb_rr_test, rr_stacks)
+{
+	push(&(data->stacks->a), 1);
+	push(&(data->stacks->a), 2);
+	push(&(data->stacks->a), 3);
+
+	push(&(data->stacks->b), 4);
+	push(&(data->stacks->b), 5);
+	push(&(data->stacks->b), 6);
+
+	rr(data->stacks);
+	ASSERT_EQUAL(3, data->stacks->a.elements[0]);
+	ASSERT_EQUAL(2, data->stacks->a.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->a)));
+
+	ASSERT_EQUAL(6, data->stacks->b.elements[0]);
+	ASSERT_EQUAL(5, data->stacks->b.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->b)));
 }
 
 //////////////////////////////////////////////
@@ -160,8 +210,47 @@ CTEST_TEARDOWN(rra_rrb_rrr_test)
 	(void)data;
 }
 
-CTEST2_SKIP(rra_rrb_rrr_test, empty_stack)
+CTEST2(rra_rrb_rrr_test, rra_non_empty_stack)
 {
-	(void)data;
-    ASSERT_TRUE(1);
+	push(&(data->stacks->a), 1);
+	push(&(data->stacks->a), 3);
+	push(&(data->stacks->a), 2);
+
+	rra(data->stacks);
+	ASSERT_EQUAL(3, data->stacks->a.elements[0]);
+	ASSERT_EQUAL(1, data->stacks->a.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->a)));
+}
+
+
+CTEST2(rra_rrb_rrr_test, rrb_non_empty_stack)
+{
+	push(&(data->stacks->b), 1);
+	push(&(data->stacks->b), 3);
+	push(&(data->stacks->b), 2);
+
+	rrb(data->stacks);
+	ASSERT_EQUAL(3, data->stacks->b.elements[0]);
+	ASSERT_EQUAL(1, data->stacks->b.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->b)));
+}
+
+CTEST2(rra_rrb_rrr_test, rrr_non_empty_stacks)
+{
+	push(&(data->stacks->a), 1);
+	push(&(data->stacks->a), 2);
+	push(&(data->stacks->a), 3);
+
+	push(&(data->stacks->b), 4);
+	push(&(data->stacks->b), 5);
+	push(&(data->stacks->b), 6);
+
+	rrr(data->stacks);
+	ASSERT_EQUAL(2, data->stacks->a.elements[0]);
+	ASSERT_EQUAL(1, data->stacks->a.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->a)));
+
+	ASSERT_EQUAL(5, data->stacks->b.elements[0]);
+	ASSERT_EQUAL(4, data->stacks->b.elements[2]);
+	ASSERT_EQUAL(3, size(&(data->stacks->b)));
 }
