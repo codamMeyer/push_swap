@@ -1,8 +1,8 @@
 # push_swap [![codamMeyer](https://circleci.com/gh/codamMeyer/push_swap.svg?style=shield)](https://app.circleci.com/pipelines/github/codamMeyer/push_swap?branch=main)
 
-
+# Instructions
 - [ ] **sa**
-    
+
         swap a - swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements).
 
 - [ ] **sb**
@@ -23,7 +23,7 @@
 
 - [ ] **ra** 
 
-      rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
+        rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
 
 - [ ] **rb** 
 
@@ -45,3 +45,13 @@
 
         rra and rrb at the same time.
 
+
+
+# Functions
+
+- [ ] swap
+- [x] push
+- [ ] pop
+- [x] rotate
+- [x] reverse_rotate
+- [x] size

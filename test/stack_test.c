@@ -135,7 +135,6 @@ CTEST2(rotate_test, four_elements_stack)
     ASSERT_EQUAL(1, data->stack->elements[3]);
 }
 
-
 ////////////////////////////////////////////
 //           reverse_rotate_test          //
 ////////////////////////////////////////////
@@ -200,3 +199,40 @@ CTEST2(reverse_rotate_test, four_elements_stack)
     ASSERT_EQUAL(1, data->stack->elements[3]);
 }
 
+
+////////////////////////////////////////////
+//               pop_test                 //
+////////////////////////////////////////////
+
+CTEST_DATA(pop_test)
+{
+	t_stack stack_;
+    t_stack *stack;
+};
+
+CTEST_SETUP(pop_test)
+{
+    data->stack = &data->stack_;
+	data->stack->top = -1;
+}
+
+CTEST_TEARDOWN(pop_test)
+{
+	(void)data;
+}
+
+CTEST2(pop_test, empty_stack)
+{
+    t_optional_int element = pop(data->stack);
+    ASSERT_FALSE(element.initialized);
+}
+
+CTEST2(pop_test, two_elements_stack)
+{
+    push(data->stack, 1);
+    push(data->stack, 2);
+    t_optional_int element = pop(data->stack);
+    ASSERT_EQUAL(2, element.element);
+    ASSERT_TRUE(element.initialized);
+    ASSERT_EQUAL(1, size(data->stack));
+}
