@@ -199,7 +199,6 @@ CTEST2(reverse_rotate_test, four_elements_stack)
     ASSERT_EQUAL(1, data->stack->elements[3]);
 }
 
-
 ////////////////////////////////////////////
 //               pop_test                 //
 ////////////////////////////////////////////
@@ -236,3 +235,60 @@ CTEST2(pop_test, two_elements_stack)
     ASSERT_TRUE(element.initialized);
     ASSERT_EQUAL(1, size(data->stack));
 }
+
+
+
+////////////////////////////////////////////
+//              swap_test                 //
+////////////////////////////////////////////
+
+CTEST_DATA(swap_test)
+{
+	t_stack stack_;
+    t_stack *stack;
+};
+
+CTEST_SETUP(swap_test)
+{
+    data->stack = &data->stack_;
+	data->stack->top = -1;
+}
+
+CTEST_TEARDOWN(swap_test)
+{
+	(void)data;
+}
+
+CTEST2(swap_test, empty_stack)
+{
+    swap_top_elements(data->stack);
+    ASSERT_EQUAL(0, size(data->stack));
+}
+
+CTEST2(swap_test, two_elements_stack)
+{
+    push(data->stack, 1);
+    push(data->stack, 2);
+    swap_top_elements(data->stack);
+
+    ASSERT_EQUAL(2, size(data->stack));
+    ASSERT_EQUAL(1, data->stack->elements[data->stack->top]);
+    ASSERT_EQUAL(2, data->stack->elements[data->stack->top - 1]);
+}
+
+CTEST2(swap_test, five_elements_stack)
+{
+    push(data->stack, 1);
+    push(data->stack, 2);
+    push(data->stack, 3);
+    push(data->stack, 4);
+    push(data->stack, 5);
+    swap_top_elements(data->stack);
+    ASSERT_EQUAL(5, size(data->stack));
+    ASSERT_EQUAL(1, data->stack->elements[0]);
+    ASSERT_EQUAL(2, data->stack->elements[1]);
+    ASSERT_EQUAL(3, data->stack->elements[2]);
+    ASSERT_EQUAL(5, data->stack->elements[3]);
+    ASSERT_EQUAL(4, data->stack->elements[4]);
+}
+

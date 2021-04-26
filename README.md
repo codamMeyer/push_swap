@@ -49,9 +49,9 @@
 
 # Functions
 
-- [ ] swap
+- [x] swap
 - [x] push
-- [ ] pop
+- [x] pop
 - [x] rotate
 - [x] reverse_rotate
 - [x] size
