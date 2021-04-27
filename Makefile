@@ -42,7 +42,8 @@ TEST_FILES=					\
 	test/main.c 			\
 	test/stack_test.c		\
 	test/processor_test.c	\
-	test/parser_test.c	\
+	test/parser_test.c		\
+	test/checker_test.c		\
 
 all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
 

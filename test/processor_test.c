@@ -8,6 +8,8 @@
 
 CTEST_DATA(sa_sb_ss_test)
 {
+	int elements_a[5];
+	int elements_b[5];
 	t_stack_pair stacks_;
     t_stack_pair *stacks;
 };
@@ -15,6 +17,8 @@ CTEST_DATA(sa_sb_ss_test)
 CTEST_SETUP(sa_sb_ss_test)
 {
     data->stacks = &data->stacks_;
+	data->stacks->a.elements = (int *)data->elements_a;
+	data->stacks->b.elements = (int *)data->elements_b;
 	data->stacks->a.top = -1;
 	data->stacks->b.top = -1;
 }
@@ -62,6 +66,8 @@ CTEST2(sa_sb_ss_test, ss_test)
 
 CTEST_DATA(pa_pb_test)
 {
+	int elements_a[5];
+	int elements_b[5];
 	t_stack_pair stacks_;
     t_stack_pair *stacks;
 };
@@ -69,6 +75,8 @@ CTEST_DATA(pa_pb_test)
 CTEST_SETUP(pa_pb_test)
 {
     data->stacks = &data->stacks_;
+	data->stacks->a.elements = (int *)data->elements_a;
+	data->stacks->b.elements = (int *)data->elements_b;
 	data->stacks->a.top = -1;
 	data->stacks->b.top = -1;
 }
@@ -116,6 +124,8 @@ CTEST2(pa_pb_test, pb_one_element_stack_a)
 
 CTEST_DATA(ra_rb_rr_test)
 {
+	int elements_a[5];
+	int elements_b[5];
 	t_stack_pair stacks_;
     t_stack_pair *stacks;
 };
@@ -123,6 +133,8 @@ CTEST_DATA(ra_rb_rr_test)
 CTEST_SETUP(ra_rb_rr_test)
 {
     data->stacks = &data->stacks_;
+	data->stacks->a.elements = (int *)data->elements_a;
+	data->stacks->b.elements = (int *)data->elements_b;
 	data->stacks->a.top = -1;
 	data->stacks->b.top = -1;
 }
@@ -194,6 +206,8 @@ CTEST2(ra_rb_rr_test, rr_stacks)
 
 CTEST_DATA(rra_rrb_rrr_test)
 {
+	int elements_a[5];
+	int elements_b[5];
 	t_stack_pair stacks_;
     t_stack_pair *stacks;
 };
@@ -201,6 +215,8 @@ CTEST_DATA(rra_rrb_rrr_test)
 CTEST_SETUP(rra_rrb_rrr_test)
 {
     data->stacks = &data->stacks_;
+	data->stacks->a.elements = (int *)data->elements_a;
+	data->stacks->b.elements = (int *)data->elements_b;
 	data->stacks->a.top = -1;
 	data->stacks->b.top = -1;
 }

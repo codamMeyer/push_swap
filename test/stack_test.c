@@ -39,12 +39,14 @@ CTEST2(size_test, non_empty_stack)
 
 CTEST_DATA(push_test)
 {
+    int elements[5];
 	t_stack stack_;
     t_stack *stack;
 };
 
 CTEST_SETUP(push_test)
 {
+    data->stack_.elements = (int *)data->elements;
     data->stack = &data->stack_;
 	data->stack->top = -1;
 }
@@ -78,12 +80,14 @@ CTEST2(push_test, to_non_empty_stack)
 
 CTEST_DATA(rotate_test)
 {
+    int elements[5];
 	t_stack stack_;
     t_stack *stack;
 };
 
 CTEST_SETUP(rotate_test)
 {
+    data->stack_.elements = (int *)data->elements;
     data->stack = &data->stack_;
 	data->stack->top = -1;
 }
@@ -141,12 +145,14 @@ CTEST2(rotate_test, four_elements_stack)
 
 CTEST_DATA(reverse_rotate_test)
 {
+    int elements[5];
 	t_stack stack_;
     t_stack *stack;
 };
 
 CTEST_SETUP(reverse_rotate_test)
 {
+    data->stack_.elements = (int *)data->elements;
     data->stack = &data->stack_;
 	data->stack->top = -1;
 }
@@ -205,12 +211,14 @@ CTEST2(reverse_rotate_test, four_elements_stack)
 
 CTEST_DATA(pop_test)
 {
+    int elements[5];
 	t_stack stack_;
     t_stack *stack;
 };
 
 CTEST_SETUP(pop_test)
-{
+{    
+    data->stack_.elements = (int *)data->elements;
     data->stack = &data->stack_;
 	data->stack->top = -1;
 }
@@ -242,12 +250,14 @@ CTEST2(pop_test, two_elements_stack)
 
 CTEST_DATA(swap_test)
 {
+    int elements[5];
 	t_stack stack_;
     t_stack *stack;
 };
 
 CTEST_SETUP(swap_test)
 {
+    data->stack_.elements = (int *)data->elements;
     data->stack = &data->stack_;
 	data->stack->top = -1;
 }
