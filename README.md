@@ -53,3 +53,21 @@
 - [x] rotate
 - [x] reverse_rotate
 - [x] size
+
+# push_swap parser
+
+- [x] Check if received only numbers (first element is the top of stack)
+- [x] Compare with int MIN and MAX
+- [x] Check if numbers are duplicated
+- [ ] On error, display Error followed by a ’\n’ on the standard error.
+
+# Checker parser
+
+- [x] Check if received only numbers (first element is the top of stack)
+- [x] Compare with int MIN and MAX
+- [ ] Check if numbers are duplicated
+- [ ] If no argument is given checker stops and displays nothing.
+- [ ] Read instructions on the standard input
+- [ ] Each instruction will be followed by ’\n’
+- [ ] Check if instructions are valid
+- [ ] On error, display Error followed by a ’\n’ on the standard error.

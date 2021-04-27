@@ -1,6 +1,6 @@
 #include "ctest.h"
-#include "../src_checker/stack.h"
-#include "../src_checker/processor.h"
+#include "../src/checker/stack.h"
+#include "../src/checker/processor.h"
 
 //////////////////////////////////////////////
 //             sa_sb_ss_test                //
