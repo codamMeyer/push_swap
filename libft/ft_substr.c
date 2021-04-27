@@ -14,7 +14,7 @@
 
 static size_t	get_substr_len(size_t s_len, unsigned int start, size_t max_len)
 {
-	size_t substr_len;
+	size_t	substr_len;
 
 	if (start >= s_len)
 		return (0);
@@ -24,7 +24,7 @@ static size_t	get_substr_len(size_t s_len, unsigned int start, size_t max_len)
 	return (substr_len);
 }
 
-char			*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	s_len;
 	size_t	substr_len;

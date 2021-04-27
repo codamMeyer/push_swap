@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static void		str_cpy(char *dest, const char *src)
+static void	str_cpy(char *dest, const char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0')
@@ -24,7 +24,7 @@ static void		str_cpy(char *dest, const char *src)
 	}
 }
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_str;
 	int		len_s1;

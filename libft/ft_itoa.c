@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		ft_len(long n)
+static int	ft_len(long n)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n <= 0)
@@ -30,7 +30,7 @@ static int		ft_len(long n)
 	return (len);
 }
 
-static void		is_negative(long int *n, char *str)
+static void	is_negative(long int *n, char *str)
 {
 	if (*n < 0 && *n * -1 > 0)
 	{
@@ -39,7 +39,7 @@ static void		is_negative(long int *n, char *str)
 	}
 }
 
-char			*ft_itoa(int nb)
+char	*ft_itoa(int nb)
 {
 	char	*num_str;
 	long	n;

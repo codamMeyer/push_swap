@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		is_space(char a)
+static int	is_space(char a)
 {
 	if (a == ' ' || a == '\f' || a == '\n')
 		return (1);
@@ -21,9 +21,9 @@ static int		is_space(char a)
 	return (0);
 }
 
-static int		find_first_number(const char *nptr, int *sign)
+static int	find_first_number(const char *nptr, int *sign)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_space(nptr[i]))
@@ -38,7 +38,7 @@ static int		find_first_number(const char *nptr, int *sign)
 	return (i);
 }
 
-static int		get_overflowed_result(int sign)
+static int	get_overflowed_result(int sign)
 {
 	if (sign == 1)
 		return (-1);
@@ -46,7 +46,7 @@ static int		get_overflowed_result(int sign)
 		return (0);
 }
 
-int				ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int			sign;
 	int			index;
@@ -62,5 +62,5 @@ int				ft_atoi(const char *nptr)
 		result = (nptr[index] - '0') + (result * 10);
 		++index;
 	}
-	return (int)(result * sign);
+	return ((int)(result * sign));
 }

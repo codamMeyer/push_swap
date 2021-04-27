@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		cmp_with_set(char c, const char *set)
+static int	cmp_with_set(char c, const char *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -26,9 +26,9 @@ static int		cmp_with_set(char c, const char *set)
 	return (0);
 }
 
-static int		find_start(char const *s1, char const *set)
+static int	find_start(char const *s1, char const *set)
 {
-	int start;
+	int	start;
 
 	start = 0;
 	while (cmp_with_set(s1[start], set))
@@ -36,7 +36,7 @@ static int		find_start(char const *s1, char const *set)
 	return (start);
 }
 
-static int		find_end(char const *s1, char const *set)
+static int	find_end(char const *s1, char const *set)
 {
 	int			end;
 	const int	s1_len = ft_strlen(s1);
@@ -47,9 +47,9 @@ static int		find_end(char const *s1, char const *set)
 	return (end);
 }
 
-static int		calc_new_str_len(char const *s1, char const *set, int *start)
+static int	calc_new_str_len(char const *s1, char const *set, int *start)
 {
-	const int end = find_end(s1, set);
+	const int	end = find_end(s1, set);
 
 	*start = find_start(s1, set);
 	if (*start == (int)ft_strlen((char *)s1))
@@ -58,7 +58,7 @@ static int		calc_new_str_len(char const *s1, char const *set, int *start)
 		return (end - *start + 1);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		new_len;

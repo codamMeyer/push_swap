@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static char		*ft_strcopy(char *dest, const char *src)
+static char	*ft_strcopy(char *dest, const char *src)
 {
-	int i;
+	int	i;
 
 	if (src == 0 || dest == 0)
 		return (dest);
@@ -28,7 +28,7 @@ static char		*ft_strcopy(char *dest, const char *src)
 	return (dest);
 }
 
-char			*ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
 	char		*cpy;
 	const int	length = ft_strlen((char *)s);
