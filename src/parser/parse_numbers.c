@@ -1,7 +1,7 @@
 #include "parse_numbers.h"
 #include <libft.h>
 
-t_bool	has_duplicate(int *elements, int element, int cur_size)
+static t_bool	has_duplicate(int *elements, int element, int cur_size)
 {
 	int	i;
 
@@ -15,7 +15,7 @@ t_bool	has_duplicate(int *elements, int element, int cur_size)
 	return (FALSE);
 }
 
-t_bool	is_a_valid_number(const char *element)
+static t_bool	is_a_valid_number(const char *element)
 {
 	const int	len = ft_strlen(element);
 	int			i;

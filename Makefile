@@ -27,13 +27,15 @@ CHECKER_FILES= 								\
 	src/checker/processor_rotate.c			\
 	src/checker/processor_reverse_rotate.c	\
 	src/parser/parse_numbers.c 				\
+	src/parser/parse_instructions.c 		\
 
-CHECKER_INC_FILES=	 			\
-	src/checker/stack.h			\
-	src/checker/checker.h		\
-	src/checker/processor.h		\
-	src/utils/defs.h			\
-	src/parser/parse_numbers.h 	\
+CHECKER_INC_FILES=	 					\
+	src/checker/stack.h					\
+	src/checker/checker.h				\
+	src/checker/processor.h				\
+	src/utils/defs.h					\
+	src/parser/parse_numbers.h 			\
+	src/parser/parse_instructions.h 	\
 
 
 TEST_FILES=					\

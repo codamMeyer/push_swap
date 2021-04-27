@@ -1,5 +1,7 @@
 #include "ctest.h"
 #include "../src/parser/parse_numbers.h"
+#include "../src/parser/parse_instructions.h"
+#include "../src/checker/processor.h"
 #include <stdlib.h>
 #include <limits.h>
 
@@ -80,4 +82,24 @@ CTEST2(parse_numbers_test, duplicate_test)
 	const char *list[] = {"1", "2", "3", "1", "5"};
 	data->elements = parse_numbers(5, list);
 	ASSERT_NULL(data->elements);
+}
+
+//////////////////////////////////////////////
+//        parse_instructions_test           //
+//////////////////////////////////////////////
+
+CTEST(parse_instructions_test, empty_list_test)
+{
+	ASSERT_EQUAL(RRA, get_instruction("rra"));
+	ASSERT_EQUAL(RRB, get_instruction("rrb"));
+	ASSERT_EQUAL(RRR, get_instruction("rrr"));
+	ASSERT_EQUAL(SA, get_instruction("sa"));
+	ASSERT_EQUAL(SB, get_instruction("sb"));
+	ASSERT_EQUAL(SS, get_instruction("ss"));
+	ASSERT_EQUAL(PA, get_instruction("pa"));
+	ASSERT_EQUAL(PB, get_instruction("pb"));
+	ASSERT_EQUAL(RA, get_instruction("ra"));
+	ASSERT_EQUAL(RB, get_instruction("rb"));
+	ASSERT_EQUAL(RR, get_instruction("rr"));
+	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("aa"));
 }

@@ -65,7 +65,7 @@
 
 - [x] Check if received only numbers (first element is the top of stack)
 - [x] Compare with int MIN and MAX
-- [ ] Check if numbers are duplicated
+- [x] Check if numbers are duplicated
 - [ ] If no argument is given checker stops and displays nothing.
 - [ ] Read instructions on the standard input
 - [ ] Each instruction will be followed by ’\n’
