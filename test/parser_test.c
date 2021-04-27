@@ -2,6 +2,7 @@
 #include "../src/parser/parse_numbers.h"
 #include "../src/parser/parse_instructions.h"
 #include "../src/checker/processor.h"
+#include "../src/checker/checker.h"
 #include <stdlib.h>
 #include <limits.h>
 
@@ -102,4 +103,26 @@ CTEST(parse_instructions_test, empty_list_test)
 	ASSERT_EQUAL(RB, get_instruction("rb"));
 	ASSERT_EQUAL(RR, get_instruction("rr"));
 	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("aa"));
+}
+
+//////////////////////////////////////////////
+//       	 is_stack_sorted_test           //
+//////////////////////////////////////////////
+
+CTEST(is_stack_sorted_test, one_element)
+{
+	t_stack stack = {.elements = {1}};
+	ASSERT_TRUE(is_stack_sorted(stack, 1));
+}
+
+CTEST(is_stack_sorted_test, three_sorted_elements)
+{
+	t_stack stack = {.elements = {-1, 0, 1}};
+	ASSERT_TRUE(is_stack_sorted(stack, 3));
+}
+
+CTEST(is_stack_sorted_test, three_not_sorted_elements)
+{
+	t_stack stack = {.elements = {-1, 2, 1}};
+	ASSERT_FALSE(is_stack_sorted(stack, 3));
 }
