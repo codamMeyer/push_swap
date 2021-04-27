@@ -53,6 +53,4 @@ dkms.conf
 
 tester
 .vscode
-push_swap
-checker
 norminette_result
