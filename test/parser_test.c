@@ -1,10 +1,12 @@
 #include "ctest.h"
-#include "../src/parser/parse_numbers.h"
-#include "../src/parser/parse_instructions.h"
-#include "../src/checker/processor.h"
-#include "../src/checker/checker.h"
+#include <parser/parse_numbers.h>
+#include <parser/parse_instructions.h>
+#include <checker/processor.h>
+#include <checker/checker.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>
+#include <unistd.h>
 
 //////////////////////////////////////////////
 //             parse_numbers_test           //
@@ -102,5 +104,20 @@ CTEST(parse_instructions_test, empty_list_test)
 	ASSERT_EQUAL(RA, get_instruction("ra"));
 	ASSERT_EQUAL(RB, get_instruction("rb"));
 	ASSERT_EQUAL(RR, get_instruction("rr"));
+	ASSERT_EQUAL(END_OF_INSTRUCTIONS, get_instruction("\0"));
 	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("aa"));
+}
+
+//////////////////////////////////////////////
+//        get_next_instruction_test         //
+//////////////////////////////////////////////
+
+CTEST_SKIP(get_next_instruction_test, SA_instruction)
+{
+	ASSERT_TRUE((SA == get_next_instruction()) && write(0, "sa\n", 3));
+}
+
+CTEST_SKIP(get_next_instruction_test, incorrect_instruction)
+{
+	ASSERT_EQUAL(INVALID_INSTRUCTION, get_next_instruction());
 }

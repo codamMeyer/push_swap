@@ -25,14 +25,20 @@ t_instructions	get_instruction(const char *instruction_string)
 		return (RB);
 	if (ft_strncmp(instruction_string, "rr", 2) == 0)
 		return (RR);
+	if (ft_strncmp(instruction_string, "\0", 1) == 0)
+		return (END_OF_INSTRUCTIONS);
 	return (INVALID_INSTRUCTION);
 }
 
-// t_instructions parse_next_instruction()
-// {
-// 	// char *line;
+t_instructions	get_next_instruction(void)
+{
+	t_instructions	instruction;
+	char			*instruction_string;
+	const int		ret = get_next_line(STDOUT_FILENO, &instruction_string);
 
-
-// 	//get next line
-// 	//return get_instruction(line); 
-// }
+	if (ret == ERROR)
+		instruction = INVALID_INSTRUCTION;
+	instruction = get_instruction(instruction_string);
+	free(instruction_string);
+	return (instruction);
+}

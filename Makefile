@@ -5,7 +5,7 @@ CC=gcc
 CFLAGS= -Wall -Wextra -Werror #-fsanitize=address -fsanitize=leak
 TEST_CFLAGS=-ggdb3 $(CFLAGS) #-fsanitize=address -fsanitize=leak
 DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
-INC_PATH=-I./$(LIBFT)
+INC_PATH=-I./$(LIBFT) -I./src
 LDFLAGS=-L./$(LIBFT) -lft
 
 PUSH_SWAP_FILES= 							\
@@ -22,6 +22,7 @@ CHECKER_FILES= 								\
 	src/checker/stack.c 					\
 	src/checker/stack_swap.c 				\
 	src/checker/checker.c 					\
+	src/checker/processor.c					\
 	src/checker/processor_swap.c			\
 	src/checker/processor_push.c			\
 	src/checker/processor_rotate.c			\

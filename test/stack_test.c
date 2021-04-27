@@ -1,5 +1,5 @@
 #include "ctest.h"
-#include "../src/checker/stack.h"
+#include <checker/stack.h>
 
 //////////////////////////////////////////////
 //                 size_test                //
