@@ -8,8 +8,8 @@ int	main(int argc, const char *argv[])
 	t_status	ret;
 
 	if (argc < 2)
-		return (1);
+		exit(1);
 	ret = run_push_swap(argc - 1, &(argv[1]));
-	print_message(ret);
-	exit(ret);
+	(void)ret;
+	exit(0);
 }

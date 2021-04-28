@@ -35,7 +35,7 @@ t_instructions	get_next_instruction(void)
 {
 	t_instructions	instruction;
 	char			*instruction_string;
-	const int		ret = get_next_line(STDOUT_FILENO, &instruction_string);
+	const int		ret = get_next_line(STDIN_FILENO, &instruction_string);
 
 	if (ret == ERROR)
 		instruction = INVALID_INSTRUCTION;

@@ -1,8 +1,9 @@
 #include "bubble_sort.h"
 #include "utils.h"
 #include <utils/defs.h>
+#include <unistd.h>
 
-void	swap_elements(int *cur, int *prev)
+static void	swap_elements(int *cur, int *prev)
 {
 	const int	tmp = *cur;
 

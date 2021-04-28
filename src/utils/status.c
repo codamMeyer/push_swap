@@ -1,6 +1,5 @@
 #include "status.h"
 #include <libft.h>
-#include <stdio.h>
 #include <unistd.h>
 
 void	print_message(t_status status)
