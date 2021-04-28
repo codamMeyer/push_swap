@@ -23,8 +23,14 @@ CTEST(bubble_sort_test,five_sorted_elements)
     ASSERT_EQUAL(0, bubble_sort(5, elements));
 }
 
-CTEST(bubble_sort_test,five_onsorted_elements)
+CTEST(bubble_sort_test,five_unsorted_elements_47_total)
 {
 	int elements[5] = {300, 6, 2, 1, 30};
-    ASSERT_EQUAL(47, bubble_sort(5, elements));
+    ASSERT_EQUAL(37, bubble_sort(5, elements));
+}
+
+CTEST(bubble_sort_test, five_unsorted_elements_37_total)
+{
+	int elements[5] = {5, 4, 1, 2, 3};
+    ASSERT_EQUAL(27, bubble_sort(5, elements));
 }
