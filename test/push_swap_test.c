@@ -1,5 +1,5 @@
 #include "ctest.h"
-#include <push_swap/push_swap.h>
+#include <push_swap/bubble_sort.h>
 
 //////////////////////////////////////////////
 //       	     bubble_sort_test            //
