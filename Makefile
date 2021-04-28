@@ -29,12 +29,15 @@ CHECKER_FILES= 								\
 	src/checker/processor_reverse_rotate.c	\
 	src/parser/parse_numbers.c 				\
 	src/parser/parse_instructions.c 		\
+	src/utils/status.c 						\
+
 
 CHECKER_INC_FILES=	 					\
 	src/checker/stack.h					\
 	src/checker/checker.h				\
 	src/checker/processor.h				\
 	src/utils/defs.h					\
+	src/utils/status.h					\
 	src/parser/parse_numbers.h 			\
 	src/parser/parse_instructions.h 	\
 
@@ -75,5 +78,6 @@ fclean: clean
 	rm -f $(PUSH_SWAP)
 	rm -f $(CHECKER)
 	rm -f tester
+	rm -f norminette_result
 
 .PHONY: all clean fclean re test libft push_swap checker

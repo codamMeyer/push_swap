@@ -13,15 +13,15 @@ static int	populate_line(char **dest,
 		++file_state->buffer_index;
 		if (cur == '\n')
 		{
-			if (realloc_line(dest, &file_state, ret) == ERROR)
-				return (ERROR);
+			if (realloc_line(dest, &file_state, ret) == ERROR_GNL)
+				return (ERROR_GNL);
 			file_state->line_index = 0;
 			return (LINE_READ);
 		}
 		(*dest)[file_state->line_index] = cur;
 		++(file_state->line_index);
 		if (!adjust_mem_size(file_state, dest))
-			return (ERROR);
+			return (ERROR_GNL);
 	}
 	return (0);
 }
@@ -81,10 +81,10 @@ int	get_next_line(int fd, char **line)
 	int						ret;
 
 	if (!is_valid_input(fd))
-		return (ERROR);
+		return (ERROR_GNL);
 	file_state = initialize_file_state(&files[fd], line);
 	if (file_state == NULL)
-		return (ERROR);
+		return (ERROR_GNL);
 	while (1)
 	{
 		if (file_state->bytes_left == 0)

@@ -19,7 +19,7 @@
 # define LONG_MAX 9223372036854775807
 # define MAX_FD 2048
 # define SIZE 500
-# define ERROR -1
+# define ERROR_GNL -1
 # define LINE_READ 1
 # define BUFFER_SIZE 10
 

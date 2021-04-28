@@ -1,6 +1,7 @@
 #ifndef CHECKER_H
 # define CHECKER_H
 # include "processor.h"
+# include <utils/status.h>
 
 typedef t_instructions(*t_get_next_instruction)();
 

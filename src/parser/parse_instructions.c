@@ -1,4 +1,5 @@
 #include "parse_instructions.h"
+#include <utils/status.h>
 #include <libft.h>
 
 t_instructions	get_instruction(const char *instruction_string)

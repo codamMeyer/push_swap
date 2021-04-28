@@ -1,6 +1,7 @@
 #include "checker.h"
 #include "../parser/parse_instructions.h"
 #include "../parser/parse_numbers.h"
+#include <utils/status.h>
 #include <stdlib.h>
 #include <libft.h>
 

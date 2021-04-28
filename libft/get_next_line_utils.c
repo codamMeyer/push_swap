@@ -18,8 +18,8 @@ int	realloc_line(char **dest, t_file_state **file_state, int *ret)
 	if (*dest == NULL)
 	{
 		free(*file_state);
-		*ret = ERROR;
-		return (ERROR);
+		*ret = ERROR_GNL;
+		return (ERROR_GNL);
 	}
 	*ret = LINE_READ;
 	return (0);

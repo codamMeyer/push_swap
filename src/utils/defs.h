@@ -5,11 +5,4 @@
 
 typedef int	t_bool;
 
-typedef enum e_status
-{
-	ERROR = -1,
-	OK = 0,
-	KO = 1,
-}	t_status;
-
 #endif
