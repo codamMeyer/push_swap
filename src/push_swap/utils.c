@@ -1,5 +1,6 @@
 #include "utils.h"
-#include <stdio.h>
+#include <unistd.h>
+#include <libft.h>
 
 t_bool	is_list_sorted(int elements_size, int *elements)
 {
@@ -15,15 +16,14 @@ t_bool	is_list_sorted(int elements_size, int *elements)
 	return (TRUE);
 }
 
-int	print_instruction(const char *instruction, int times)
+void	print_instruction(const char *instruction, int times)
 {
 	int	i;
 
 	i = 0;
 	while (i < times)
 	{
-		printf("%s\n", instruction);
+		write(STDOUT_FILENO, instruction, ft_strlen(instruction));
 		++i;
 	}
-	return (i);
 }

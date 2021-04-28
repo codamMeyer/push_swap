@@ -8,36 +8,35 @@ void	swap_elements(int *cur, int *prev)
 
 	*cur = *prev;
 	*prev = tmp;
-	print_instruction("sb", 1);
 }
 
-int	bubble_sort(int elements_size, int *elements)
+int	bubble_sort(int elements_size,
+				int *elements,
+				t_write_instruction write_instruction)
 {
 	int		i;
 	int		num_moves;
-	t_bool	swapped;
 
 	num_moves = 0;
-	if (elements_size < 2)
-		return (num_moves);
-	swapped = TRUE;
-	while (swapped && !is_list_sorted(elements_size, elements))
+	while (!is_list_sorted(elements_size, elements))
 	{
 		i = 1;
-		swapped = FALSE;
-		num_moves += print_instruction("pb", 1);
+		write_instruction(STR_PB, 1);
+		++num_moves;
 		while (i < elements_size)
 		{
-			num_moves += print_instruction("pb", 1);
+			write_instruction(STR_PB, 1);
+			++num_moves;
 			if (elements[i] < elements[i - 1])
 			{
-				swapped = TRUE;
 				swap_elements(&elements[i], &elements[i - 1]);
+				write_instruction(STR_SB, 1);
 				++num_moves;
 			}
 			++i;
 		}
-		num_moves += print_instruction("pa", elements_size);
+		write_instruction(STR_PA, elements_size);
+		num_moves += elements_size;
 	}
 	return (num_moves);
 }
