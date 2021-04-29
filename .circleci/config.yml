@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies GCC
-          command: 'apt-get update && apt-get install -y gcc make python3 python3-pip'
+          command: 'apt-get install -y gcc make python3 python3-pip'
       - run:
           name: Install dependencies Python
           command: 'pip3 install -U pip && pip3 install -U setuptools && pip3 install -U norminette'
@@ -16,8 +16,11 @@ jobs:
           name: Build
           command: 'make && make test'
       - run:
-          name: Test
+          name: Unit Test
           command: 'make test_run'
+      - run:
+          name: Integration Test
+          command: './test/integration_test.py'
       - run:
           name: Norminette
           command: './run_norminette.sh'

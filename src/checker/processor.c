@@ -35,17 +35,13 @@ void	populate_stack_a(int *elements, int num_elements, t_stack_pair *stacks)
 		push(&(stacks->a), elements[i]);
 		--i;
 	}
-	print_initial_state(&stacks->a);
 }
 
 void	process_next_instruction(t_instructions instruction,
 								t_stack_pair *stacks)
 {
 	if (instruction == RRA)
-	{
 		rra(stacks);
-		print_rra_state(stacks);
-	}
 	else if (instruction == RRB)
 		rrb(stacks);
 	else if (instruction == RRR)
@@ -59,10 +55,7 @@ void	process_next_instruction(t_instructions instruction,
 	else if (instruction == PA)
 		pa(stacks);
 	else if (instruction == PB)
-	{
 		pb(stacks);
-		print_pb_state(stacks);
-	}
 	else if (instruction == RA)
 		ra(stacks);
 	else if (instruction == RB)
