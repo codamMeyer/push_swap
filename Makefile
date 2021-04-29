@@ -39,13 +39,14 @@ CHECKER_FILES= 								\
 	src/checker/processor_push.c			\
 	src/checker/processor_rotate.c			\
 	src/checker/processor_reverse_rotate.c	\
+	src/checker/verbose.c					\
 
 
 CHECKER_INC_FILES=	 					\
 	src/checker/stack.h					\
 	src/checker/checker.h				\
 	src/checker/processor.h				\
-
+	src/checker/verbose.h				\
 
 TEST_FILES=					\
 	test/main.c 			\

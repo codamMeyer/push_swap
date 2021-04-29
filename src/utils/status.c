@@ -18,4 +18,5 @@ void	print_message(t_status status)
 	else
 		write(STDOUT_FILENO, red, ft_strlen(red));
 	write(STDERR_FILENO, status_message[(int)status], len);
+	write(STDOUT_FILENO, "\033[0m", 5);
 }

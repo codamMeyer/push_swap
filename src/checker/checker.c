@@ -1,6 +1,7 @@
 #include "checker.h"
 #include "../parser/parse_instructions.h"
 #include "../parser/parse_numbers.h"
+#include "verbose.h"
 #include <utils/status.h>
 #include <stdlib.h>
 #include <libft.h>
@@ -14,9 +15,13 @@ t_status	is_stack_sorted(const t_stack *stack_a)
 	while (i < stack_size)
 	{
 		if (stack_a->elements[i] > stack_a->elements[i - 1])
+		{
+			// print_final_result(stack_a);
 			return (KO);
+		}
 		++i;
 	}
+	// print_final_result(stack_a);
 	return (OK);
 }
 
