@@ -16,12 +16,12 @@ t_status	is_stack_sorted(const t_stack *stack_a)
 	{
 		if (stack_a->elements[i] > stack_a->elements[i - 1])
 		{
-			// print_final_result(stack_a);
+			print_final_result(stack_a);
 			return (KO);
 		}
 		++i;
 	}
-	// print_final_result(stack_a);
+	print_final_result(stack_a);
 	return (OK);
 }
 

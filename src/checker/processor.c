@@ -36,7 +36,6 @@ void	populate_stack_a(int *elements, int num_elements, t_stack_pair *stacks)
 		push(&(stacks->a), elements[i]);
 		--i;
 	}
-	// print_initial_state(&(stacks->a));
 }
 
 void	process_next_instruction(t_instructions instruction,
