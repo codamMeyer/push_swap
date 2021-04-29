@@ -13,7 +13,11 @@
 # define STR_RRB "rrb\n"
 # define STR_RRR "rrr\n"
 
+typedef void(*t_write_instruction)(const char *, int);
+
+void	swap_elements(int *cur, int *prev);
 void	print_instruction(const char *instruction, int times);
 t_bool	is_list_sorted(int elements_size, int *elements);
+t_bool	is_descending_order(int elements_size, int *elements);
 
 #endif

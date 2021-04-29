@@ -15,4 +15,4 @@ else
     printf "$SUCCESS_COLOR NORM IS OK :)\n"
 fi
 
-exit $NORM_ERROR
+# exit $NORM_ERROR

@@ -3,14 +3,6 @@
 #include <utils/defs.h>
 #include <unistd.h>
 
-static void	swap_elements(int *cur, int *prev)
-{
-	const int	tmp = *cur;
-
-	*cur = *prev;
-	*prev = tmp;
-}
-
 int	bubble_sort(int elements_size,
 				int *elements,
 				t_write_instruction write_instruction)

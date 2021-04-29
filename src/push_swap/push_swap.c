@@ -1,13 +1,17 @@
 #include "push_swap.h"
 #include "bubble_sort.h"
 #include "utils.h"
+#include "special_cases_sort.h"
 #include <utils/defs.h>
 #include <parser/parse_numbers.h>
 #include <stdlib.h>
 
-static void generate_algorthm(int elements_size, int *elements)
+static void	generate_algorthm(int elements_size, int *elements)
 {
-	bubble_sort(elements_size, elements, print_instruction);
+	if (is_descending_order(elements_size, elements))
+		from_descending_to_ascending_order(elements_size, print_instruction);
+	else
+		bubble_sort(elements_size, elements, print_instruction);
 }
 
 t_status	run_push_swap(int elements_size, const char *elements[])

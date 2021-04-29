@@ -1,12 +1,13 @@
 #include "ctest.h"
 #include <push_swap/bubble_sort.h>
+#include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 
 //////////////////////////////////////////////
-//       	     bubble_sort_test            //
+//       	    bubble_sort_test            //
 //////////////////////////////////////////////
 
 void	insert_instruction_no_call(const char *instruction, int times)
@@ -53,3 +54,30 @@ CTEST(bubble_sort_test, three_unsorted_elements_47_total)
     ASSERT_EQUAL(15, bubble_sort(3, elements, insert_instruction_3_unsorted_elements));
 }
 
+////////////////////////////////////////////
+//      sort_descending_order_test        //
+////////////////////////////////////////////
+
+void	insert_instructions_to_reverse_order(const char *instruction, int times)
+{
+    const t_instructions solution[10] = {RRA, PB, RRA, PB, RRA, PB, SA, PA, PA, PA};
+    static int instruction_index = 0;
+	int i = 0;
+	while (i < times)
+	{
+        t_instructions cur = get_instruction(instruction);
+        ASSERT_EQUAL(solution[instruction_index++], cur);
+        ++i;
+	}
+}
+
+CTEST(sort_descending_order_test, five_sorted_descending_order)
+{
+    ASSERT_EQUAL(10, from_descending_to_ascending_order(5, insert_instructions_to_reverse_order));
+}
+
+
+CTEST(sort_descending_order_test, one_element)
+{
+    ASSERT_EQUAL(0, from_descending_to_ascending_order(1, insert_instructions_to_reverse_order));
+}
