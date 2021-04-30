@@ -4,27 +4,27 @@
 
 t_instructions	get_instruction(const char *instruction_string)
 {
-	if (ft_strncmp(instruction_string, "rra\n", 4) == 0)
+	if (ft_strncmp(instruction_string, "rra", 4) == 0)
 		return (RRA);
-	if (ft_strncmp(instruction_string, "rrb\n", 4) == 0)
+	if (ft_strncmp(instruction_string, "rrb", 4) == 0)
 		return (RRB);
-	if (ft_strncmp(instruction_string, "rrr\n", 4) == 0)
+	if (ft_strncmp(instruction_string, "rrr", 4) == 0)
 		return (RRR);
-	if (ft_strncmp(instruction_string, "sa\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "sa", 3) == 0)
 		return (SA);
-	if (ft_strncmp(instruction_string, "sb\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "sb", 3) == 0)
 		return (SB);
-	if (ft_strncmp(instruction_string, "ss\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "ss", 3) == 0)
 		return (SS);
-	if (ft_strncmp(instruction_string, "pa\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "pa", 3) == 0)
 		return (PA);
-	if (ft_strncmp(instruction_string, "pb\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "pb", 3) == 0)
 		return (PB);
-	if (ft_strncmp(instruction_string, "ra\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "ra", 3) == 0)
 		return (RA);
-	if (ft_strncmp(instruction_string, "rb\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "rb", 3) == 0)
 		return (RB);
-	if (ft_strncmp(instruction_string, "rr\n", 3) == 0)
+	if (ft_strncmp(instruction_string, "rr", 3) == 0)
 		return (RR);
 	if (ft_strncmp(instruction_string, "\0", 1) == 0)
 		return (END_OF_INSTRUCTIONS);

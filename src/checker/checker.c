@@ -7,12 +7,14 @@
 #include <libft.h>
 #include <stdio.h>
 
-t_status	is_stack_sorted(const t_stack *stack_a)
+t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
 {
 	const int	stack_size = size(stack_a);
 	int			i;
 
 	i = 1;
+	if (stack_size != initial_size)
+		return (KO);
 	while (i < stack_size)
 	{
 		if (stack_a->elements[i] > stack_a->elements[i - 1])
@@ -40,7 +42,7 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 			break ;
 		process_next_instruction(instruction, stacks);
 	}
-	return (is_stack_sorted(&(stacks->a)));
+	return (OK);
 }	
 
 t_status	run_checker(int stack_size,
@@ -61,6 +63,8 @@ t_status	run_checker(int stack_size,
 		populate_stack_a(elements_list, stack_size, &stacks);
 		ret = process_instructions_list(&stacks, next_instruction);
 	}
+	if (ret != ERROR)
+		ret = is_stack_sorted(&(stacks.a), stack_size);
 	destroy_stack_pair(&stacks);
 	free(elements_list);
 	return (ret);

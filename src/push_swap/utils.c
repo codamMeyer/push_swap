@@ -46,6 +46,7 @@ void	print_instruction(const char *instruction, int times)
 	while (i < times)
 	{
 		write(STDOUT_FILENO, instruction, ft_strlen(instruction));
+		write(STDOUT_FILENO, "\n", 1);
 		++i;
 	}
 }
