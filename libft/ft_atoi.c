@@ -46,7 +46,7 @@ static int	get_overflowed_result(int sign)
 		return (0);
 }
 
-int	ft_atoi(const char *nptr)
+long int	ft_atoi(const char *nptr)
 {
 	int			sign;
 	int			index;
@@ -62,5 +62,5 @@ int	ft_atoi(const char *nptr)
 		result = (nptr[index] - '0') + (result * 10);
 		++index;
 	}
-	return ((int)(result * sign));
+	return ((result * sign));
 }

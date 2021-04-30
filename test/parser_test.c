@@ -87,27 +87,57 @@ CTEST2(parse_numbers_test, duplicate_test)
 	ASSERT_NULL(data->elements);
 }
 
+CTEST2(parse_numbers_test, bigger_than_int_max_test)
+{
+	const char *list[] = {"21474836499"};
+	data->elements = parse_numbers(1, list);
+	ASSERT_NULL(data->elements);
+}
+
+CTEST2(parse_numbers_test, one_bigger_than_int_max_test)
+{
+	const char *list[] = {"2147483649"};
+	data->elements = parse_numbers(1, list);
+	ASSERT_NULL(data->elements);
+}
+
+CTEST2(parse_numbers_test, one_smaller_than_int_min_test)
+{
+	const char *list[] = {"-2147483649"};
+	data->elements = parse_numbers(1, list);
+	ASSERT_NULL(data->elements);
+}
+
+CTEST2(parse_numbers_test, smaller_than_int_min_test)
+{
+	const char *list[] = {"-21474836488"};
+	data->elements = parse_numbers(1, list);
+	ASSERT_NULL(data->elements);
+}
+
 //////////////////////////////////////////////
 //        parse_instructions_test           //
 //////////////////////////////////////////////
 
 CTEST(parse_instructions_test, empty_list_test)
 {
-	ASSERT_EQUAL(RRA, get_instruction("rra"));
-	ASSERT_EQUAL(RRB, get_instruction("rrb"));
-	ASSERT_EQUAL(RRR, get_instruction("rrr"));
-	ASSERT_EQUAL(SA, get_instruction("sa"));
-	ASSERT_EQUAL(SB, get_instruction("sb"));
-	ASSERT_EQUAL(SS, get_instruction("ss"));
-	ASSERT_EQUAL(PA, get_instruction("pa"));
-	ASSERT_EQUAL(PB, get_instruction("pb"));
-	ASSERT_EQUAL(RA, get_instruction("ra"));
-	ASSERT_EQUAL(RB, get_instruction("rb"));
-	ASSERT_EQUAL(RR, get_instruction("rr"));
+	ASSERT_EQUAL(RRA, get_instruction("rra\n"));
+	ASSERT_EQUAL(RRB, get_instruction("rrb\n"));
+	ASSERT_EQUAL(RRR, get_instruction("rrr\n"));
+	ASSERT_EQUAL(SA, get_instruction("sa\n"));
+	ASSERT_EQUAL(SB, get_instruction("sb\n"));
+	ASSERT_EQUAL(SS, get_instruction("ss\n"));
+	ASSERT_EQUAL(PA, get_instruction("pa\n"));
+	ASSERT_EQUAL(PB, get_instruction("pb\n"));
+	ASSERT_EQUAL(RA, get_instruction("ra\n"));
+	ASSERT_EQUAL(RB, get_instruction("rb\n"));
+	ASSERT_EQUAL(RR, get_instruction("rr\n"));
 	ASSERT_EQUAL(END_OF_INSTRUCTIONS, get_instruction("\0"));
 	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("aa"));
+	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction(" ra"));
+	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("ra "));
+	ASSERT_EQUAL(INVALID_INSTRUCTION, get_instruction("rra "));
 }
-
 //////////////////////////////////////////////
 //        get_next_instruction_test         //
 //////////////////////////////////////////////

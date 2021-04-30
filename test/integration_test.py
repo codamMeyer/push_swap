@@ -52,7 +52,7 @@ def testIncorretInput():
 
 def main():
     testIncorretInput()
-    testManyInputs(50, 150)
+    testManyInputs(499, 500)
 
 
 main()

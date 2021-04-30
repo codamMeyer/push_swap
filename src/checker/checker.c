@@ -5,6 +5,7 @@
 #include <utils/status.h>
 #include <stdlib.h>
 #include <libft.h>
+#include <stdio.h>
 
 t_status	is_stack_sorted(const t_stack *stack_a)
 {
