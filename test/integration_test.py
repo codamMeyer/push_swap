@@ -99,7 +99,6 @@ def main():
     testCheckerInstructionParser("Valid parameters, invalid instruction", "r", expected=Status.ERROR)
     testCheckerInstructionParser("Valid parameters, valid instruction with spaces before", inp="1 2 3", instruction="  rra", expected=Status.ERROR)
     testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
-    testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
     testCheckerInstructionParser("Valid parameters, wrong sorting instructions", inp="0 9 1 8 2 7 3 6 4 5", instruction="sa\npb\nrrr", expected=Status.KO)
 
     # testIncorretInputs()
