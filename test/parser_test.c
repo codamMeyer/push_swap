@@ -119,7 +119,7 @@ CTEST2(parse_numbers_test, smaller_than_int_min_test)
 //        parse_instructions_test           //
 //////////////////////////////////////////////
 
-CTEST(parse_instructions_test, empty_list_test)
+CTEST(parse_instructions_test, many_instructions_test)
 {
 	ASSERT_EQUAL(RRA, get_instruction("rra"));
 	ASSERT_EQUAL(RRB, get_instruction("rrb"));

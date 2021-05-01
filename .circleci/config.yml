@@ -20,7 +20,7 @@ jobs:
           command: 'make test_run'
       - run:
           name: Integration Test
-          command: './test/integration_test.py'
+          command: 'make test_integration'
       - run:
           name: Norminette
           command: './run_norminette.sh'

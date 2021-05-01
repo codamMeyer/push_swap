@@ -8,7 +8,7 @@ DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
 INC_PATH=-I./$(LIBFT) -I./src
 LDFLAGS=-L./$(LIBFT) -lft
 
-COMMUM_FILES=								\
+COMMOM_FILES=								\
 	src/parser/parse_numbers.c 				\
 	src/utils/status.c 						\
 	src/parser/parse_instructions.c 		\
@@ -58,22 +58,24 @@ TEST_FILES=					\
 
 all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
 
-$(PUSH_SWAP): $(LIBFT) $(PUSH_SWAP_INC_FILES) $(PUSH_SWAP_FILES) $(COMMUM_FILES)
-		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMUM_FILES) $(PUSH_SWAP_FILES) src/push_swap/main.c $(LDFLAGS) -o $(PUSH_SWAP)
+$(PUSH_SWAP): $(LIBFT) $(PUSH_SWAP_INC_FILES) $(PUSH_SWAP_FILES) $(COMMOM_FILES)
+		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(PUSH_SWAP_FILES) src/push_swap/main.c $(LDFLAGS) -o $@
 
-$(CHECKER): $(LIBFT) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(COMMUM_FILES)
-		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMUM_FILES) $(CHECKER_FILES) src/checker/main.c $(LDFLAGS) -o $(CHECKER)
+$(CHECKER): $(LIBFT) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(COMMOM_FILES)
+		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(CHECKER_FILES) src/checker/main.c $(LDFLAGS) -o $@
 
 $(LIBFT):
 	$(MAKE) -C ./$(LIBFT)
-
 
 test_run: test
 	./tester
 	./run_norminette.sh
 
+test_integration: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
+	./test/integration_test.py
+
 test: $(LIBFT) $(PUSH_SWAP) $(CHECKER) $(TEST_FILES)
-	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(COMMUM_FILES) $(CHECKER_FILES) $(PUSH_SWAP_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
+	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(CHECKER_FILES) $(PUSH_SWAP_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
 
 clean:
 	$(MAKE) clean -C ./$(LIBFT)

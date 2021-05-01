@@ -150,7 +150,7 @@ t_instructions process_solution_set()
 }
 
 CTEST(run_test, solution_set_solution)
-{	
+{
 	const char *argv[] = {"5", "4", "1", "2", "3"};
 	ASSERT_EQUAL(OK, run_checker(5, argv, process_solution_set));
 }

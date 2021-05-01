@@ -2,9 +2,21 @@
 #include <push_swap/bubble_sort.h>
 #include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
+#include <push_swap/push_swap.h>
+#include <utils/status.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+
+////////////////////////////////////////////
+//           run_push_swap_test           //
+////////////////////////////////////////////
+
+CTEST(run_push_swap_test, empty_string)
+{
+    const char *argv[] = {""};
+    ASSERT_EQUAL(ERROR, run_push_swap(1, argv));
+}
 
 //////////////////////////////////////////////
 //       	    bubble_sort_test            //

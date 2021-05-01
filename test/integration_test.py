@@ -2,9 +2,19 @@
 
 import random
 import subprocess
+from enum import IntEnum
 
-
+LIGHT_RED = "\033[1;31m"
+LIGHT_GREEN = "\033[1;32m"
+LIGHT_WHITE = "\033[0;37m"
 RUN_COMMAND = "./push_swap {} | ./checker {}"
+EXPECT_ERROR = "Expect:\n{}Error{}"
+
+
+class Status(IntEnum):
+    OK = 0
+    KO = 1
+    ERROR = 2
 
 
 def generateStack(size, rangeStart, rangeEnd):
@@ -44,16 +54,48 @@ def testManyInputs(listMin, listMax):
         assert output == expected
 
 
-def testIncorretInput():
-    inp = "1 25 A"
+def testIncorretInputs():
+    # inp = "1 25 A"
+    # ret = subprocess.run(RUN_COMMAND.format(inp, inp), shell=True)
+    # assert ret.returncode > 0
+    inp = ""
     ret = subprocess.run(RUN_COMMAND.format(inp, inp), shell=True)
     assert ret.returncode > 0
 
 
+def testCheckerInputParser(testName, inp=None, expected=Status.OK):
+    print("\nTest case: " + testName)
+    print(EXPECT_ERROR.format(LIGHT_RED, LIGHT_WHITE))
+    print("Got:   ")
+    ret = subprocess.run("./checker {}".format(inp), shell=True)
+    assert ret.returncode == int(expected)
+
+
+def testCheckerInstructionParser(testName, inp=None, instruction=None, expected=Status.OK):
+    print("\nTest case: " + testName)
+    print(EXPECT_ERROR.format(LIGHT_RED, LIGHT_WHITE))
+    print("Got:   ")
+    ret = subprocess.run("echo -e '{}' | ./checker {}".format(instruction, inp), shell=True)
+    assert ret.returncode == expected
+
+
 def main():
-    testIncorretInput()
-    testManyInputs(1, 20)
-    testManyInputs(450, 500)
+    testCheckerInputParser("Non numeric parameters", "1 A", expected=Status.ERROR)
+    testCheckerInputParser("Duplicated numeric parameters", "1 2 120 2", expected=Status.ERROR)
+    testCheckerInputParser("Numeric value bigger than INT_MAX", "1 2 2147483648", expected=Status.ERROR)
+    testCheckerInputParser("Numeric value bigger than INT_MAX", "1 2 2147483648", expected=Status.ERROR)
+    testCheckerInputParser("Whitout any parameters", expected=Status.ERROR)
+    testCheckerInstructionParser("Valid parameters, invalid instruction", "r", expected=Status.ERROR)
+    testCheckerInstructionParser("Valid parameters, valid instruction with spaces before", inp="1 2 3", instruction="  rra", expected=Status.ERROR)
+    testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
+    testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
+    testCheckerInstructionParser("Valid parameters, wrong sorting instructions", inp="0 9 1 8 2 7 3 6 4 5", instruction="sa\npb\nrrr", expected=Status.KO)
+
+
+    # testIncorretInputs()
+    # testManyInputs(1, 20)
+    # testManyInputs(100, 101)
+    # testManyInputs(500, 501)
 
 
 main()
