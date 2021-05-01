@@ -8,13 +8,24 @@ LIGHT_RED = "\033[1;31m"
 LIGHT_GREEN = "\033[1;32m"
 LIGHT_WHITE = "\033[0;37m"
 RUN_COMMAND = "./push_swap {} | ./checker {}"
-EXPECT_ERROR = "Expect:\n{}Error{}"
+EXPECT_ERROR = "Expect:\n\033[1;31mError\033[0;37m"
+EXPECT_KO = "Expect:\n\033[1;31m[KO]\033[0;37m"
+EXPECT_OK = "Expect:\n\033[1;32m[OK]\033[0;37m"
 
 
 class Status(IntEnum):
     OK = 0
     KO = 1
     ERROR = 2
+
+    @classmethod
+    def print(cls, expected):
+        if expected == cls.OK:
+            print(EXPECT_KO)
+        elif expected == cls.KO:
+            print(EXPECT_KO)
+        else:
+            print(EXPECT_ERROR)
 
 
 def generateStack(size, rangeStart, rangeEnd):
@@ -65,7 +76,7 @@ def testIncorretInputs():
 
 def testCheckerInputParser(testName, inp=None, expected=Status.OK):
     print("\nTest case: " + testName)
-    print(EXPECT_ERROR.format(LIGHT_RED, LIGHT_WHITE))
+    Status.print(expected)
     print("Got:   ")
     ret = subprocess.run("./checker {}".format(inp), shell=True)
     assert ret.returncode == int(expected)
@@ -73,7 +84,7 @@ def testCheckerInputParser(testName, inp=None, expected=Status.OK):
 
 def testCheckerInstructionParser(testName, inp=None, instruction=None, expected=Status.OK):
     print("\nTest case: " + testName)
-    print(EXPECT_ERROR.format(LIGHT_RED, LIGHT_WHITE))
+    Status.print(expected)
     print("Got:   ")
     ret = subprocess.run("echo -e '{}' | ./checker {}".format(instruction, inp), shell=True)
     assert ret.returncode == expected
@@ -90,7 +101,6 @@ def main():
     testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
     testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
     testCheckerInstructionParser("Valid parameters, wrong sorting instructions", inp="0 9 1 8 2 7 3 6 4 5", instruction="sa\npb\nrrr", expected=Status.KO)
-
 
     # testIncorretInputs()
     # testManyInputs(1, 20)
