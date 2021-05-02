@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from pathlib import Path
 import random
 import subprocess
 from enum import IntEnum
@@ -86,11 +87,17 @@ def testCheckerInstructionParser(testName, inp=None, instruction=None, expected=
     print("\nTest case: " + testName)
     Status.print(expected)
     print("Got:   ")
-    ret = subprocess.run("echo -e '{}' | ./checker {}".format(instruction, inp), shell=True)
-    assert ret.returncode == expected
+    cmd = "printf '{}' | ./checker {}".format(instruction, inp)
+    print(cmd)
+    ret = subprocess.run(cmd, shell=True)
+    assert ret.returncode == int(expected)
 
 
 def main():
+
+    assert Path('./checker').is_file()
+    assert Path('./push_swap').is_file()
+
     testCheckerInputParser("Non numeric parameters", "1 A", expected=Status.ERROR)
     testCheckerInputParser("Duplicated numeric parameters", "1 2 120 2", expected=Status.ERROR)
     testCheckerInputParser("Numeric value bigger than INT_MAX", "1 2 2147483648", expected=Status.ERROR)
