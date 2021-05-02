@@ -29,6 +29,88 @@ class Status(IntEnum):
             print(EXPECT_ERROR)
 
 
+class CheckerErrorManagement:
+
+    def __init__(self):
+        pass
+
+    def _runCheckerInput(self, testName, inp, expected=Status.OK):
+        print("\nTest case: " + testName)
+        Status.print(expected)
+        print("Got:   ")
+        cmd = "./checker {}".format(inp)
+        ret = subprocess.run(cmd, shell=True)
+        assert ret.returncode == int(expected)
+
+    def _runCheckerInstruction(self, testName, inp=None, instruction=None, expected=Status.OK):
+        print("\nTest case: " + testName)
+        Status.print(expected)
+        print("Got:   ")
+        cmd = "printf '{}' | ./checker {}".format(instruction, inp)
+        ret = subprocess.run(cmd, shell=True)
+        assert ret.returncode == int(expected)
+
+    def _testNonNumericParameters(self):
+        self._runCheckerInput("Non numeric parameters", "1 A", Status.ERROR)
+
+    def _testDuplicatedNumericParameters(self):
+        self._runCheckerInput("Duplicated numeric parameters", "1 2 120 2", Status.ERROR)
+
+    def _testNumericValueBiggerThanIntMax(self):
+        self._runCheckerInput("Numeric value bigger than INT_MAX", "1 2 2147483648", Status.ERROR)
+
+    def _testNumericValueSmallerThanIntMin(self):
+        self._runCheckerInput("Numeric value smaller than INT_MIN", "1 2 -2147483649", Status.ERROR)
+
+    def _testWithoutAnyInput(self):
+        self._runCheckerInput("Whitout any parameters", None, Status.ERROR)
+
+    def _testInvalidInstruction(self):
+        self._runCheckerInstruction("Valid parameters, invalid instruction", "r", expected=Status.ERROR)
+
+    def _testSpacesBeforeInstruction(self):
+        self._runCheckerInstruction("Valid parameters, valid instruction with spaces before", inp="1 2 3", instruction="  rra", expected=Status.ERROR)
+
+    def _testSpacesAfterInstruction(self):
+        self._runCheckerInstruction("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
+
+    def runTests(self):
+        print("-------Input Parser Tests-------")
+        self._testNonNumericParameters()
+        self._testDuplicatedNumericParameters()
+        self._testNumericValueBiggerThanIntMax()
+        self._testNumericValueSmallerThanIntMin()
+        self._testWithoutAnyInput()
+        print("--------------------------------")
+        print("----Instruction Parser Tests----")
+        self._testInvalidInstruction()
+        self._testSpacesBeforeInstruction()
+        self._testSpacesAfterInstruction()
+        print("--------------------------------")
+
+
+class CheckerFalseTests:
+
+    def __init__(self):
+        pass
+
+    def _runCheckerInstruction(self, testName, inp=None, instruction=None, expected=Status.OK):
+        print("\nTest case: " + testName)
+        Status.print(expected)
+        print("Got:   ")
+        cmd = "printf '{}' | ./checker {}".format(instruction, inp)
+        ret = subprocess.run(cmd, shell=True)
+        assert ret.returncode == int(expected)
+
+    def _testWrongSetOfInstructions(self):
+        self._runCheckerInstruction("Valid parameters, wrong sorting instructions", inp="0 9 1 8 2 7 3 6 4 5", instruction="sa\npb\nrrr", expected=Status.KO)
+
+    def runTests(self):
+        print("------Checker False tests------")
+        self._testWrongSetOfInstructions()
+        print("-------------------------------")
+
+
 def generateStack(size, rangeStart, rangeEnd):
     stack = range(rangeStart, rangeEnd)
     return random.sample(stack, size)
@@ -66,52 +148,13 @@ def testManyInputs(listMin, listMax):
         assert output == expected
 
 
-def testIncorretInputs():
-    # inp = "1 25 A"
-    # ret = subprocess.run(RUN_COMMAND.format(inp, inp), shell=True)
-    # assert ret.returncode > 0
-    inp = ""
-    ret = subprocess.run(RUN_COMMAND.format(inp, inp), shell=True)
-    assert ret.returncode > 0
-
-
-def testCheckerInputParser(testName, inp=None, expected=Status.OK):
-    print("\nTest case: " + testName)
-    Status.print(expected)
-    print("Got:   ")
-    ret = subprocess.run("./checker {}".format(inp), shell=True)
-    assert ret.returncode == int(expected)
-
-
-def testCheckerInstructionParser(testName, inp=None, instruction=None, expected=Status.OK):
-    print("\nTest case: " + testName)
-    Status.print(expected)
-    print("Got:   ")
-    cmd = "printf '{}' | ./checker {}".format(instruction, inp)
-    print(cmd)
-    ret = subprocess.run(cmd, shell=True)
-    assert ret.returncode == int(expected)
-
-
 def main():
 
     assert Path('./checker').is_file()
     assert Path('./push_swap').is_file()
 
-    testCheckerInputParser("Non numeric parameters", "1 A", expected=Status.ERROR)
-    testCheckerInputParser("Duplicated numeric parameters", "1 2 120 2", expected=Status.ERROR)
-    testCheckerInputParser("Numeric value bigger than INT_MAX", "1 2 2147483648", expected=Status.ERROR)
-    testCheckerInputParser("Numeric value bigger than INT_MAX", "1 2 2147483648", expected=Status.ERROR)
-    testCheckerInputParser("Whitout any parameters", expected=Status.ERROR)
-    testCheckerInstructionParser("Valid parameters, invalid instruction", "r", expected=Status.ERROR)
-    testCheckerInstructionParser("Valid parameters, valid instruction with spaces before", inp="1 2 3", instruction="  rra", expected=Status.ERROR)
-    testCheckerInstructionParser("Valid parameters, valid instruction with spaces after", inp="1 2 3", instruction="rra   ", expected=Status.ERROR)
-    testCheckerInstructionParser("Valid parameters, wrong sorting instructions", inp="0 9 1 8 2 7 3 6 4 5", instruction="sa\npb\nrrr", expected=Status.KO)
-
-    # testIncorretInputs()
-    # testManyInputs(1, 20)
-    # testManyInputs(100, 101)
-    # testManyInputs(500, 501)
-
+    CheckerErrorManagement().runTests()
+    CheckerFalseTests().runTests()
+    
 
 main()
