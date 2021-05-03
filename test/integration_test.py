@@ -140,6 +140,95 @@ class CheckerRightTests:
         self._testRightSetOfInstructions("0 9 1 8 2", "pb\nra\npb\nra\nsa\nra\npa\npa")
 
 
+class PushSwapIdentityTests:
+
+    def __init__(self):
+        pass
+
+    def _runPushSwap(self, testName, inp=None, expected=""):
+        print("\nTest case: " + testName)
+        print("Expected: {}".format(expected))
+        print("Got:    ")
+        cmd = "./push_swap {}".format(inp)
+        subprocess.run(cmd, shell=True)
+
+    def _testOnlyOneElement(self):
+        self._runPushSwap("Only one element", "42")
+
+    def _testWithSortedElements(self, inp):
+        self._runPushSwap("Sorted elements '{}'".format(inp), inp)
+
+    def runTests(self):
+        printTestBanner("Push Swap Identity tests")
+        self._testOnlyOneElement()
+        self._testWithSortedElements("0 1 2 3")
+        self._testWithSortedElements("0 1 2 3 4 5 6 7 8 9")
+
+
+class StackGenerator:
+    def __init__(self):
+        pass
+
+    def _generateStack(self, size, rangeStart, rangeEnd):
+        stack = range(rangeStart, rangeEnd)
+        return random.sample(stack, size)
+
+    def _convertToIntList(self, string):
+        strList = string.split(" ")
+        strList.remove("")
+        intList = [int(i) for i in strList]
+        return intList
+
+    def _convertToStrList(self, intsList):
+        stringInts = [str(i) for i in intsList]
+        strOfInts = " ".join(stringInts)
+        return strOfInts
+
+    def run(self, stackSize):
+        inputStack = self._generateStack(stackSize, -2147483648, 2147483647)
+        return self._convertToStrList(inputStack)
+        # ret = subprocess.run(RUN_COMMAND.format(inputList, inputList), shell=True)
+        # assert ret.returncode == 0
+        # with open("result") as f:
+        #     line = f.read()
+        #     output = self._convertToIntList(line)
+        # expected = sorted(inputStack)
+        # assert output == expected
+
+
+class PushSwapSortingTests:
+
+    def __init__(self, name):
+        self.name = name
+
+    def _runPushSwap(self, testName, inp, expected, maxMoves):
+        print("\nTest case: " + testName)
+        Status.print(expected)
+        print("Expected less than {} moves\nGot:    ".format(maxMoves))
+        cmd = "./push_swap {} | ./checker {}".format(inp, inp)
+        ret = subprocess.run(cmd, shell=True).returncode
+        assert ret == expected
+
+    def _testFiveElementes(self):
+        self._runPushSwap("Five Elements [{}]".format("5 1 2 4 3"), "5 1 2 4 3", Status.OK, 12)
+
+    def runSimpleVersionTests(self):
+        printTestBanner(self.name)
+        self._testFiveElementes()
+        stack = StackGenerator().run(5)
+        self._runPushSwap("Five Elements [{}]".format(stack), stack, Status.OK, 12)
+
+    def runMiddleVersionTests(self):
+        printTestBanner(self.name)
+        stack = StackGenerator().run(100)
+        self._runPushSwap("100 Elements", stack, Status.OK, 1500)
+
+    def runAdvancedVersionTests(self):
+        printTestBanner(self.name)
+        stack = StackGenerator().run(500)
+        self._runPushSwap("500 Elements", stack, Status.OK, 11500)
+
+
 def main():
 
     assert Path('./checker').is_file()
@@ -148,44 +237,10 @@ def main():
     CheckerErrorManagement().runTests()
     CheckerFalseTests().runTests()
     CheckerRightTests().runTests()
+    PushSwapIdentityTests().runTests()
+    PushSwapSortingTests("Simple Version Tests").runSimpleVersionTests()
+    PushSwapSortingTests("Middle Version Tests").runMiddleVersionTests()
+    PushSwapSortingTests("Advanced Version Tests").runAdvancedVersionTests()
 
 
 main()
-
-
-# def generateStack(size, rangeStart, rangeEnd):
-#     stack = range(rangeStart, rangeEnd)
-#     return random.sample(stack, size)
-
-
-# def printStack(stack):
-#     print("before: {}".format(stack))
-#     print("after: {}".format(sorted(stack)))
-
-
-# def convertToIntList(string):
-#     strList = string.split(" ")
-#     strList.remove("")
-#     intList = [int(i) for i in strList]
-#     return intList
-
-
-# def convertToStrList(intsList):
-#     stringInts = [str(i) for i in intsList]
-#     strOfInts = " ".join(stringInts)
-#     return strOfInts
-
-
-# def testManyInputs(listMin, listMax):
-#     for i in range(listMin, listMax):
-#         inputStack = generateStack(i, -2147483648, 2147483647)
-#         inputList = convertToStrList(inputStack)
-#         print("list size: {}".format(i))
-#         ret = subprocess.run(RUN_COMMAND.format(inputList, inputList), shell=True)
-#         assert ret.returncode == 0
-#         with open("result") as f:
-#             line = f.read()
-#             output = convertToIntList(line)
-#         expected = sorted(inputStack)
-#         assert output == expected
-
