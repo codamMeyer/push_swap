@@ -33,7 +33,7 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 {
 	t_instructions	instruction;
 	int				counter;
-	
+
 	counter = 0;
 	while (TRUE)
 	{

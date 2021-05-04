@@ -2,6 +2,6 @@
 # define PARSE_FLAGS_H
 # include <utils/defs.h>
 
-t_flags parse_flags(int *argc, const char *argv[]);
+t_flags	parse_flags(const char *str[], int *argc, int *i);
 
 #endif
