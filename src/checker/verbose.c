@@ -35,11 +35,13 @@ void	print_stacks(t_stack_pair *stacks)
 	while (i >= 0)
 	{
 		if (i <= stacks->a.top)
-			printf("%s%12d %s       ", BLUE_BACKGROUND, stacks->a.elements[i], RESET_COLOR);
+			printf("%s%12d %s       ", BLUE_BACKGROUND, \
+							stacks->a.elements[i], RESET_COLOR);
 		else
 			printf("%20s", "");
 		if (i <= stacks->b.top)
-			printf("%s%12d %s\n", GREEN_BACKGROUND, stacks->b.elements[i], RESET_COLOR);
+			printf("%s%12d %s\n", GREEN_BACKGROUND, \
+							stacks->b.elements[i], RESET_COLOR);
 		else
 			printf("\n");
 		--i;

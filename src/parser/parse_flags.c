@@ -7,6 +7,7 @@ t_flags	create_empty_flag(void)
 		.color = FALSE,
 		.verbose = FALSE,
 		.file_output = FALSE,
+		.total = FALSE,
 		.is_valid = TRUE
 	};
 
@@ -27,6 +28,8 @@ void	set_flags(const char *str, t_flags *flags)
 			flags->verbose = TRUE;
 		else if (cur == FILE_OUTPUT)
 			flags->file_output = TRUE;
+		else if (cur == TOTAL)
+			flags->total = TRUE;
 		else
 			flags->is_valid = FALSE;
 		++str;
@@ -34,7 +37,7 @@ void	set_flags(const char *str, t_flags *flags)
 	}
 }
 
-t_bool is_flag(const char *str)
+t_bool	is_flag(const char *str)
 {
 	const int	len = ft_strlen(str);
 

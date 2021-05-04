@@ -39,7 +39,7 @@ void			rrb(t_stack_pair *stacks);
 void			rrr(t_stack_pair *stacks);
 void			destroy_stack_pair(t_stack_pair *stacks);
 t_stack_pair	create_stack_pair(int stack_size);
-void			populate_stack_a(int *elements, \
+void			populate_stack_a(const int *elements, \
 								int num_elements, \
 								t_stack_pair *stacks);
 void			process_next_instruction(t_instructions instruction, \

@@ -25,7 +25,9 @@ t_stack_pair	create_stack_pair(int stack_size)
 	return (stacks);
 }
 
-void	populate_stack_a(int *elements, int num_elements, t_stack_pair *stacks)
+void	populate_stack_a(const int *elements, \
+						int num_elements, \
+						t_stack_pair *stacks)
 {
 	int	i;
 

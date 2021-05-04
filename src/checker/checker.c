@@ -1,6 +1,7 @@
 #include "checker.h"
 #include "../parser/parse_instructions.h"
 #include "../parser/parse_numbers.h"
+#include "../parser/parse_flags.h"
 #include "verbose.h"
 #include <utils/status.h>
 #include <stdlib.h>
@@ -19,16 +20,15 @@ t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
 	{
 		if (stack_a->elements[i] > stack_a->elements[i - 1])
 		{
-			write_final_result_in_file(stack_a);
 			return (KO);
 		}
 		++i;
 	}
-	write_final_result_in_file(stack_a);
 	return (OK);
 }
 
 static t_status	process_instructions_list(t_stack_pair *stacks, \
+									t_flags flags,
 									t_get_next_instruction next_instruction)
 {
 	t_instructions	instruction;
@@ -43,10 +43,12 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 		if (instruction == END_OF_INSTRUCTIONS)
 			break ;
 		process_next_instruction(instruction, stacks);
-		print_stacks(stacks);
+		if (flags.verbose)
+			print_stacks(stacks);
 		++counter;
 	}
-	printf("total moves: %d\n", counter);
+	if (flags.total)
+		printf("total moves: %d\n", counter);
 	return (OK);
 }
 
@@ -54,23 +56,31 @@ t_status	run_checker(int stack_size,
 						const char *elements[],
 						t_get_next_instruction next_instruction)
 {
+	int				i;
+	t_flags			flags;
 	int				*elements_list;
 	t_stack_pair	stacks;
 	t_status		ret;
 
+	i = 0;
+	flags = parse_flags(elements, &stack_size, &i);
+	if (!flags.is_valid)
+		return (ERROR);
 	ret = OK;
-	elements_list = parse_numbers(stack_size, elements);
+	elements_list = parse_numbers(stack_size, &elements[i]);
 	stacks = create_stack_pair(stack_size);
 	if (!elements_list || !stacks.initialized)
 		ret = ERROR;
 	if (ret != ERROR)
 	{
 		populate_stack_a(elements_list, stack_size, &stacks);
-		ret = process_instructions_list(&stacks, next_instruction);
+		ret = process_instructions_list(&stacks, flags, next_instruction);
 	}
 	if (ret != ERROR)
 		ret = is_stack_sorted(&(stacks.a), stack_size);
+	if (flags.file_output)
+		write_final_result_in_file(&(stacks.a));
 	destroy_stack_pair(&stacks);
-	free(elements_list);
+	free((void *)elements_list);
 	return (ret);
 }

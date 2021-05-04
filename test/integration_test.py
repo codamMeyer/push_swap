@@ -204,7 +204,7 @@ class PushSwapSortingTests:
         print("\nTest case: " + testName)
         Status.print(expected)
         print("Expected less than {} moves\nGot:    ".format(maxMoves))
-        cmd = "./push_swap {} | ./checker {}".format(inp, inp)
+        cmd = "./push_swap {} | ./checker -t {}".format(inp, inp)
         ret = subprocess.run(cmd, shell=True).returncode
         assert ret == expected
 
