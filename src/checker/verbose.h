@@ -10,11 +10,13 @@
 # define LIGHT_PURPLE "\e[1;35m"
 # define LIGHT_CYAN "\e[1;36m"
 # define LIGHT_WHITE "\e[1;37m"
-# define BLUE_BACKGROUND "\e[48;5;69m\e[4m"
-# define GREEN_BACKGROUND "\e[48;5;29m\e[4m"
+# define STACK_A_BACKGROUND "\e[48;5;69m\e[4m"
+# define STACK_B_BACKGROUND "\e[48;5;29m\e[4m"
+# define STACK_A_ACTIVE "\e[48;5;111m\e[4m"
+# define STACK_B_ACTIVE "\e[48;5;36m\e[4m"
 # define RESET_COLOR "\e[0m"
 
 void	write_final_result_in_file(const t_stack *stack_a);
-void	print_stacks(t_stack_pair *stacks);
+void	print_stacks(t_stack_pair *stacks, t_instructions instruction);
 
 #endif

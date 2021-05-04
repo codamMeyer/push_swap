@@ -28,7 +28,7 @@ static t_bool	is_a_valid_number(const char *str_n, long int n)
 		return (FALSE);
 	if (n > INT_MAX || n < INT_MIN)
 		return (FALSE);
-	if (str_n[0] == '-')
+	if (str_n[0] == '-' && ft_isdigit(str_n[1]))
 		++i;
 	while (i < len)
 	{

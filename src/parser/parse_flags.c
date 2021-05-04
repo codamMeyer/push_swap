@@ -1,10 +1,10 @@
 #include "parse_flags.h"
 #include <libft.h>
+#include <stdio.h>
 
-t_flags	create_empty_flag(void)
+static t_flags	create_empty_flag(void)
 {
 	const t_flags	flags = {
-		.color = FALSE,
 		.verbose = FALSE,
 		.file_output = FALSE,
 		.total = FALSE,
@@ -14,7 +14,16 @@ t_flags	create_empty_flag(void)
 	return (flags);
 }
 
-void	set_flags(const char *str, t_flags *flags)
+static void	display_help_menu(void)
+{
+	printf("\nusage:  ./checker <flags> [numeric arguments]\n");
+	printf("\n-v Print stacks on screen after each movement \
+			and display manipulated numbers in different color\n");
+	printf("\n-t Display the total of movement\n");
+	printf("\n-f Write the final stack to a file called result\n");
+}
+
+static void	set_flags(const char *str, t_flags *flags)
 {
 	char	cur;
 
@@ -22,8 +31,11 @@ void	set_flags(const char *str, t_flags *flags)
 	cur = *str;
 	while (cur != '\0' && flags->is_valid)
 	{
-		if (cur == COLOR)
-			flags->color = TRUE;
+		if (cur == HELP)
+		{
+			display_help_menu();
+			flags->is_valid = FALSE;
+		}
 		else if (cur == VERBOSE)
 			flags->verbose = TRUE;
 		else if (cur == FILE_OUTPUT)
@@ -37,7 +49,7 @@ void	set_flags(const char *str, t_flags *flags)
 	}
 }
 
-t_bool	is_flag(const char *str)
+static t_bool	is_flag(const char *str)
 {
 	const int	len = ft_strlen(str);
 
@@ -51,7 +63,7 @@ t_flags	parse_flags(const char *str[], int *argc, int *i)
 	t_flags		flags;
 
 	flags = create_empty_flag();
-	while (*argc >= 2 && is_flag(str[*i]) && flags.is_valid)
+	while (*argc >= 1 && is_flag(str[*i]) && flags.is_valid)
 	{
 		set_flags(str[*i], &flags);
 		--(*argc);

@@ -146,25 +146,12 @@ CTEST(parse_instructions_test, many_instructions_test)
 //        	    parse_flags_test            //
 //////////////////////////////////////////////
 
-CTEST(parse_flags_test, argv_less_than_two_elements)
-{
-	const char *argv[] = {"-f"};
-	int argc = 1;
-	int i = 0;
-	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_FALSE(flags.color);
-	ASSERT_FALSE(flags.verbose);
-	ASSERT_FALSE(flags.file_output);
-	ASSERT_EQUAL(argc, 1);
-}
-
 CTEST(parse_flags_test, no_flag)
 {
 	const char *argv[] = {"3", "5"};
 	int argc = 2;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_FALSE(flags.color);
 	ASSERT_FALSE(flags.verbose);
 	ASSERT_FALSE(flags.file_output);
 	ASSERT_EQUAL(argc, 2);
@@ -176,7 +163,6 @@ CTEST(parse_flags_test, incomplete_flag_missing_letter)
 	int argc = 2;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_FALSE(flags.color);
 	ASSERT_FALSE(flags.verbose);
 	ASSERT_FALSE(flags.file_output);
 	ASSERT_EQUAL(argc, 2);
@@ -188,7 +174,6 @@ CTEST(parse_flags_test, incomplete_flag_missing_minus)
 	int argc = 2;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_FALSE(flags.color);
 	ASSERT_FALSE(flags.verbose);
 	ASSERT_FALSE(flags.file_output);
 	ASSERT_EQUAL(argc, 2);
@@ -209,7 +194,6 @@ CTEST(parse_flags_test, v_flag)
 	int argc = 2;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_FALSE(flags.color);
 	ASSERT_TRUE(flags.verbose);
 	ASSERT_FALSE(flags.file_output);
 	ASSERT_EQUAL(argc, 1);
@@ -224,35 +208,35 @@ CTEST(parse_flags_test, vb_flag)
 	ASSERT_FALSE(flags.is_valid);
 }
 
-CTEST(parse_flags_test, vcf_flag)
+CTEST(parse_flags_test, vtf_flag)
 {
-	const char *argv[] = {"-vcf", "5"};
+	const char *argv[] = {"-vtf", "5"};
 	int argc = 2;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_TRUE(flags.color);
 	ASSERT_TRUE(flags.verbose);
 	ASSERT_TRUE(flags.file_output);
+	ASSERT_TRUE(flags.total);
 	ASSERT_EQUAL(argc, 1);
 	ASSERT_STR("5", argv[i]);
 }
 
-CTEST(parse_flags_test, vc_flag_separated)
+CTEST(parse_flags_test, vt_flag_separated)
 {
-	const char *argv[] = {"-v", "-c", "5"};
+	const char *argv[] = {"-v", "-t", "5"};
 	int argc = 3;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
-	ASSERT_TRUE(flags.color);
 	ASSERT_TRUE(flags.verbose);
 	ASSERT_FALSE(flags.file_output);
+	ASSERT_TRUE(flags.total);
 	ASSERT_EQUAL(argc, 1);
 	ASSERT_STR("5", argv[i]);
 }
 
-CTEST(parse_flags_test, vc_flag_separated_plus_invalid_flag)
+CTEST(parse_flags_test, vf_flag_separated_plus_invalid_flag)
 {
-	const char *argv[] = {"-v", "-c", "-r", "5"};
+	const char *argv[] = {"-v", "-f", "-r", "5"};
 	int argc = 4;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
@@ -261,13 +245,12 @@ CTEST(parse_flags_test, vc_flag_separated_plus_invalid_flag)
 
 CTEST(parse_flags_test, vc_flag_separated_followed_by_negative_number)
 {
-	const char *argv[] = {"-v", "-c", "-1", "5"};
+	const char *argv[] = {"-v", "-t", "-1", "5"};
 	int argc = 4;
 	int i = 0;
 	t_flags flags = parse_flags(argv, &argc, &i);
 	ASSERT_TRUE(flags.verbose);
-	ASSERT_TRUE(flags.color);
-	ASSERT_FALSE(flags.file_output);
+	ASSERT_TRUE(flags.total);
 	ASSERT_TRUE(flags.is_valid);
 	ASSERT_STR("-1", argv[i]);
 }

@@ -35,6 +35,8 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 	int				counter;
 
 	counter = 0;
+	if (flags.verbose)
+		print_stacks(stacks, INVALID_INSTRUCTION);
 	while (TRUE)
 	{
 		instruction = next_instruction();
@@ -44,7 +46,7 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 			break ;
 		process_next_instruction(instruction, stacks);
 		if (flags.verbose)
-			print_stacks(stacks);
+			print_stacks(stacks, instruction);
 		++counter;
 	}
 	if (flags.total)
@@ -64,7 +66,7 @@ t_status	run_checker(int stack_size,
 
 	i = 0;
 	flags = parse_flags(elements, &stack_size, &i);
-	if (!flags.is_valid)
+	if (!flags.is_valid || stack_size < 1)
 		return (ERROR);
 	ret = OK;
 	elements_list = parse_numbers(stack_size, &elements[i]);
