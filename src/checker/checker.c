@@ -19,12 +19,12 @@ t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
 	{
 		if (stack_a->elements[i] > stack_a->elements[i - 1])
 		{
-			print_final_result(stack_a);
+			write_final_result_in_file(stack_a);
 			return (KO);
 		}
 		++i;
 	}
-	print_final_result(stack_a);
+	write_final_result_in_file(stack_a);
 	return (OK);
 }
 
@@ -32,7 +32,9 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 									t_get_next_instruction next_instruction)
 {
 	t_instructions	instruction;
-
+	int				counter;
+	
+	counter = 0;
 	while (TRUE)
 	{
 		instruction = next_instruction();
@@ -41,7 +43,10 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 		if (instruction == END_OF_INSTRUCTIONS)
 			break ;
 		process_next_instruction(instruction, stacks);
+		print_stacks(stacks);
+		++counter;
 	}
+	printf("total moves: %d\n", counter);
 	return (OK);
 }	
 

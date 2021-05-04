@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void	print_final_result(const t_stack *stack_a)
+void	write_final_result_in_file(const t_stack *stack_a)
 {
 	int			i;
 	const int	fd = open("result", O_WRONLY | O_CREAT | O_TRUNC, 0777);
@@ -19,69 +19,30 @@ void	print_final_result(const t_stack *stack_a)
 	close(fd);
 }
 
-void	print_initial_state(const t_stack *stack_a)
+int	get_tallest_stack(t_stack_pair *stacks)
 {
-	int	i;
-
-	i = stack_a->top;
-	printf("\n\n********** INITIAL STATE *********\n\n");
-	while (i >= 0)
-	{
-		printf("  |%3d|\n", stack_a->elements[i]);
-		--i;
-	}
-	printf("\nstack A\n");
+	if (stacks->a.top > stacks->b.top)
+		return (stacks->a.top);
+	return (stacks->b.top);
 }
 
-void	print_rra_state(const t_stack_pair *stacks)
+void	print_stacks(t_stack_pair *stacks)
 {
 	int	i;
 
-	if (stacks->a.top > stacks->b.top)
-		i = stacks->a.top;
-	else
-		i = stacks->b.top;
-	printf("\n------ RRA ------\n\n");
-	while (i >= 0)
-	{
-		if (i == stacks->a.top)
-			printf("%s|%*d|%s      ", LIGHT_GREEN, 3, \
-						stacks->a.elements[i], LIGHT_WHITE);
-		else
-			printf("%s|%*d|      ", LIGHT_WHITE, 3, stacks->a.elements[i]);
-		if (i <= stacks->b.top)
-			printf("%s|%*d|\n", LIGHT_WHITE, 3, stacks->b.elements[i]);
-		else
-			printf("%s\n", LIGHT_WHITE);
-		--i;
-	}
-	printf("\nstack A    stack B\n");
-}
-
-void	print_pb_state(const t_stack_pair *stacks)
-{
-	int	i;
-
-	if (stacks->a.top > stacks->b.top)
-		i = stacks->a.top;
-	else
-		i = stacks->b.top;
-	printf("\n------ PB ------\n\n");
+	i = get_tallest_stack(stacks);
+	printf("\n------------------------------------------------\n\n");
 	while (i >= 0)
 	{
 		if (i <= stacks->a.top)
-			printf("%s|%*d|      ", LIGHT_WHITE, 3, stacks->a.elements[i]);
+			printf("%s%12d %s       ", BLUE_BACKGROUND, stacks->a.elements[i], RESET_COLOR);
 		else
-			printf("           ");
-		if (i == stacks->b.top)
-			printf("%s|%*d|%s\n", LIGHT_PURPLE, 3, \
-							stacks->b.elements[i], LIGHT_WHITE);
-		else if (i < stacks->b.top)
-			printf("%s|%*d|%s\n", LIGHT_WHITE, 3, stacks->b.elements[i], \
-													LIGHT_WHITE);
+			printf("%20s", "");
+		if (i <= stacks->b.top)
+			printf("%s%12d %s\n", GREEN_BACKGROUND, stacks->b.elements[i], RESET_COLOR);
 		else
-			printf("%s\n", LIGHT_WHITE);
+			printf("\n");
 		--i;
 	}
-	printf("\nstack A    stack B\n");
+	printf("\n   Stack A             Stack B\n");
 }

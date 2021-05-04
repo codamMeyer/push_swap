@@ -123,7 +123,7 @@ t_instructions process_unsorted_elements()
 	return (inst[i++]);
 }
 
-CTEST(run_test, unsorted_elements)
+CTEST(run_test, unsorted_elements_correct_set_of_instructions)
 {	
 	const char *argv[] = {"5", "2", "3", "4"};
 	ASSERT_EQUAL(OK, run_checker(4, argv, process_unsorted_elements));

@@ -115,7 +115,6 @@ class CheckerFalseTests:
         printTestBanner("Checker False tests")
         self._testWrongSetOfInstructions("0 9 1 8 2 7 3 6 4 5", "sa\npb\nrrr")
         self._testWrongSetOfInstructions("5 1 2 3 4", "pb")
-        # self._testWrongSetOfInstructions("1 2 3 4", "pa")
 
 
 class CheckerRightTests:
