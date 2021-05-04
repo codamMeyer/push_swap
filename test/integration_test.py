@@ -104,7 +104,7 @@ class CheckerFalseTests:
         print("\nTest case: " + testName)
         Status.print(expected)
         print("Got:   ")
-        cmd = "printf '{}' | ./checker {}".format(instruction, inp)
+        cmd = "printf '{}' | ./checker -v {}".format(instruction, inp)
         ret = subprocess.run(cmd, shell=True)
         assert ret.returncode == int(expected)
 
@@ -126,7 +126,7 @@ class CheckerRightTests:
         print("\nTest case: " + testName)
         Status.print(expected)
         print("Got:   ")
-        cmd = "printf '{}' | ./checker {}".format(instruction, inp)
+        cmd = "printf '{}' | ./checker -v {}".format(instruction, inp)
         ret = subprocess.run(cmd, shell=True)
         assert ret.returncode == int(expected)
 

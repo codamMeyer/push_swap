@@ -1,23 +1,7 @@
 #include "verbose.h"
 #include "processor.h"
-#include <libft.h>
 #include <stdio.h>
 #include <fcntl.h>
-
-void	write_final_result_in_file(const t_stack *stack_a)
-{
-	int			i;
-	const int	fd = open("result", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-
-	i = stack_a->top;
-	while (i >= 0)
-	{
-		ft_putnbr_fd(stack_a->elements[i], fd);
-		ft_putstr_fd(" ", fd);
-		--i;
-	}
-	close(fd);
-}
 
 int	get_tallest_stack(t_stack_pair *stacks)
 {
@@ -26,32 +10,48 @@ int	get_tallest_stack(t_stack_pair *stacks)
 	return (stacks->b.top);
 }
 
-void	print_stack_a(t_stack *stacks_a, t_instructions instruction, int i)
+void	print_stack_element(char *color, int i)
 {
-	if ((instruction == PA || instruction == RRA || instruction == RRR) && i == stacks_a->top)
-		printf("%s%12d %s       ", STACK_A_ACTIVE, stacks_a->elements[i], RESET_COLOR);
-	else if ((instruction == RA || instruction == RA || instruction == RR) && i == 0)
-		printf("%s%12d %s       ", STACK_A_ACTIVE, stacks_a->elements[i], RESET_COLOR);
-	else if ((instruction == SA || instruction == SS) && (i == stacks_a->top || i == (stacks_a->top - 1)))
-		printf("%s%12d %s       ", STACK_A_ACTIVE, stacks_a->elements[i], RESET_COLOR);
-	else if (i <= stacks_a->top)
-		printf("%s%12d %s       ", STACK_A_BACKGROUND, stacks_a->elements[i], RESET_COLOR);
+	printf("%s%12d %s       ", color, i, RESET_COLOR);
+}
+
+void	print_stack_a(t_stack *stack, t_instructions inst, int i)
+{
+	const t_bool	highlight_top = \
+		((inst == PA || inst == RRA || inst == RRR) && i == stack->top);
+	const t_bool	highlight_bottom = ((inst == RA || inst == RR) && i == 0);
+	const t_bool	highlight_first_two = ((inst == SA || inst == SS) && \
+							(i == stack->top || i == (stack->top - 1)));
+
+	if (highlight_top)
+		print_stack_element(STACK_A_ACTIVE, stack->elements[i]);
+	else if (highlight_bottom)
+		print_stack_element(STACK_A_ACTIVE, stack->elements[i]);
+	else if (highlight_first_two)
+		print_stack_element(STACK_A_ACTIVE, stack->elements[i]);
+	else if (i <= stack->top)
+		print_stack_element(STACK_A_BACKGROUND, stack->elements[i]);
 	else
 		printf("%20s", "");
 }
 
-void	print_stack_b(t_stack *stacks_b, t_instructions instruction, int i)
+void	print_stack_b(t_stack *stack, t_instructions inst, int i)
 {
-	if ((instruction == PB || instruction == RRB || instruction == RRR) && i == stacks_b->top)
-		printf("%s%12d %s       \n", STACK_B_ACTIVE, stacks_b->elements[i], RESET_COLOR);
-	else if ((instruction == RB || instruction == RB || instruction == RR) && i == 0)
-		printf("%s%12d %s       \n", STACK_B_ACTIVE, stacks_b->elements[i], RESET_COLOR);
-	else if ((instruction == SB || instruction == SS) && (i == stacks_b->top || i == (stacks_b->top - 1)))
-		printf("%s%12d %s       \n", STACK_B_ACTIVE, stacks_b->elements[i], RESET_COLOR);
-	else if (i <= stacks_b->top)
-		printf("%s%12d %s\n", STACK_B_BACKGROUND, stacks_b->elements[i], RESET_COLOR);
-	else
-		printf("\n");
+	const t_bool	highlight_top = \
+		((inst == PB || inst == RRB || inst == RRR) && i == stack->top);
+	const t_bool	highlight_bottom = ((inst == RB || inst == RR) && i == 0);
+	const t_bool	highlight_first_two = ((inst == SB || inst == SS) && \
+							(i == stack->top || i == (stack->top - 1)));
+
+	if (highlight_top)
+		print_stack_element(STACK_B_ACTIVE, stack->elements[i]);
+	else if (highlight_bottom)
+		print_stack_element(STACK_B_ACTIVE, stack->elements[i]);
+	else if (highlight_first_two)
+		print_stack_element(STACK_B_ACTIVE, stack->elements[i]);
+	else if (i <= stack->top)
+		print_stack_element(STACK_B_BACKGROUND, stack->elements[i]);
+	printf("\n");
 }
 
 void	print_stacks(t_stack_pair *stacks, t_instructions instruction)

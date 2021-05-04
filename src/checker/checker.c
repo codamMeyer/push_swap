@@ -3,6 +3,7 @@
 #include "../parser/parse_numbers.h"
 #include "../parser/parse_flags.h"
 #include "verbose.h"
+#include "write_result.h"
 #include <utils/status.h>
 #include <stdlib.h>
 #include <libft.h>

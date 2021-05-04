@@ -42,21 +42,24 @@ CHECKER_FILES= 								\
 	src/checker/processor_rotate.c			\
 	src/checker/processor_reverse_rotate.c	\
 	src/checker/verbose.c					\
+	src/checker/write_result.c				\
 
 
-CHECKER_INC_FILES=	 					\
-	src/checker/stack.h					\
-	src/checker/checker.h				\
-	src/checker/processor.h				\
-	src/checker/verbose.h				\
+CHECKER_INC_FILES=	 						\
+	src/checker/stack.h						\
+	src/checker/checker.h					\
+	src/checker/processor.h					\
+	src/checker/verbose.h					\
+	src/checker/write_result.h				\
 
-TEST_FILES=					\
-	test/main.c 			\
-	test/stack_test.c		\
-	test/processor_test.c	\
-	test/parser_test.c		\
-	test/checker_test.c		\
-	test/push_swap_test.c	\
+
+TEST_FILES=									\
+	test/main.c 							\
+	test/stack_test.c						\
+	test/processor_test.c					\
+	test/parser_test.c						\
+	test/checker_test.c						\
+	test/push_swap_test.c					\
 
 all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
 
