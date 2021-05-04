@@ -48,7 +48,7 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 	}
 	printf("total moves: %d\n", counter);
 	return (OK);
-}	
+}
 
 t_status	run_checker(int stack_size,
 						const char *elements[],

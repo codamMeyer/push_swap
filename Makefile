@@ -12,10 +12,12 @@ COMMOM_FILES=								\
 	src/parser/parse_numbers.c 				\
 	src/utils/status.c 						\
 	src/parser/parse_instructions.c 		\
+	src/parser/parse_flags.c 	   			\
 	src/parser/parse_numbers.h 				\
 	src/utils/defs.h 						\
 	src/utils/status.h						\
 	src/parser/parse_instructions.h 		\
+	src/parser/parse_flags.h 				\
 
 PUSH_SWAP_FILES= 							\
 	src/push_swap/push_swap.c				\
