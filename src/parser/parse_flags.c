@@ -1,5 +1,6 @@
 #include "parse_flags.h"
 #include <libft.h>
+#include <ft_printf.h>
 #include <stdio.h>
 
 static t_flags	create_empty_flag(void)
@@ -16,11 +17,11 @@ static t_flags	create_empty_flag(void)
 
 static void	display_help_menu(void)
 {
-	printf("\nusage:  ./checker <flags> [numeric arguments]\n");
-	printf("\n-v Print stacks on screen after each movement \
-			and display manipulated numbers in different color\n");
-	printf("\n-t Display the total of movement\n");
-	printf("\n-f Write the final stack to a file called result\n");
+	ft_printf("\nusage:  ./checker <flags> [numeric arguments]\n");
+	ft_printf("\n-v Print stacks on screen after each movement \
+				and display manipulated numbers in different color\n");
+	ft_printf("\n-t Display the total of movement\n");
+	ft_printf("\n-f Write the final stack to a file called result\n");
 }
 
 static void	set_flags(const char *str, t_flags *flags)

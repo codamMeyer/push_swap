@@ -1,6 +1,7 @@
 #include "verbose.h"
 #include "processor.h"
 #include <stdio.h>
+#include <ft_printf.h>
 #include <fcntl.h>
 
 int	get_tallest_stack(t_stack_pair *stacks)
@@ -12,7 +13,7 @@ int	get_tallest_stack(t_stack_pair *stacks)
 
 void	print_stack_element(char *color, int i)
 {
-	printf("%s%12d %s       ", color, i, RESET_COLOR);
+	ft_printf("%s%12d %s       ", color, i, RESET_COLOR);
 }
 
 void	print_stack_a(t_stack *stack, t_instructions inst, int i)
@@ -32,7 +33,7 @@ void	print_stack_a(t_stack *stack, t_instructions inst, int i)
 	else if (i <= stack->top)
 		print_stack_element(STACK_A_BACKGROUND, stack->elements[i]);
 	else
-		printf("%20s", "");
+		ft_printf("%20s", "");
 }
 
 void	print_stack_b(t_stack *stack, t_instructions inst, int i)
@@ -51,7 +52,7 @@ void	print_stack_b(t_stack *stack, t_instructions inst, int i)
 		print_stack_element(STACK_B_ACTIVE, stack->elements[i]);
 	else if (i <= stack->top)
 		print_stack_element(STACK_B_BACKGROUND, stack->elements[i]);
-	printf("\n");
+	ft_printf("\n");
 }
 
 void	print_stacks(t_stack_pair *stacks, t_instructions instruction)
@@ -59,12 +60,12 @@ void	print_stacks(t_stack_pair *stacks, t_instructions instruction)
 	int	i;
 
 	i = get_tallest_stack(stacks);
-	printf("\n---------------------------------------------------\n\n");
+	ft_printf("\n---------------------------------------------------\n\n");
 	while (i >= 0)
 	{
 		print_stack_a(&(stacks->a), instruction, i);
 		print_stack_b(&(stacks->b), instruction, i);
 		--i;
 	}
-	printf("\n   Stack A             Stack B\n");
+	ft_printf("\n   Stack A             Stack B\n");
 }

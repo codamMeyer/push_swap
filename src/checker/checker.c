@@ -7,6 +7,7 @@
 #include <utils/status.h>
 #include <stdlib.h>
 #include <libft.h>
+#include <ft_printf.h>
 #include <stdio.h>
 
 t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
@@ -51,7 +52,7 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 		++counter;
 	}
 	if (flags.total)
-		printf("total moves: %d\n", counter);
+		ft_printf("total moves: %d\n", counter);
 	return (OK);
 }
 

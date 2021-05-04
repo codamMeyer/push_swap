@@ -1,12 +1,12 @@
 PUSH_SWAP=push_swap
 CHECKER=checker
-LIBFT=libft
+FT_PRINTF=libftprintf
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak
 TEST_CFLAGS=-ggdb3 $(CFLAGS)
 DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
-INC_PATH=-I./$(LIBFT) -I./src
-LDFLAGS=-L./$(LIBFT) -lft
+INC_PATH=-I./$(FT_PRINTF) -I./src -I./$(FT_PRINTF)/libft
+LDFLAGS=-L./$(FT_PRINTF) -lftprintf
 
 COMMOM_FILES=								\
 	src/parser/parse_numbers.c 				\
@@ -61,37 +61,38 @@ TEST_FILES=									\
 	test/checker_test.c						\
 	test/push_swap_test.c					\
 
-all: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
+all: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER)
 
-$(PUSH_SWAP): $(LIBFT) $(PUSH_SWAP_INC_FILES) $(PUSH_SWAP_FILES) $(COMMOM_FILES)
+$(PUSH_SWAP): $(FT_PRINTF) $(PUSH_SWAP_INC_FILES) $(PUSH_SWAP_FILES) $(COMMOM_FILES)
 		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(PUSH_SWAP_FILES) src/push_swap/main.c $(LDFLAGS) -o $@
 
-$(CHECKER): $(LIBFT) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(COMMOM_FILES)
+$(CHECKER): $(FT_PRINTF) $(CHECKER_INC_FILES) $(CHECKER_FILES) $(COMMOM_FILES)
 		$(CC) -O3 $(CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(CHECKER_FILES) src/checker/main.c $(LDFLAGS) -o $@
 
-$(LIBFT):
-	$(MAKE) -C ./$(LIBFT)
+$(FT_PRINTF):
+	$(MAKE) -C ./$(FT_PRINTF)
 
 test_run: test
 	./tester
 	./run_norminette.sh
 
-test_integration: $(LIBFT) $(PUSH_SWAP) $(CHECKER)
+test_integration: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER)
 	./test/integration_test.py
 
-test: $(LIBFT) $(PUSH_SWAP) $(CHECKER) $(TEST_FILES)
+test: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER) $(TEST_FILES)
 	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(CHECKER_FILES) $(PUSH_SWAP_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
 
 clean:
-	$(MAKE) clean -C ./$(LIBFT)
+	$(MAKE) clean -C ./$(FT_PRINTF)
 
 re: fclean all
 
 fclean: clean
-	$(MAKE) fclean -C ./$(LIBFT)
+	$(MAKE) fclean -C ./$(FT_PRINTF)
 	rm -f $(PUSH_SWAP)
 	rm -f $(CHECKER)
 	rm -f tester
 	rm -f norminette_result
+	rm -f result
 
-.PHONY: all clean fclean re test libft push_swap checker
+.PHONY: all clean fclean re test libftprintf push_swap checker
