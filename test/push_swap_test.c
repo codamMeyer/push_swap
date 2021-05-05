@@ -1,5 +1,6 @@
 #include "ctest.h"
 #include <push_swap/bubble_sort.h>
+#include <push_swap/merge_sort.h>
 #include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
 #include <push_swap/push_swap.h>
@@ -93,3 +94,62 @@ CTEST(sort_descending_order_test, one_element)
 {
     ASSERT_EQUAL(0, from_descending_to_ascending_order(1, insert_instructions_to_reverse_order));
 }
+
+
+////////////////////////////////////////////
+//                merge_test              //
+////////////////////////////////////////////
+
+// void	insert_instruction_basic(const char *instruction, int times)
+// {
+//     const t_instructions solution[15] = {PB, PB, SB, PB, SB, PA, PA, PA, PB, PB, SB, PB, PA, PA, PA};
+//     static int instruction_index = 0;
+// 	int i = 0;
+// 	while (i < times)
+// 	{
+//         t_instructions cur = get_instruction(instruction);
+//         ASSERT_EQUAL(solution[instruction_index++], cur);
+//         ++i;
+// 	}
+// }
+
+void insert_instruction_basic(const char *instruction, int times)
+{
+    const t_instructions solution[1] = {RA};
+    static int instruction_index = 0;
+	int i = 0;
+	while (i < times)
+	{
+        t_instructions cur = get_instruction(instruction);
+        ASSERT_EQUAL(solution[instruction_index++], cur);
+        ++i;
+	}
+}
+
+CTEST(merge_sort_test, basic_test)
+{
+	int elements[1] = {300};
+    ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
+    ASSERT_TRUE(is_list_sorted(1, elements));
+}
+
+CTEST(merge_sort_test, two_sorted_elements)
+{
+	int elements[2] = {1, 300};
+    ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
+    ASSERT_TRUE(is_list_sorted(2, elements));
+}
+
+CTEST(merge_sort_test, two_unsorted_elements)
+{
+	int elements[2] = {300, 2};
+    ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic));
+    ASSERT_TRUE(is_list_sorted(2, elements));
+}
+
+// CTEST(merge_sort_test, three_unsorted_elements)
+// {
+// 	int elements[3] = {4, 9, 2};
+//     ASSERT_EQUAL(1, merge_sort(3, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(3, elements));
+// }

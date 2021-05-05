@@ -1,7 +1,7 @@
 #include "ctest.h"
 #include <parser/parse_numbers.h>
 #include <parser/parse_instructions.h>
-#include <checker/processor.h>
+#include <stack/processor.h>
 #include <checker/checker.h>
 
 //////////////////////////////////////////////

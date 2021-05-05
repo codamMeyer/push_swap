@@ -18,10 +18,20 @@ COMMOM_FILES=								\
 	src/utils/status.h						\
 	src/parser/parse_instructions.h 		\
 	src/parser/parse_flags.h 				\
+	src/stack/stack.c 						\
+	src/stack/stack_swap.c 					\
+	src/stack/processor.c					\
+	src/stack/processor_swap.c				\
+	src/stack/processor_push.c				\
+	src/stack/processor_rotate.c			\
+	src/stack/processor_reverse_rotate.c	\
+	src/stack/processor.h					\
+	src/stack/stack.h						\
 
 PUSH_SWAP_FILES= 							\
 	src/push_swap/push_swap.c				\
 	src/push_swap/bubble_sort.c				\
+	src/push_swap/merge_sort.c				\
 	src/push_swap/special_cases_sort.c		\
 	src/push_swap/utils.c
 	
@@ -30,25 +40,17 @@ PUSH_SWAP_INC_FILES= 						\
 	src/push_swap/push_swap.h				\
 	src/push_swap/special_cases_sort.c		\
 	src/push_swap/bubble_sort.h				\
+	src/push_swap/merge_sort.h				\
 	src/push_swap/utils.h
 
 CHECKER_FILES= 								\
-	src/checker/stack.c 					\
-	src/checker/stack_swap.c 				\
 	src/checker/checker.c 					\
-	src/checker/processor.c					\
-	src/checker/processor_swap.c			\
-	src/checker/processor_push.c			\
-	src/checker/processor_rotate.c			\
-	src/checker/processor_reverse_rotate.c	\
 	src/checker/verbose.c					\
 	src/checker/write_result.c				\
 
 
 CHECKER_INC_FILES=	 						\
-	src/checker/stack.h						\
 	src/checker/checker.h					\
-	src/checker/processor.h					\
 	src/checker/verbose.h					\
 	src/checker/write_result.h				\
 

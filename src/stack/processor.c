@@ -1,4 +1,4 @@
-#include "verbose.h"
+#include <checker/verbose.h>
 #include <stdlib.h>
 
 void	destroy_stack_pair(t_stack_pair *stacks)

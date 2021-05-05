@@ -1,7 +1,7 @@
 #ifndef VERBOSE_H
 # define VERBOSE_H
-# include "stack.h"
-# include "processor.h"
+# include <stack/stack.h>
+# include <stack/processor.h>
 # define STACK_A_BACKGROUND "\e[48;5;69m\e[4m"
 # define STACK_B_BACKGROUND "\e[48;5;29m\e[4m"
 # define STACK_A_ACTIVE "\e[48;5;111m\e[4m"
