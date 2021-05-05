@@ -3,6 +3,20 @@
 #include <stack/processor.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
+
+static void copy_from_stack_to_arr(t_stack stack, int *elements_list)
+{
+     int i = 0;
+     int j = stack.top;
+
+     while (j >= 0)
+     {
+          elements_list[i] = stack.elements[j];
+          --j;
+          ++i;
+     }
+}
 
 static t_bool    is_stack_sorted(const t_stack *stack_a, int initial_size)
 {
@@ -21,15 +35,93 @@ static t_bool    is_stack_sorted(const t_stack *stack_a, int initial_size)
 	return (TRUE);
 }
 
-int swap_if_needed(int *stack, int i, t_write_instruction write_instruction)
+int  sort_pairs(t_stack_pair *stacks, int elements_size, t_write_instruction write_instruction)
 {
-     if (stack[i] < stack[i - 1])
+     int visited;
+     int num_moves;
+
+     visited = 0;
+     num_moves = 0;
+     while (visited < elements_size)
      {
-          swap_elements(&stack[i], &stack[i - 1]);
-          write_instruction(STR_RA, 1);
-          return (1);
+          if (visited + 1 >= elements_size)
+          {
+               ra(stacks);
+               write_instruction(STR_RA, 1);
+               ++num_moves;
+          }
+          if (stacks->a.elements[stacks->a.top] > stacks->a.elements[stacks->a.top - 1])
+          {
+               sa(stacks);
+               write_instruction(STR_SA, 1);
+               ++num_moves;
+          }
+          visited += 2;
+          if (is_stack_sorted(&stacks->a, elements_size))
+               return (num_moves);
+          if (visited > elements_size)
+               break ;
+          ra(stacks);
+          ra(stacks);
+          write_instruction(STR_RA, 2);
+          num_moves += 2;
      }
-     return (0);
+     return (num_moves);
+}
+
+int  split_in_two_stacks(t_stack_pair *stacks, int elements_size, t_write_instruction write_instruction)
+{
+     int visited;
+     int num_moves;
+
+     visited = 0;
+     num_moves = 0;
+     while(visited < ceil((double)elements_size / 2.0))
+     {
+          if (stacks->a.elements[stacks->a.top] < stacks->a.elements[stacks->a.top - 1])
+          {
+               sa(stacks);
+               write_instruction(STR_SA, 1);
+               ++num_moves;
+          }
+          pb(stacks);
+          write_instruction(STR_PB, 1);
+          ++num_moves;
+          if (size(&(stacks->b)) >= 2 && stacks->b.elements[stacks->b.top] > stacks->b.elements[stacks->b.top - 1])
+          {
+               sb(stacks);
+               write_instruction(STR_SB, 1);
+               ++num_moves;
+          }
+          ++visited;
+     }
+     return (num_moves);
+}
+
+int merge_stacks(t_stack_pair *stacks, t_write_instruction write_instruction)
+{
+     int num_moves;
+
+     num_moves = 0;
+     while (size(&stacks->b) > 0)
+     {
+          if (stacks->b.top >= 0)
+          {
+               pa(stacks);
+               write_instruction(STR_PA, 1);
+               ++num_moves;
+               if (stacks->a.elements[stacks->a.top] > stacks->a.elements[stacks->a.top - 1])
+               {
+                    sa(stacks);
+                    write_instruction(STR_SA, 1);
+                    ++num_moves;
+               }
+          }
+          ra(stacks);
+          write_instruction(STR_RA, 1);
+          ++num_moves;
+     }
+     return (num_moves);
 }
 
 int	merge_sort(int elements_size, \
@@ -38,60 +130,30 @@ int	merge_sort(int elements_size, \
 {
      int num_moves;
      t_stack_pair stacks;
-     int visited;
 
      stacks = create_stack_pair(elements_size);
      if (!stacks.initialized)
           return (0);
      populate_stack_a(elements, elements_size, &stacks);
-     visited = 0;
      num_moves = 0;
      if (elements_size < 2)
      {
           destroy_stack_pair(&stacks);
           return (num_moves);
      }
-     while (TRUE)
+     num_moves += sort_pairs(&stacks, elements_size, write_instruction);
+     if (!is_stack_sorted(&stacks.a, elements_size))
      {
-          if (visited + 1 >= elements_size)
+          num_moves += split_in_two_stacks(&stacks, elements_size, write_instruction);
+          num_moves += merge_stacks(&stacks, write_instruction);
+          while (!is_stack_sorted(&stacks.a, elements_size))
           {
-               ra(&(stacks));
+               ra(&stacks);
                write_instruction(STR_RA, 1);
                ++num_moves;
           }
-          else if (stacks.a.elements[stacks.a.top] > stacks.a.elements[stacks.a.top - 1])
-          {
-               sa(&stacks);
-               write_instruction(STR_SA, 1);
-               ++num_moves;
-          }
-          visited += 2;
-          if (is_stack_sorted(&stacks.a, elements_size))
-               return (num_moves);
-          if (visited > elements_size)
-               break ;
-          write_instruction(STR_RA, 2);
-          num_moves += 2;
      }
-     visited = 0;
-     while(visited < ceil((double)elements_size / 2.0))
-     {
-          if (stacks.a.elements[stacks.a.top] < stacks.a.elements[stacks.a.top - 1])
-          {
-               sa(&(stacks));
-               write_instruction(STR_SA, 1);
-               pb(&(stacks));
-               write_instruction(STR_PB, 1);
-               num_moves += 2;
-          }
-          if (stacks.b.elements[stacks.b.top] > stacks.b.elements[stacks.b.top - 1])
-          {
-               sb(&(stacks));
-               write_instruction(STR_SB, 1);
-               ++num_moves;
-          }
-          ++visited;
-     }
+     copy_from_stack_to_arr(stacks.a, elements);
      destroy_stack_pair(&stacks);
      return (num_moves);
 }

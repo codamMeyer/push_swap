@@ -6,7 +6,7 @@ CFLAGS= -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak
 TEST_CFLAGS=-ggdb3 $(CFLAGS)
 DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
 INC_PATH=-I./$(FT_PRINTF) -I./src -I./$(FT_PRINTF)/libft
-LDFLAGS=-L./$(FT_PRINTF) -lftprintf
+LDFLAGS=-L./$(FT_PRINTF) -lftprintf -lm
 
 COMMOM_FILES=								\
 	src/parser/parse_numbers.c 				\

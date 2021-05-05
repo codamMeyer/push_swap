@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -Werror -Wextra -O3
+CFLAGS= -Wall -Werror -Wextra
 
 NAME=libftprintf.a
 CREATE_LIB=ar rcs
