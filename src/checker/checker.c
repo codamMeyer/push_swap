@@ -56,35 +56,33 @@ static t_status	process_instructions_list(t_stack_pair *stacks, \
 	return (OK);
 }
 
-t_status	run_checker(int stack_size,
-						const char *elements[],
+t_status	run_checker(int size,
+						const char *argv[],
 						t_get_next_instruction next_instruction)
 {
 	int				i;
 	t_flags			flags;
-	int				*elements_list;
+	int				*stack_elements;
 	t_stack_pair	stacks;
 	t_status		ret;
 
 	i = 0;
-	flags = parse_flags(elements, &stack_size, &i);
-	if (!flags.is_valid || stack_size < 1)
+	flags = parse_flags(argv, &size, &i);
+	if (!flags.is_valid)
 		return (ERROR);
-	ret = OK;
-	elements_list = parse_numbers(stack_size, &elements[i]);
-	stacks = create_stack_pair(stack_size);
-	if (!elements_list || !stacks.initialized)
-		ret = ERROR;
-	if (ret != ERROR)
+	ret = ERROR;
+	stack_elements = parse_numbers(size, &argv[i]);
+	stacks = create_stack_pair(size);
+	if (stack_elements && stacks.initialized)
 	{
-		populate_stack_a(elements_list, stack_size, &stacks);
+		populate_stack_a(stack_elements, size, &stacks);
 		ret = process_instructions_list(&stacks, flags, next_instruction);
 	}
 	if (ret != ERROR)
-		ret = is_stack_sorted(&(stacks.a), stack_size);
+		ret = is_stack_sorted(&(stacks.a), size);
 	if (flags.file_output)
 		write_final_result_in_file(&(stacks.a));
 	destroy_stack_pair(&stacks);
-	free((void *)elements_list);
+	free((void *)stack_elements);
 	return (ret);
 }
