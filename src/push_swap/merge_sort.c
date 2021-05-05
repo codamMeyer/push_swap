@@ -1,5 +1,25 @@
 #include "merge_sort.h"
+#include <stack/stack.h>
+#include <stack/processor.h>
 #include <stdlib.h>
+#include <math.h>
+
+static t_bool    is_stack_sorted(const t_stack *stack_a, int initial_size)
+{
+	const int	stack_size = size(stack_a);
+	int			i;
+
+	i = 1;
+	if (stack_size != initial_size)
+		return (FALSE);
+	while (i < stack_size)
+	{
+		if (stack_a->elements[i] > stack_a->elements[i - 1])
+			return (FALSE);
+		++i;
+	}
+	return (TRUE);
+}
 
 int swap_if_needed(int *stack, int i, t_write_instruction write_instruction)
 {
@@ -13,29 +33,66 @@ int swap_if_needed(int *stack, int i, t_write_instruction write_instruction)
 }
 
 int	merge_sort(int elements_size, \
-				int *stack_a, \
-				t_write_instruction write_instruction)
+               int *elements, \
+               t_write_instruction write_instruction)
 {
      int num_moves;
-     int *stack_b;
-     int i_a;
+     t_stack_pair stacks;
+     int visited;
 
-     i_a = 0;
-     num_moves = 0;
-     if (elements_size < 2 || is_list_sorted(elements_size, stack_a))
-          return (num_moves);
-     stack_b = malloc(sizeof(int) * elements_size);
-     if (!stack_b)
+     stacks = create_stack_pair(elements_size);
+     if (!stacks.initialized)
           return (0);
-     while (i_a < elements_size)
+     populate_stack_a(elements, elements_size, &stacks);
+     visited = 0;
+     num_moves = 0;
+     if (elements_size < 2)
      {
-          if (i_a + 1 == elements_size)
-               num_moves += swap_if_needed(stack_a, i_a, write_instruction);
-          ++i_a;
+          destroy_stack_pair(&stacks);
+          return (num_moves);
      }
-     (void)stack_a;
-     (void)write_instruction;
-     free(stack_b);
+     while (TRUE)
+     {
+          if (visited + 1 >= elements_size)
+          {
+               ra(&(stacks));
+               write_instruction(STR_RA, 1);
+               ++num_moves;
+          }
+          else if (stacks.a.elements[stacks.a.top] > stacks.a.elements[stacks.a.top - 1])
+          {
+               sa(&stacks);
+               write_instruction(STR_SA, 1);
+               ++num_moves;
+          }
+          visited += 2;
+          if (is_stack_sorted(&stacks.a, elements_size))
+               return (num_moves);
+          if (visited > elements_size)
+               break ;
+          write_instruction(STR_RA, 2);
+          num_moves += 2;
+     }
+     visited = 0;
+     while(visited < ceil((double)elements_size / 2.0))
+     {
+          if (stacks.a.elements[stacks.a.top] < stacks.a.elements[stacks.a.top - 1])
+          {
+               sa(&(stacks));
+               write_instruction(STR_SA, 1);
+               pb(&(stacks));
+               write_instruction(STR_PB, 1);
+               num_moves += 2;
+          }
+          if (stacks.b.elements[stacks.b.top] > stacks.b.elements[stacks.b.top - 1])
+          {
+               sb(&(stacks));
+               write_instruction(STR_SB, 1);
+               ++num_moves;
+          }
+          ++visited;
+     }
+     destroy_stack_pair(&stacks);
      return (num_moves);
 }
 

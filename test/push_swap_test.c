@@ -115,7 +115,26 @@ CTEST(sort_descending_order_test, one_element)
 
 void insert_instruction_basic(const char *instruction, int times)
 {
-    const t_instructions solution[1] = {RA};
+    (void)instruction;
+    (void)times;
+    ASSERT_TRUE(0);
+}
+
+CTEST(merge_sort_test, basic_test)
+{
+	int elements[1] = {300};
+    ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
+}
+
+CTEST(merge_sort_test, two_sorted_elements)
+{
+	int elements[2] = {1, 300};
+    ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
+}
+
+void insert_instruction_basic_1(const char *instruction, int times)
+{
+    const t_instructions solution[1] = {SA};
     static int instruction_index = 0;
 	int i = 0;
 	while (i < times)
@@ -126,30 +145,28 @@ void insert_instruction_basic(const char *instruction, int times)
 	}
 }
 
-CTEST(merge_sort_test, basic_test)
-{
-	int elements[1] = {300};
-    ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(1, elements));
-}
-
-CTEST(merge_sort_test, two_sorted_elements)
-{
-	int elements[2] = {1, 300};
-    ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(2, elements));
-}
-
 CTEST(merge_sort_test, two_unsorted_elements)
 {
-	int elements[2] = {300, 2};
-    ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(2, elements));
+	int elements[2] = {4, 3};
+    ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic_1));
 }
 
-// CTEST(merge_sort_test, three_unsorted_elements)
-// {
-// 	int elements[3] = {4, 9, 2};
-//     ASSERT_EQUAL(1, merge_sort(3, elements, insert_instruction_basic));
-//     ASSERT_TRUE(is_list_sorted(3, elements));
-// }
+void insert_instruction_basic_2(const char *instruction, int times)
+{
+    const t_instructions solution[3] = {RA, RA, RA};
+    static int instruction_index = 0;
+	int i = 0;
+	while (i < times)
+	{
+        t_instructions cur = get_instruction(instruction);
+        ASSERT_EQUAL(solution[instruction_index++], cur);
+        ++i;
+	}
+}
+
+CTEST(merge_sort_test, three_unsorted_elements)
+{
+	int elements[3] = {4, 9, 2};
+    ASSERT_EQUAL(3, merge_sort(3, elements, insert_instruction_basic_2));
+}
+
