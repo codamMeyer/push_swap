@@ -1,6 +1,7 @@
 #include "ctest.h"
 #include <push_swap/bubble_sort.h>
 #include <push_swap/merge_sort.h>
+#include <push_swap/insertion_sort.h>
 #include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
 #include <push_swap/push_swap.h>
@@ -8,6 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 ////////////////////////////////////////////
 //           run_push_swap_test           //
@@ -100,47 +102,34 @@ CTEST(sort_descending_order_test, one_element)
 //                merge_test              //
 ////////////////////////////////////////////
 
-// void	insert_instruction_basic(const char *instruction, int times)
-// {
-//     const t_instructions solution[15] = {PB, PB, SB, PB, SB, PA, PA, PA, PB, PB, SB, PB, PA, PA, PA};
-//     static int instruction_index = 0;
-// 	int i = 0;
-// 	while (i < times)
-// 	{
-//         t_instructions cur = get_instruction(instruction);
-//         ASSERT_EQUAL(solution[instruction_index++], cur);
-//         ++i;
-// 	}
-// }
-
 void insert_instruction_basic(const char *instruction, int times)
 {
     (void)instruction;
     (void)times;
 }
 
-CTEST(merge_sort_test, basic_test)
+CTEST_SKIP(merge_sort_test, basic_test)
 {
 	int elements[1] = {300};
     ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
     ASSERT_TRUE(is_list_sorted(1, elements));
 }
 
-CTEST(merge_sort_test, two_sorted_elements)
+CTEST_SKIP(merge_sort_test, two_sorted_elements)
 {
 	int elements[2] = {1, 300};
     ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
     ASSERT_TRUE(is_list_sorted(2, elements));
 }
 
-CTEST(merge_sort_test, two_unsorted_elements)
+CTEST_SKIP(merge_sort_test, two_unsorted_elements)
 {
 	int elements[2] = {4, 3};
     ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic));
     ASSERT_TRUE(is_list_sorted(2, elements));
 }
 
-CTEST(merge_sort_test, three_unsorted_elements)
+CTEST_SKIP(merge_sort_test, three_unsorted_elements)
 {
 	int elements[3] = {4, 10, 0};
     ASSERT_EQUAL(13, merge_sort(3, elements, insert_instruction_basic));
@@ -154,7 +143,7 @@ CTEST_SKIP(merge_sort_test, five_unsorted_elements)
     ASSERT_TRUE(is_list_sorted(5, elements));
 }
 
-CTEST(merge_sort_test, seven_unsorted_elements)
+CTEST_SKIP(merge_sort_test, seven_unsorted_elements)
 {
 	int elements[7] = {5, 3, 4, 1, 2, 6, 7};
     merge_sort(7, elements, insert_instruction_basic);
@@ -166,4 +155,162 @@ CTEST_SKIP(merge_sort_test, seven_unsorted_elements_1)
 	int elements[7] = {5, 3, 4, 1, 2, 10, 9};
     merge_sort(7, elements, insert_instruction_basic);
     ASSERT_TRUE(is_list_sorted(7, elements));
+}
+
+////////////////////////////////////////////
+//           inertion_sort_test           //
+////////////////////////////////////////////
+
+CTEST_DATA(sort_elements_test)
+{
+	int *sorted;
+};
+
+CTEST_SETUP(sort_elements_test)
+{
+	data->sorted = NULL;
+}
+
+CTEST_TEARDOWN(sort_elements_test)
+{
+	free(data->sorted);
+}
+
+CTEST2(sort_elements_test, five_elements)
+{
+    const int size = 7;
+	int elements[] = {5, 3, 4, 1, 2, 10, 9};
+    data->sorted = sort_elements(size, elements);
+    ASSERT_TRUE(is_list_sorted(size, data->sorted));
+}
+
+CTEST_DATA(find_element_index_test)
+{
+    int elements[5];
+    t_stack _stack;
+    t_stack *stack;
+};
+
+CTEST_SETUP(find_element_index_test)
+{
+    data->stack = &(data->_stack);
+    data->stack->elements = (int *)data->elements;
+    data->stack->top = -1;
+    push(data->stack, 5);
+    push(data->stack, 4);
+    push(data->stack, 8);
+    push(data->stack, 1);
+    push(data->stack, 0);
+}
+
+CTEST_TEARDOWN(find_element_index_test)
+{
+    (void)data;
+}
+
+CTEST2(find_element_index_test, element_8_index_2)
+{
+    const int to_find = 8;
+    ASSERT_EQUAL(2, find_element_index(data->stack, to_find));
+}
+
+CTEST2(find_element_index_test, not_in_stack)
+{
+    const int to_find = 7;
+    ASSERT_EQUAL(NOT_FOUND, find_element_index(data->stack, to_find));
+}
+
+
+CTEST_DATA(move_element_to_b_test)
+{
+    int elements_a[5];
+    int elements_b[5];
+    t_stack_pair _stacks;
+    t_stack_pair *stacks;
+};
+
+CTEST_SETUP(move_element_to_b_test)
+{
+    data->stacks = &(data->_stacks);
+    data->stacks->a.elements = (int *)data->elements_a;
+    data->stacks->a.top = -1;
+    data->stacks->b.elements = (int *)data->elements_b;
+    data->stacks->b.top = -1;
+    push(&data->stacks->a, 5);
+    push(&data->stacks->a, 4);
+    push(&data->stacks->a, 8);
+    push(&data->stacks->a, 1);
+    push(&data->stacks->a, 0);
+}
+
+CTEST_TEARDOWN(move_element_to_b_test)
+{
+    (void)data;
+}
+
+
+void write_inst(const char *instruction, int i)
+{
+    while (i > 0)
+    {
+        printf("%s, ", instruction);
+        --i;
+    }
+}
+
+CTEST2(move_element_to_b_test, element_8_index_2)
+{
+    const int element = 8;
+    ASSERT_EQUAL(0, size(&(data->stacks->b)));
+    ASSERT_EQUAL(5, size(&(data->stacks->a)));
+    move_element_to_stack_b(data->stacks, element, write_inst);
+    ASSERT_EQUAL(1, size(&(data->stacks->b)));
+    ASSERT_EQUAL(4, size(&(data->stacks->a)));
+    ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
+}
+
+CTEST2(move_element_to_b_test, element_0_at_top)
+{
+    const int element = 0;
+    ASSERT_EQUAL(0, size(&(data->stacks->b)));
+    ASSERT_EQUAL(5, size(&(data->stacks->a)));
+    move_element_to_stack_b(data->stacks, element, write_inst);
+    ASSERT_EQUAL(1, size(&(data->stacks->b)));
+    ASSERT_EQUAL(4, size(&(data->stacks->a)));
+    ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
+}
+
+CTEST2(move_element_to_b_test, element_closer_to_bottom)
+{
+    const int element = 4;
+    ASSERT_EQUAL(0, size(&(data->stacks->b)));
+    ASSERT_EQUAL(5, size(&(data->stacks->a)));
+    move_element_to_stack_b(data->stacks, element, write_inst);
+    ASSERT_EQUAL(1, size(&(data->stacks->b)));
+    ASSERT_EQUAL(4, size(&(data->stacks->a)));
+    ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
+}
+
+CTEST2(move_element_to_b_test, element_at_bottom)
+{
+    const int element = 5;
+    ASSERT_EQUAL(0, size(&(data->stacks->b)));
+    ASSERT_EQUAL(5, size(&(data->stacks->a)));
+    move_element_to_stack_b(data->stacks, element, write_inst);
+    ASSERT_EQUAL(1, size(&(data->stacks->b)));
+    ASSERT_EQUAL(4, size(&(data->stacks->a)));
+    ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
+}
+
+CTEST2(move_element_to_b_test, stack_a_with_3_elements_b_with_2)
+{
+    pb(data->stacks);
+    pb(data->stacks);
+    const int element = 5;
+    ASSERT_EQUAL(2, size(&(data->stacks->b)));
+    ASSERT_EQUAL(3, size(&(data->stacks->a)));
+    move_element_to_stack_b(data->stacks, element, write_inst);
+    ASSERT_EQUAL(3, size(&(data->stacks->b)));
+    ASSERT_EQUAL(2, size(&(data->stacks->a)));
+    ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
 }

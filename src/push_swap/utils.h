@@ -12,8 +12,12 @@
 # define STR_RRA "rra"
 # define STR_RRB "rrb"
 # define STR_RRR "rrr"
+# define NOT_FOUND -1
+# include <stack/processor.h>
 
 typedef void(*t_write_instruction)(const char *, int);
+typedef void(*t_operation)(t_stack_pair *);
+
 
 void	swap_elements(int *cur, int *prev);
 void	print_instruction(const char *instruction, int times);

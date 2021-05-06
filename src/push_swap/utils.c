@@ -15,6 +15,8 @@ t_bool	is_list_sorted(int elements_size, int *elements)
 	int	i;
 
 	i = 1;
+	if (!elements)
+		return (FALSE);
 	while (i < elements_size)
 	{
 		if (elements[i] < elements[i - 1])
