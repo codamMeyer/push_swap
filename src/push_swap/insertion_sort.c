@@ -3,18 +3,21 @@
 #include <stddef.h>
 #include <libft.h>
 #include <math.h>
+#include <stdio.h>
 #include <utils/defs.h>
+#include <stdlib.h>
 
 int *sort_elements(int elements_size, int *elements)
 {
 	int	i;
+	int tmp;
 	t_bool swapped;
 	int	*sorted;
 
 	sorted = malloc(sizeof(int) * elements_size);
 	if (sorted == NULL)
 		return (NULL);
-	ft_memcpy(sorted, elements, elements_size);
+	sorted = ft_memcpy(sorted, elements, elements_size * sizeof(int));
 	swapped = TRUE;
 	while (swapped)
 	{
@@ -25,7 +28,9 @@ int *sort_elements(int elements_size, int *elements)
 			if (sorted[i] < sorted[i - 1])
 			{
 				swapped = TRUE;
-				swap_elements(&sorted[i], &sorted[i - 1]);
+				tmp = sorted[i];
+				sorted[i] = sorted[i - 1];
+				sorted[i - 1] = tmp;
 			}
 			++i;
 		}
@@ -49,8 +54,11 @@ int find_element_index(t_stack *stack, int element)
 
 void push_elements_back_to_stack_a(t_stack_pair *stacks, t_write_instruction write_instruction) 
 {
-	(void)stacks;
-	(void)write_instruction;
+	while (stacks->b.top >= 0)
+	{
+		pa(stacks);
+		write_instruction(STR_PA, 1);
+	}
 }
 
 void bring_element_to_top_of_a(t_stack_pair *stacks, int counter, t_operation operation)
@@ -86,11 +94,38 @@ void move_element_to_stack_b(t_stack_pair *stacks, int element, t_write_instruct
 	write_instruction(STR_PB, 1);
 }
 
+void	print_final_state(t_stack_pair	*stacks)
+{
+	int i = stacks->a.top;
+	while (i >= 0)
+	{
+		printf("%d, ", stacks->a.elements[i]);
+		--i;
+	}
+
+}
+
 int insertion_sort(int elements_size, int *elements, t_write_instruction write_instruction) 
 {
-	(void)elements_size;
-	(void)elements;
-	(void)write_instruction;
-	//free sorted
-	return (0);
+	const int		*sorted = sort_elements(elements_size, elements);
+	t_stack_pair	stacks;
+	int				num_moves;
+	int				i;
+	num_moves = 0;
+	stacks = create_stack_pair(elements_size);
+	if (stacks.initialized && sorted != NULL)
+	{
+		populate_stack_a(elements, elements_size, &stacks);
+		i = 0;
+		while (i < elements_size - 1)
+		{
+			move_element_to_stack_b(&stacks, sorted[i], write_instruction);
+			++i;
+		}
+		push_elements_back_to_stack_a(&stacks, write_instruction);
+	}
+	print_final_state(&stacks);
+	destroy_stack_pair(&stacks);
+	free((void *)sorted);
+	return (num_moves);
 }

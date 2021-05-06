@@ -314,3 +314,9 @@ CTEST2(move_element_to_b_test, stack_a_with_3_elements_b_with_2)
     ASSERT_EQUAL(2, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
 }
+
+CTEST(insertion_sort_test, insertion_sort_test_1)
+{
+    int elements[] = {5, 4, 8, 1, 9};
+    insertion_sort(5, elements, write_inst);
+}
