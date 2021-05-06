@@ -99,65 +99,6 @@ CTEST(sort_descending_order_test, one_element)
 
 
 ////////////////////////////////////////////
-//                merge_test              //
-////////////////////////////////////////////
-
-void insert_instruction_basic(const char *instruction, int times)
-{
-    (void)instruction;
-    (void)times;
-}
-
-CTEST_SKIP(merge_sort_test, basic_test)
-{
-	int elements[1] = {300};
-    ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(1, elements));
-}
-
-CTEST_SKIP(merge_sort_test, two_sorted_elements)
-{
-	int elements[2] = {1, 300};
-    ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(2, elements));
-}
-
-CTEST_SKIP(merge_sort_test, two_unsorted_elements)
-{
-	int elements[2] = {4, 3};
-    ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(2, elements));
-}
-
-CTEST_SKIP(merge_sort_test, three_unsorted_elements)
-{
-	int elements[3] = {4, 10, 0};
-    ASSERT_EQUAL(13, merge_sort(3, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(3, elements));
-}
-
-CTEST_SKIP(merge_sort_test, five_unsorted_elements)
-{
-	int elements[5] = {5, 3, 4, 1, 2};
-    ASSERT_EQUAL(24, merge_sort(5, elements, insert_instruction_basic));
-    ASSERT_TRUE(is_list_sorted(5, elements));
-}
-
-CTEST_SKIP(merge_sort_test, seven_unsorted_elements)
-{
-	int elements[7] = {5, 3, 4, 1, 2, 6, 7};
-    merge_sort(7, elements, insert_instruction_basic);
-    ASSERT_TRUE(is_list_sorted(7, elements));
-}
-
-CTEST_SKIP(merge_sort_test, seven_unsorted_elements_1)
-{
-	int elements[7] = {5, 3, 4, 1, 2, 10, 9};
-    merge_sort(7, elements, insert_instruction_basic);
-    ASSERT_TRUE(is_list_sorted(7, elements));
-}
-
-////////////////////////////////////////////
 //           inertion_sort_test           //
 ////////////////////////////////////////////
 
@@ -320,3 +261,62 @@ CTEST(insertion_sort_test, insertion_sort_test_1)
     int elements[] = {5, 4, 8, 1, 9};
     insertion_sort(5, elements, write_inst);
 }
+
+////////////////////////////////////////////
+//                merge_test              //
+////////////////////////////////////////////
+
+// void insert_instruction_basic(const char *instruction, int times)
+// {
+//     (void)instruction;
+//     (void)times;
+// }
+
+// CTEST_SKIP(merge_sort_test, basic_test)
+// {
+// 	int elements[1] = {300};
+//     ASSERT_EQUAL(0, merge_sort(1, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(1, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, two_sorted_elements)
+// {
+// 	int elements[2] = {1, 300};
+//     ASSERT_EQUAL(0, merge_sort(2, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(2, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, two_unsorted_elements)
+// {
+// 	int elements[2] = {4, 3};
+//     ASSERT_EQUAL(1, merge_sort(2, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(2, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, three_unsorted_elements)
+// {
+// 	int elements[3] = {4, 10, 0};
+//     ASSERT_EQUAL(13, merge_sort(3, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(3, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, five_unsorted_elements)
+// {
+// 	int elements[5] = {5, 3, 4, 1, 2};
+//     ASSERT_EQUAL(24, merge_sort(5, elements, insert_instruction_basic));
+//     ASSERT_TRUE(is_list_sorted(5, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, seven_unsorted_elements)
+// {
+// 	int elements[7] = {5, 3, 4, 1, 2, 6, 7};
+//     merge_sort(7, elements, insert_instruction_basic);
+//     ASSERT_TRUE(is_list_sorted(7, elements));
+// }
+
+// CTEST_SKIP(merge_sort_test, seven_unsorted_elements_1)
+// {
+// 	int elements[7] = {5, 3, 4, 1, 2, 10, 9};
+//     merge_sort(7, elements, insert_instruction_basic);
+//     ASSERT_TRUE(is_list_sorted(7, elements));
+// }

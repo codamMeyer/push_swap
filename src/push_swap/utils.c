@@ -52,3 +52,31 @@ void	print_instruction(const char *instruction, int times)
 		++i;
 	}
 }
+
+int	*sort_elements(int elements_size, int *elements)
+{
+	int		i;
+	t_bool	swapped;
+	int		*sorted;
+
+	sorted = malloc(sizeof(int) * elements_size);
+	if (sorted == NULL)
+		return (NULL);
+	sorted = ft_memcpy(sorted, elements, elements_size * sizeof(int));
+	swapped = TRUE;
+	while (swapped)
+	{
+		swapped = FALSE;
+		i = 1;
+		while (i < elements_size)
+		{
+			if (sorted[i] < sorted[i - 1])
+			{
+				swapped = TRUE;
+				swap_elements(&sorted[i], &sorted[i - 1]);
+			}
+			++i;
+		}
+	}
+	return (sorted);
+}

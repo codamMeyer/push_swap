@@ -5,6 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 
+/*
+
 static void copy_from_stack_to_arr(t_stack stack, int *elements_list)
 {
      int i = 0;
@@ -35,7 +37,8 @@ static t_bool    is_stack_sorted(const t_stack *stack_a, int initial_size)
 	return (TRUE);
 }
 
-int  sort_pairs(t_stack_pair *stacks, int elements_size, t_write_instruction write_instruction)
+int  sort_pairs(t_stack_pair *stacks, int elements_size, 
+t_write_instruction write_instruction)
 {
      int visited;
      int num_moves;
@@ -50,7 +53,8 @@ int  sort_pairs(t_stack_pair *stacks, int elements_size, t_write_instruction wri
                write_instruction(STR_RA, 1);
                ++num_moves;
           }
-          if (stacks->a.elements[stacks->a.top] > stacks->a.elements[stacks->a.top - 1])
+          if (stacks->a.elements[stacks->a.top] > \
+          stacks->a.elements[stacks->a.top - 1])
           {
                sa(stacks);
                write_instruction(STR_SA, 1);
@@ -69,7 +73,8 @@ int  sort_pairs(t_stack_pair *stacks, int elements_size, t_write_instruction wri
      return (num_moves);
 }
 
-int  split_in_two_stacks(t_stack_pair *stacks, int elements_size, t_write_instruction write_instruction)
+int  split_in_two_stacks(t_stack_pair *stacks, int elements_size,
+                t_write_instruction write_instruction)
 {
      int visited;
      int num_moves;
@@ -78,7 +83,8 @@ int  split_in_two_stacks(t_stack_pair *stacks, int elements_size, t_write_instru
      num_moves = 0;
      while(visited < ceil((double)elements_size / 2.0))
      {
-          if (stacks->a.elements[stacks->a.top] < stacks->a.elements[stacks->a.top - 1])
+          if (stacks->a.elements[stacks->a.top] < \
+          stacks->a.elements[stacks->a.top - 1])
           {
                sa(stacks);
                write_instruction(STR_SA, 1);
@@ -87,7 +93,8 @@ int  split_in_two_stacks(t_stack_pair *stacks, int elements_size, t_write_instru
           pb(stacks);
           write_instruction(STR_PB, 1);
           ++num_moves;
-          if (size(&(stacks->b)) >= 2 && stacks->b.elements[stacks->b.top] > stacks->b.elements[stacks->b.top - 1])
+          if (size(&(stacks->b)) >= 2 && stacks->b.elements[stacks->b.top] > 
+               stacks->b.elements[stacks->b.top - 1])
           {
                sb(stacks);
                write_instruction(STR_SB, 1);
@@ -110,7 +117,8 @@ int merge_stacks(t_stack_pair *stacks, t_write_instruction write_instruction)
                pa(stacks);
                write_instruction(STR_PA, 1);
                ++num_moves;
-               if (stacks->a.elements[stacks->a.top] > stacks->a.elements[stacks->a.top - 1])
+               if (stacks->a.elements[stacks->a.top] > \
+               stacks->a.elements[stacks->a.top - 1])
                {
                     sa(stacks);
                     write_instruction(STR_SA, 1);
@@ -144,7 +152,8 @@ int	merge_sort(int elements_size, \
      num_moves += sort_pairs(&stacks, elements_size, write_instruction);
      if (!is_stack_sorted(&stacks.a, elements_size))
      {
-          num_moves += split_in_two_stacks(&stacks, elements_size, write_instruction);
+          num_moves += split_in_two_stacks(&stacks, elements_size, 
+               write_instruction);
           num_moves += merge_stacks(&stacks, write_instruction);
           while (!is_stack_sorted(&stacks.a, elements_size))
           {

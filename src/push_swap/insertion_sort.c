@@ -7,40 +7,9 @@
 #include <utils/defs.h>
 #include <stdlib.h>
 
-int *sort_elements(int elements_size, int *elements)
+int	find_element_index(t_stack *stack, int element)
 {
 	int	i;
-	int tmp;
-	t_bool swapped;
-	int	*sorted;
-
-	sorted = malloc(sizeof(int) * elements_size);
-	if (sorted == NULL)
-		return (NULL);
-	sorted = ft_memcpy(sorted, elements, elements_size * sizeof(int));
-	swapped = TRUE;
-	while (swapped)
-	{
-		swapped = FALSE;
-		i = 1;
-		while (i < elements_size)
-		{
-			if (sorted[i] < sorted[i - 1])
-			{
-				swapped = TRUE;
-				tmp = sorted[i];
-				sorted[i] = sorted[i - 1];
-				sorted[i - 1] = tmp;
-			}
-			++i;
-		}
-	}
-	return (sorted);
-}
-
-int find_element_index(t_stack *stack, int element) 
-{
-	int i;
 
 	i = 0;
 	while (i <= stack->top)
@@ -52,16 +21,24 @@ int find_element_index(t_stack *stack, int element)
 	return (NOT_FOUND);
 }
 
-void push_elements_back_to_stack_a(t_stack_pair *stacks, t_write_instruction write_instruction) 
+int	push_elements_back_to_stack_a(t_stack_pair *stacks,
+									t_write_instruction write_instruction)
 {
+	int	num_moves;
+
+	num_moves = 0;
 	while (stacks->b.top >= 0)
 	{
 		pa(stacks);
 		write_instruction(STR_PA, 1);
+		++num_moves;
 	}
+	return (num_moves);
 }
 
-void bring_element_to_top_of_a(t_stack_pair *stacks, int counter, t_operation operation)
+void	bring_element_to_top_of_a(t_stack_pair *stacks,
+									int counter,
+									t_operation operation)
 {
 	while (counter > 0)
 	{
@@ -70,14 +47,16 @@ void bring_element_to_top_of_a(t_stack_pair *stacks, int counter, t_operation op
 	}
 }
 
-void move_element_to_stack_b(t_stack_pair *stacks, int element, t_write_instruction write_instruction)
+int	move_element_to_stack_b(t_stack_pair *stacks,
+							int element,
+							t_write_instruction write_instruction)
 {
 	const int		element_index = find_element_index(&(stacks->a), element);
 	const int		stack_size = size(&stacks->a);
 	const int		middle_of_stack = floor((double)stack_size / 2.0);
 	const t_bool	close_to_top = (element_index >= middle_of_stack);
 	int				num_moves;
-	
+
 	if (close_to_top)
 	{
 		num_moves = stacks->a.top - element_index;
@@ -92,25 +71,18 @@ void move_element_to_stack_b(t_stack_pair *stacks, int element, t_write_instruct
 	}
 	pb(stacks);
 	write_instruction(STR_PB, 1);
+	return (num_moves + 1);
 }
 
-void	print_final_state(t_stack_pair	*stacks)
-{
-	int i = stacks->a.top;
-	while (i >= 0)
-	{
-		printf("%d, ", stacks->a.elements[i]);
-		--i;
-	}
-
-}
-
-int insertion_sort(int elements_size, int *elements, t_write_instruction write_instruction) 
+int	insertion_sort(int elements_size,
+					int *elements,
+					t_write_instruction write_instruction)
 {
 	const int		*sorted = sort_elements(elements_size, elements);
 	t_stack_pair	stacks;
 	int				num_moves;
 	int				i;
+
 	num_moves = 0;
 	stacks = create_stack_pair(elements_size);
 	if (stacks.initialized && sorted != NULL)
@@ -119,12 +91,12 @@ int insertion_sort(int elements_size, int *elements, t_write_instruction write_i
 		i = 0;
 		while (i < elements_size - 1)
 		{
-			move_element_to_stack_b(&stacks, sorted[i], write_instruction);
+			num_moves += \
+				move_element_to_stack_b(&stacks, sorted[i], write_instruction);
 			++i;
 		}
-		push_elements_back_to_stack_a(&stacks, write_instruction);
+		num_moves += push_elements_back_to_stack_a(&stacks, write_instruction);
 	}
-	print_final_state(&stacks);
 	destroy_stack_pair(&stacks);
 	free((void *)sorted);
 	return (num_moves);
