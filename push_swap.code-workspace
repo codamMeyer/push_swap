@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"checker.h": "c",
+			"parse_numbers.h": "c",
+			"processor.h": "c",
+			"parse_instructions.h": "c",
+			"ctest.h": "c",
+			"stack.h": "c",
+			"stdio.h": "c",
+			"array": "c",
+			"chrono": "c",
+			"compare": "c",
+			"functional": "c",
+			"istream": "c",
+			"ostream": "c",
+			"ranges": "c",
+			"ratio": "c",
+			"tuple": "c",
+			"type_traits": "c",
+			"utility": "c",
+			"variant": "c",
+			"atomic": "c",
+			"*.tcc": "c",
+			"fstream": "c",
+			"sstream": "c",
+			"status.h": "c",
+			"random": "c"
+		}
+	}
+}

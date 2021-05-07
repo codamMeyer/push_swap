@@ -262,6 +262,12 @@ CTEST(insertion_sort_test, insertion_sort_test_1)
     insertion_sort(5, elements, write_inst);
 }
 
+CTEST(insertion_sort_test, test_5)
+{
+    int elements[] = {5, 1, 2, 4, 3};
+    insertion_sort(5, elements, write_inst);
+}
+
 ////////////////////////////////////////////
 //                merge_test              //
 ////////////////////////////////////////////

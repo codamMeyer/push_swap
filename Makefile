@@ -18,6 +18,7 @@ COMMOM_FILES=								\
 	src/utils/status.h						\
 	src/parser/parse_instructions.h 		\
 	src/parser/parse_flags.h 				\
+	src/stack/utils.c						\
 	src/stack/stack.c 						\
 	src/stack/stack_swap.c 					\
 	src/stack/processor.c					\
@@ -27,6 +28,7 @@ COMMOM_FILES=								\
 	src/stack/processor_reverse_rotate.c	\
 	src/stack/processor.h					\
 	src/stack/stack.h						\
+	src/stack/utils.h						\
 
 PUSH_SWAP_FILES= 							\
 	src/push_swap/push_swap.c				\

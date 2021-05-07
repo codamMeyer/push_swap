@@ -1,33 +1,15 @@
 #include "checker.h"
-#include "../parser/parse_instructions.h"
-#include "../parser/parse_numbers.h"
-#include "../parser/parse_flags.h"
+#include <parser/parse_instructions.h>
+#include <parser/parse_numbers.h>
+#include <parser/parse_flags.h>
 #include "verbose.h"
 #include "write_result.h"
 #include <utils/status.h>
+#include <stack/utils.h>
 #include <stdlib.h>
 #include <libft.h>
 #include <ft_printf.h>
 #include <stdio.h>
-
-t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
-{
-	const int	stack_size = size(stack_a);
-	int			i;
-
-	i = 1;
-	if (stack_size != initial_size)
-		return (KO);
-	while (i < stack_size)
-	{
-		if (stack_a->elements[i] > stack_a->elements[i - 1])
-		{
-			return (KO);
-		}
-		++i;
-	}
-	return (OK);
-}
 
 static t_status	process_instructions_list(t_stack_pair *stacks, \
 									t_flags flags,
