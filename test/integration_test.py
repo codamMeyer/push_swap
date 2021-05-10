@@ -184,7 +184,7 @@ class StackGenerator:
         return strOfInts
 
     def run(self, stackSize):
-        inputStack = self._generateStack(stackSize, -2147483648, 2147483647)
+        inputStack = self._generateStack(stackSize, 0, 100)
         return self._convertToStrList(inputStack)
         # ret = subprocess.run(RUN_COMMAND.format(inputList, inputList), shell=True)
         # assert ret.returncode == 0
@@ -233,13 +233,13 @@ def main():
     assert Path('./checker').is_file()
     assert Path('./push_swap').is_file()
 
-    CheckerErrorManagement().runTests()
-    CheckerFalseTests().runTests()
-    CheckerRightTests().runTests()
-    PushSwapIdentityTests().runTests()
-    PushSwapSortingTests("Simple Version Tests").runSimpleVersionTests()
+    # CheckerErrorManagement().runTests()
+    # CheckerFalseTests().runTests()
+    # CheckerRightTests().runTests()
+    # PushSwapIdentityTests().runTests()
+    # PushSwapSortingTests("Simple Version Tests").runSimpleVersionTests()
     PushSwapSortingTests("Middle Version Tests").runMiddleVersionTests()
-    PushSwapSortingTests("Advanced Version Tests").runAdvancedVersionTests()
+    # PushSwapSortingTests("Advanced Version Tests").runAdvancedVersionTests()
 
 
 main()

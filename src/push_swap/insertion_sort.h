@@ -11,5 +11,5 @@ int		move_element_to_stack_b(t_stack_pair *stacks, int element, \
 int		find_element_index(t_stack *stack, int element);
 int		insertion_sort(int elements_size, int *elements, \
 						t_write_instruction write_instruction);
-
+void insert_element(t_stack_pair *stacks, t_write_instruction write_instruction);
 #endif

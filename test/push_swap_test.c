@@ -11,6 +11,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
+typedef t_bool (*t_compare)(int, int);
+
+t_bool is_ascending(int top, int bottom)
+{
+    return (top < bottom);
+}
+
+t_bool is_descending(int top, int bottom)
+{
+    return (top > bottom);
+}
+
+t_bool is_stack_sorted_test(const t_stack *stack, t_compare compare)
+{
+	const int	stack_size = size(stack);
+	int			i;
+
+	i = 1;
+	while (i < stack_size)
+	{
+		if (!compare(stack->elements[i], stack->elements[i - 1]))
+		{
+			return (FALSE);
+		}
+		++i;
+	}
+	return (TRUE);
+}
+
+t_bool is_stack_sorted_ascending(const t_stack *stack)
+{
+    return (is_stack_sorted_test(stack, is_ascending));
+}
+
+t_bool is_stack_sorted_descending(const t_stack *stack)
+{
+    return (is_stack_sorted_test(stack, is_descending));
+}
+
 ////////////////////////////////////////////
 //           run_push_swap_test           //
 ////////////////////////////////////////////
@@ -266,6 +307,73 @@ CTEST(insertion_sort_test, test_5)
 {
     int elements[] = {5, 1, 2, 4, 3};
     insertion_sort(5, elements, write_inst);
+}
+
+////////////////////////////////////////////
+//      sort_ascending_stack_b_test       //
+////////////////////////////////////////////
+
+CTEST_DATA(sort_ascending_stack_b_test)
+{
+    int elements_a[5];
+    int elements_b[5];
+    t_stack_pair _stacks;
+    t_stack_pair *stacks;
+};
+
+CTEST_SETUP(sort_ascending_stack_b_test)
+{
+    data->stacks = &(data->_stacks);
+    data->stacks->a.elements = (int *)data->elements_a;
+    data->stacks->a.top = -1;
+    data->stacks->b.elements = (int *)data->elements_b;
+    data->stacks->b.top = -1;
+    push(&data->stacks->a, 5);
+    push(&data->stacks->a, 4);
+    push(&data->stacks->a, 8);
+}
+
+CTEST_TEARDOWN(sort_ascending_stack_b_test)
+{
+    (void)data;
+}
+
+CTEST2(sort_ascending_stack_b_test, empty_stack_b)
+{
+    insert_element(data->stacks, write_inst);
+    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+}
+
+CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_bigger_than_top_a)
+{
+    push(&data->stacks->b, 9);
+    insert_element(data->stacks, write_inst);
+    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+}
+
+CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_smaller_than_top_a)
+{
+    push(&data->stacks->b, 7);
+    insert_element(data->stacks, write_inst);
+    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+}
+
+CTEST2(sort_ascending_stack_b_test, basic_no_rotation_needed)
+{
+    push(&data->stacks->b, 0);
+    push(&data->stacks->b, 2);
+    push(&data->stacks->b, 7);
+    insert_element(data->stacks, write_inst);
+    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+}
+
+CTEST2(sort_ascending_stack_b_test, insert_bottom)
+{
+    push(&data->stacks->b, 9);
+    push(&data->stacks->b, 10);
+    push(&data->stacks->b, 11);
+    insert_element(data->stacks, write_inst);
+    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
 }
 
 ////////////////////////////////////////////

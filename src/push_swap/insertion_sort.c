@@ -3,11 +3,13 @@
 #include <stack/processor.h>
 #include <stddef.h>
 #include <libft.h>
+#include <unistd.h>
 #include <math.h>
 #include <stdio.h>
 #include <utils/defs.h>
 #include <utils/status.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 static t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
 {
@@ -92,6 +94,15 @@ int	move_element_to_stack_b(t_stack_pair *stacks,
 	}
 	pb(stacks);
 	write_instruction(STR_PB, 1);
+	int fd = open("num_moves", O_RDWR | O_CREAT | O_APPEND, 0777);
+	ft_putstr_fd("element index ", fd);
+	ft_putnbr_fd(element_index, fd);
+	ft_putstr_fd(" | element ", fd);
+	ft_putnbr_fd(element, fd);
+	ft_putstr_fd(" | moves ", fd);
+	ft_putnbr_fd(num_moves + 1, fd);
+	ft_putendl_fd(" | ", fd);
+	close(fd);
 	return (num_moves + 1);
 }
 
@@ -127,4 +138,61 @@ int	insertion_sort(int elements_size,
 	destroy_stack_pair(&stacks);
 	free((void *)sorted);
 	return (num_moves);
+}
+
+void handle_less_than_two_elements(t_stack_pair *stacks, t_write_instruction write_instruction)
+{
+	t_optional_int	prev_top_b;
+	t_optional_int	act_top_b;
+
+	prev_top_b = top_element(&stacks->b);
+	write_instruction(STR_PB, 1);
+	pb(stacks);
+	act_top_b = top_element(&stacks->b);
+	if (prev_top_b.initialized && (prev_top_b.element > act_top_b.element))
+	{
+		write_instruction(STR_SB, 1);
+		sb(stacks);
+	}
+}
+
+void insert_element(t_stack_pair *stacks, t_write_instruction write_instruction)
+{
+	const int		size_stack_b = size(&stacks->b);
+	int				counter;
+	t_optional_int	top_a;
+	t_optional_int	top_b;
+	
+	counter = 0;
+	top_a = top_element(&stacks->a);
+	top_b = top_element(&stacks->b);
+	if (!top_b.initialized || size_stack_b < 2)
+	{
+		handle_less_than_two_elements(stacks, write_instruction);
+		return ;
+	}
+	if (top_a.element < stacks->b.elements[0])
+	{
+		write_instruction(STR_PB, 1);
+		pb(stacks);
+		write_instruction(STR_RB, 1);
+		rb(stacks);
+		return ;
+	}
+	while (top_b.element > top_a.element)
+	{
+		write_instruction(STR_RB, 1);
+		rb(stacks);
+		top_a = top_element(&stacks->a);
+		top_b = top_element(&stacks->b);
+		++counter;
+	}
+	write_instruction(STR_PB, 1);
+	pb(stacks);
+	while (counter > 0)
+	{
+		write_instruction(STR_RRB, 1);
+		rrb(stacks);
+		--counter;
+	}
 }

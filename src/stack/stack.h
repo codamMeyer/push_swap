@@ -20,5 +20,6 @@ t_optional_int		pop(t_stack *stack);
 void				rotate(t_stack *stack);
 void				reverse_rotate(t_stack *stack);
 int					size(const t_stack *stack);
+t_optional_int		top_element(t_stack *stack);
 
 #endif
