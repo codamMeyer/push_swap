@@ -71,3 +71,6 @@
 - [ ] Each instruction will be followed by ’\n’
 - [ ] Check if instructions are valid
 - [ ] On error, display Error followed by a ’\n’ on the standard error.
+
+
+IMPLEMENT CEIL AND FLOOR functions

@@ -34,6 +34,7 @@ PUSH_SWAP_FILES= 							\
 	src/push_swap/push_swap.c				\
 	src/push_swap/bubble_sort.c				\
 	src/push_swap/insertion_sort.c			\
+	src/push_swap/bucket_sort.c				\
 	src/push_swap/special_cases_sort.c		\
 	src/push_swap/utils.c
 	
@@ -43,6 +44,7 @@ PUSH_SWAP_INC_FILES= 						\
 	src/push_swap/special_cases_sort.h		\
 	src/push_swap/bubble_sort.h				\
 	src/push_swap/insertion_sort.h			\
+	src/push_swap/bucket_sort.h				\
 	src/push_swap/utils.h
 
 CHECKER_FILES= 								\

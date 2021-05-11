@@ -2,6 +2,7 @@
 #include <push_swap/bubble_sort.h>
 #include <push_swap/merge_sort.h>
 #include <push_swap/insertion_sort.h>
+#include <push_swap/bucket_sort.h>
 #include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
 #include <push_swap/push_swap.h>
@@ -309,19 +310,22 @@ CTEST(insertion_sort_test, test_5)
     insertion_sort(5, elements, write_inst);
 }
 
+
 ////////////////////////////////////////////
-//      sort_ascending_stack_b_test       //
+//             bucket_sort_test           //
 ////////////////////////////////////////////
 
-CTEST_DATA(sort_ascending_stack_b_test)
+
+CTEST_DATA(small_bucket_sort_test)
 {
-    int elements_a[5];
-    int elements_b[5];
+    int elements_a[20];
+    int elements_b[20];
+    int *sorted;
     t_stack_pair _stacks;
     t_stack_pair *stacks;
 };
 
-CTEST_SETUP(sort_ascending_stack_b_test)
+CTEST_SETUP(small_bucket_sort_test)
 {
     data->stacks = &(data->_stacks);
     data->stacks->a.elements = (int *)data->elements_a;
@@ -330,51 +334,236 @@ CTEST_SETUP(sort_ascending_stack_b_test)
     data->stacks->b.top = -1;
     push(&data->stacks->a, 5);
     push(&data->stacks->a, 4);
+    push(&data->stacks->a, 0);
+    push(&data->stacks->a, 1);
+    push(&data->stacks->a, 2);
+    push(&data->stacks->a, 3);
     push(&data->stacks->a, 8);
+    push(&data->stacks->a, 7);
+    push(&data->stacks->a, 9);
+    push(&data->stacks->a, 6);
+    push(&data->stacks->a, 11);
+    push(&data->stacks->a, 18);
+    push(&data->stacks->a, 12);
+    push(&data->stacks->a, 14);
+    push(&data->stacks->a, 13);
+    push(&data->stacks->a, 15);
+    push(&data->stacks->a, 16);
+    push(&data->stacks->a, 17);
+    push(&data->stacks->a, 19);
+    push(&data->stacks->a, 10);
+
+    data->sorted = sort_elements(20, data->elements_a);
 }
 
-CTEST_TEARDOWN(sort_ascending_stack_b_test)
+
+CTEST_TEARDOWN(small_bucket_sort_test)
 {
     (void)data;
+    free(data->sorted);
 }
 
-CTEST2(sort_ascending_stack_b_test, empty_stack_b)
+CTEST2(small_bucket_sort_test, no_element_from_bucket_at_top)
 {
-    insert_element(data->stacks, write_inst);
-    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+    t_bucket bucket = create_bucket(5, data->sorted);
+    t_optional_index element = search_stack_top(&(data->stacks->a),&bucket);
+    ASSERT_FALSE(element.initialized);
 }
 
-CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_bigger_than_top_a)
+CTEST2(small_bucket_sort_test, find_element_from_bucket_at_top)
 {
-    push(&data->stacks->b, 9);
-    insert_element(data->stacks, write_inst);
-    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+    reverse_rotate(&(data->stacks->a));
+    reverse_rotate(&(data->stacks->a));
+    t_bucket bucket = create_bucket(5, data->sorted);
+    t_optional_index element = search_stack_top(&(data->stacks->a),&bucket);
+    ASSERT_TRUE(element.initialized);
+    ASSERT_EQUAL(19, element.index);
 }
 
-CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_smaller_than_top_a)
+CTEST2(small_bucket_sort_test, no_element_from_bucket_at_bottom)
 {
-    push(&data->stacks->b, 7);
-    insert_element(data->stacks, write_inst);
-    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+    t_bucket bucket = create_bucket(5, data->sorted);
+    bucket = get_next_bucket(bucket, 5, data->sorted);
+    bucket = get_next_bucket(bucket, 5, data->sorted);
+    bucket = get_next_bucket(bucket, 5, data->sorted);
+    t_optional_index element = search_stack_bottom(&(data->stacks->a),&bucket);
+    ASSERT_FALSE(element.initialized);
 }
 
-CTEST2(sort_ascending_stack_b_test, basic_no_rotation_needed)
+CTEST2(small_bucket_sort_test, find_element_from_bucket_at_bottom)
 {
-    push(&data->stacks->b, 0);
+    t_bucket bucket = create_bucket(5, data->sorted);
+    t_optional_index element = search_stack_bottom(&(data->stacks->a),&bucket);
+    ASSERT_TRUE(element.initialized);
+    ASSERT_EQUAL(1, element.index);
+}
+
+CTEST(small_bucket_sort_test, create_bucket_test)
+{
+    const int sorted[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    const int bucket_size = 5;
+    t_bucket bucket = create_bucket(bucket_size, sorted);
+    ASSERT_EQUAL(0, bucket.start_index);
+    ASSERT_EQUAL(4, bucket.end_index);
+    ASSERT_EQUAL(bucket_size, bucket.missing_elements);
+    ASSERT_EQUAL(1, bucket.min_value);
+    ASSERT_EQUAL(5, bucket.max_value);
+}
+
+CTEST(small_bucket_sort_test, get_next_bucket_test)
+{
+    const int sorted[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    const int bucket_size = 5;
+    t_bucket bucket = create_bucket(bucket_size, sorted);
+    
+    bucket = get_next_bucket(bucket, bucket_size, sorted);
+    ASSERT_EQUAL(5, bucket.start_index);
+    ASSERT_EQUAL(9, bucket.end_index);
+    ASSERT_EQUAL(6, bucket.min_value);
+    ASSERT_EQUAL(10, bucket.max_value);
+    ASSERT_EQUAL(bucket_size, bucket.missing_elements);
+
+    bucket = get_next_bucket(bucket, bucket_size, sorted);
+    ASSERT_EQUAL(10, bucket.start_index);
+    ASSERT_EQUAL(14, bucket.end_index);
+    ASSERT_EQUAL(11, bucket.min_value);
+    ASSERT_EQUAL(15, bucket.max_value);
+    ASSERT_EQUAL(bucket_size, bucket.missing_elements);
+ }
+
+CTEST_DATA(find_middle_element)
+{
+    int elements_a[5];
+    int elements_b[4];
+    int *sorted;
+    t_stack_pair _stacks;
+    t_stack_pair *stacks;
+};
+
+CTEST_SETUP(find_middle_element)
+{
+    data->stacks = &(data->_stacks);
+    data->stacks->a.elements = (int *)data->elements_a;
+    data->stacks->a.top = -1;
+    data->stacks->b.elements = (int *)data->elements_b;
+    data->stacks->b.top = -1;
+    push(&data->stacks->a, 2);
+    push(&data->stacks->a, 4);
+    push(&data->stacks->a, 1);
+    push(&data->stacks->a, 3);
+    push(&data->stacks->a, 5);
+
+    push(&data->stacks->b, 5);
+    push(&data->stacks->b, 4);
+    push(&data->stacks->b, 1);
+    push(&data->stacks->b, 3);
     push(&data->stacks->b, 2);
-    push(&data->stacks->b, 7);
-    insert_element(data->stacks, write_inst);
-    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
 }
 
-CTEST2(sort_ascending_stack_b_test, insert_bottom)
+CTEST_TEARDOWN(find_middle_element)
 {
-    push(&data->stacks->b, 9);
-    push(&data->stacks->b, 10);
-    push(&data->stacks->b, 11);
-    insert_element(data->stacks, write_inst);
-    ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+    (void)data;
+    free(data->sorted);
 }
+
+CTEST2(find_middle_element, from_top)
+{
+    data->sorted = sort_elements(5, data->elements_a);
+    t_bucket bucket = create_bucket(2, data->sorted);
+    t_optional_index element = search_stack_top(&(data->stacks->a),&bucket);
+    ASSERT_TRUE(element.initialized);
+    ASSERT_EQUAL(2, element.index);
+}
+
+CTEST2(find_middle_element, from_bottom)
+{
+    data->sorted = sort_elements(5, data->elements_b);
+    t_bucket bucket = create_bucket(2, data->sorted);
+    t_optional_index element = search_stack_bottom(&(data->stacks->b),&bucket);
+    ASSERT_FALSE(element.initialized);
+}
+
+
+
+
+
+
+
+
+
+
+// ////////////////////////////////////////////
+// //      sort_ascending_stack_b_test       //
+// ////////////////////////////////////////////
+
+// CTEST_DATA(sort_ascending_stack_b_test)
+// {
+//     int elements_a[5];
+//     int elements_b[5];
+//     t_stack_pair _stacks;
+//     t_stack_pair *stacks;
+// };
+
+// CTEST_SETUP(sort_ascending_stack_b_test)
+// {
+//     data->stacks = &(data->_stacks);
+//     data->stacks->a.elements = (int *)data->elements_a;
+//     data->stacks->a.top = -1;
+//     data->stacks->b.elements = (int *)data->elements_b;
+//     data->stacks->b.top = -1;
+//     push(&data->stacks->a, 5);
+//     push(&data->stacks->a, 4);
+//     push(&data->stacks->a, 8);
+// }
+
+// CTEST_TEARDOWN(sort_ascending_stack_b_test)
+// {
+//     (void)data;
+// }
+
+// CTEST2(sort_ascending_stack_b_test, test)
+// {
+//     (void)data;
+// }
+
+
+// CTEST2(sort_ascending_stack_b_test, empty_stack_b)
+// {
+//     insert_element(data->stacks, write_inst);
+//     ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+// }
+
+// CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_bigger_than_top_a)
+// {
+//     push(&data->stacks->b, 9);
+//     insert_element(data->stacks, write_inst);
+//     ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+// }
+
+// CTEST2(sort_ascending_stack_b_test, stack_b_size_one_element_smaller_than_top_a)
+// {
+//     push(&data->stacks->b, 7);
+//     insert_element(data->stacks, write_inst);
+//     ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+// }
+
+// CTEST2(sort_ascending_stack_b_test, basic_no_rotation_needed)
+// {
+//     push(&data->stacks->b, 0);
+//     push(&data->stacks->b, 2);
+//     push(&data->stacks->b, 7);
+//     insert_element(data->stacks, write_inst);
+//     ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+// }
+
+// CTEST2(sort_ascending_stack_b_test, insert_bottom)
+// {
+//     push(&data->stacks->b, 9);
+//     push(&data->stacks->b, 10);
+//     push(&data->stacks->b, 11);
+//     insert_element(data->stacks, write_inst);
+//     ASSERT_TRUE(is_stack_sorted_descending(&data->stacks->b));
+// }
 
 ////////////////////////////////////////////
 //                merge_test              //
