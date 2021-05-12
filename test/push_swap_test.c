@@ -161,7 +161,7 @@ CTEST2(move_element_to_b_test, element_8_index_2)
     const int element = 8;
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, element, write_inst);
+    move_element_to_stack_b(data->stacks, 2, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -172,7 +172,7 @@ CTEST2(move_element_to_b_test, element_0_at_top)
     const int element = 0;
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, element, write_inst);
+    move_element_to_stack_b(data->stacks, data->stacks->a.top, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -183,7 +183,7 @@ CTEST2(move_element_to_b_test, element_closer_to_bottom)
     const int element = 4;
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, element, write_inst);
+    move_element_to_stack_b(data->stacks, 1, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -194,7 +194,7 @@ CTEST2(move_element_to_b_test, element_at_bottom)
     const int element = 5;
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, element, write_inst);
+    move_element_to_stack_b(data->stacks, 0, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -207,7 +207,7 @@ CTEST2(move_element_to_b_test, stack_a_with_3_elements_b_with_2)
     const int element = 5;
     ASSERT_EQUAL(2, size(&(data->stacks->b)));
     ASSERT_EQUAL(3, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, element, write_inst);
+    move_element_to_stack_b(data->stacks, 0, write_inst);
     ASSERT_EQUAL(3, size(&(data->stacks->b)));
     ASSERT_EQUAL(2, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
