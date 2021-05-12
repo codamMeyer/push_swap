@@ -179,6 +179,7 @@ static int	move_element_to_stack_a(t_stack_pair *stacks,
 	return ((num_moves * 2) + 1);
 }
 
+// receive bucket from outside
 int bucket_sort(int elements_size,
 				int *elements,
 				t_write_instruction write_instruction)
@@ -213,9 +214,11 @@ int bucket_sort(int elements_size,
 		num_moves += move_element_to_stack_a(&stacks, sorted[i], write_instruction);
 		--i;
 	}
-
     free((void *)sorted);
 	destroy_stack_pair(&stacks);
 	return (num_moves);
 }
+
+// bucket_sort_try_many_buckets
+
 

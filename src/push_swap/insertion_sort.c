@@ -114,8 +114,7 @@ int	insertion_sort(int elements_size,
 		i = 0;
 		while (i < elements_size - 2 && is_stack_sorted(&stacks.a, elements_size) != OK)
 		{
-			num_moves += 
-				move_element_to_stack_b(&stacks, sorted[i], write_instruction);
+			num_moves += move_element_to_stack_b(&stacks, sorted[i], write_instruction);
 			++i;
 		}
 		if (stacks.a.elements[stacks.a.top] > stacks.a.elements[stacks.a.top - 1])

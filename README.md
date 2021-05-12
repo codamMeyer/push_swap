@@ -59,18 +59,23 @@
 - [x] Check if received only numbers (first element is the top of stack)
 - [x] Compare with int MIN and MAX
 - [x] Check if numbers are duplicated
-- [ ] On error, display Error followed by a ’\n’ on the standard error.
+- [x] On error, display Error followed by a ’\n’ on the standard error.
 
 # Checker parser
 
 - [x] Check if received only numbers (first element is the top of stack)
 - [x] Compare with int MIN and MAX
 - [x] Check if numbers are duplicated
-- [ ] If no argument is given checker stops and displays nothing.
-- [ ] Read instructions on the standard input
-- [ ] Each instruction will be followed by ’\n’
-- [ ] Check if instructions are valid
-- [ ] On error, display Error followed by a ’\n’ on the standard error.
+- [x] If no argument is given checker stops and displays nothing.
+- [x] Read instructions on the standard input
+- [x] Each instruction will be followed by ’\n’
+- [x] Check if instructions are valid
+- [x] On error, display Error followed by a ’\n’ on the standard error.
 
-
-IMPLEMENT CEIL AND FLOOR functions
+# TODO
+- [ ] implement ceil and floor functions
+- [x] remove merge sort
+- [x] remove bubble sort
+- [ ] fix bucket size to work with odd numbers
+- [ ] try many bucket sizes
+  
