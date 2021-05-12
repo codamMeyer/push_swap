@@ -36,8 +36,8 @@ t_bucket	get_next_bucket(t_bucket bucket,
 	{
 		new_bucket.min_value = sorted[new_bucket.start_index];
 		new_bucket.max_value = num_elements - 1;
-		if (new_bucket.min_value != new_bucket.max_value)
-			new_bucket.is_valid = TRUE;
+		new_bucket.missing_elements = num_elements - new_bucket.start_index;
+		new_bucket.is_valid = TRUE;
 	}
 	return (new_bucket);
 }

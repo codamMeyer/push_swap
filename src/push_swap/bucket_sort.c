@@ -79,21 +79,39 @@ static int	find_element_index_to_move(const t_stack_pair *stacks,
 	return (return_closest_index(stacks->a.top, bottom.index, top.index));
 }
 
+
+static t_bool	is_close_to_top_b(const t_stack_pair *stacks, int element_index)
+{
+	const int		stack_size = size(&stacks->b);
+	const int		middle_of_stack = ft_floor((double)stack_size / 2.0);
+
+	return (element_index >= middle_of_stack);
+}
+
 static int	move_element_to_stack_a(t_stack_pair *stacks,
-							int element,
+							int element_index,
 							t_write_instruction write_instruction)
 {
-	const t_optional_index	element_index = \
-								find_element_index(&(stacks->b), element);
-	const int				num_moves = stacks->b.top - element_index.index;
+	const t_bool	close_to_top = is_close_to_top_b(stacks, element_index);
+	int				num_moves;
 
-	execute_operation(stacks, num_moves, rb);
-	write_instruction(STR_RB, num_moves);
+	if (element_index == -1)
+		return (0);
+	if (close_to_top)
+	{
+		num_moves = stacks->b.top - element_index;
+		execute_operation(stacks, num_moves, rb);
+		write_instruction(STR_RB, num_moves);
+	}
+	else
+	{
+		num_moves = element_index + 1;
+		execute_operation(stacks, num_moves, rrb);
+		write_instruction(STR_RRB, num_moves);
+	}
 	pa(stacks);
 	write_instruction(STR_PA, 1);
-	execute_operation(stacks, num_moves, rrb);
-	write_instruction(STR_RRB, num_moves);
-	return ((num_moves * 2) + 1);
+	return (num_moves + 1);
 }
 
 int	get_elements_from_bucket(t_stack_pair *stacks,
@@ -121,13 +139,15 @@ int	move_all_elements_back_to_a(t_stack_pair *stacks,
 {
 	int	i;
 	int	num_moves;
+	t_optional_index element_index;
 
 	i = num_elements - 1;
 	num_moves = 0;
 	while (i >= 0)
 	{
+		element_index = find_element_index(&(stacks->b), sorted[i]);
 		num_moves += \
-			move_element_to_stack_a(stacks, sorted[i], write_instruction);
+			move_element_to_stack_a(stacks, element_index.index, write_instruction);
 		--i;
 	}
 	return (num_moves);
@@ -184,7 +204,7 @@ int	try_many_buckets(int num_elements,
 					t_write_instruction write_instruction)
 {
 	const int	num_buckets = 10;
-	const int	sizes[10] = {10, 15, 20, 25, 30, 35, 40, 45, 50, 55};
+	const int	sizes[10] = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 	int			results[10];
 	int			i;
 	i = 0;
@@ -193,18 +213,17 @@ int	try_many_buckets(int num_elements,
 		results[i] = bucket_sort(num_elements, elements, sizes[i], write_instruction);
 		++i;
 	}
+	const int	fd = open("buckets", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	i = 0;
+	while (i < num_buckets)
+	{
+		ft_putnbr_fd(sizes[i], fd);
+		ft_putstr_fd(" ", fd);
+		ft_putnbr_fd(results[i], fd);
+		ft_putendl_fd(" ", fd);
+		++i;
+	}
+	close(fd);
 	return (select_best_bucket_size(sizes, num_buckets, results));
 }
 
-
-	// const int	fd = open("buckets", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	// i = 0;
-	// while (i < num_buckets)
-	// {
-	// 	ft_putnbr_fd(sizes[i], fd);
-	// 	ft_putstr_fd(" ", fd);
-	// 	ft_putnbr_fd(results[i], fd);
-	// 	ft_putendl_fd(" ", fd);
-	// 	++i;
-	// }
-	// close(fd);
