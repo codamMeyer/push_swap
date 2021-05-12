@@ -8,45 +8,61 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+t_bool	is_list_sorted(int num_elements, const int *elements)
+{
+	int	i;
+
+	i = 1;
+	if (!elements)
+		return (FALSE);
+	while (i < num_elements)
+	{
+		if (elements[i] < elements[i - 1])
+			return (FALSE);
+		++i;
+	}
+	return (TRUE);
+}
+
 static void	fake(const char *instruction, int times)
 {
 	(void)instruction;
 	(void)times;
 }
 
-static void	generate_algorthm(int elements_size, int *elements)
+static void	generate_algorthm(int num_elements, const int *elements)
 {
 	int	total_insertion;
 	int	total_bucket;
 
 	total_insertion = 0;
 	total_bucket = 0;
-	if (is_list_sorted(elements_size, elements))
+	if (is_list_sorted(num_elements, elements))
 		return ;
-	if (is_descending_order(elements_size, elements))
-		from_descending_to_ascending_order(elements_size, print_instruction);
+	if (is_descending_order(num_elements, elements))
+		from_descending_to_ascending_order(num_elements, print_instruction);
 	else
 	{
-		total_insertion = insertion_sort(elements_size, elements, fake);
-		total_bucket = bucket_sort(elements_size, elements, fake);
-		if (total_insertion < total_bucket)
-			insertion_sort(elements_size, elements, print_instruction);
+		total_insertion = insertion_sort(num_elements, elements, fake);
+		total_bucket = bucket_sort(num_elements, elements, fake);
+		if (total_insertion < total_bucket || num_elements < 100)
+			insertion_sort(num_elements, elements, print_instruction);
 		else
-			bucket_sort(elements_size, elements, print_instruction);
+			bucket_sort(num_elements, elements, print_instruction);
 	}
 }
 
-t_status	run_push_swap(int elements_size, const char *elements[])
+t_status	run_push_swap(int num_elements, const char *elements[])
 {
 	int				*elements_list;
 	t_status		ret;
 
 	ret = OK;
-	elements_list = parse_numbers(elements_size, elements);
+	elements_list = parse_numbers(num_elements, elements);
 	if (!elements_list)
 		ret = ERROR;
 	if (ret != ERROR)
-		generate_algorthm(elements_size, elements_list);
+		generate_algorthm(num_elements, elements_list);
 	free(elements_list);
 	return (ret);
 }

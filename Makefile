@@ -11,11 +11,13 @@ LDFLAGS=-L./$(FT_PRINTF) -lftprintf -lm
 COMMOM_FILES=								\
 	src/parser/parse_numbers.c 				\
 	src/utils/status.c 						\
+	src/utils/math_utils.c					\
 	src/parser/parse_instructions.c 		\
 	src/parser/parse_flags.c 	   			\
 	src/parser/parse_numbers.h 				\
 	src/utils/defs.h 						\
 	src/utils/status.h						\
+	src/utils/math_utils.h					\
 	src/parser/parse_instructions.h 		\
 	src/parser/parse_flags.h 				\
 	src/stack/stack_utils.c					\
@@ -35,7 +37,8 @@ PUSH_SWAP_FILES= 							\
 	src/push_swap/insertion_sort.c			\
 	src/push_swap/bucket_sort.c				\
 	src/push_swap/special_cases_sort.c		\
-	src/push_swap/utils.c
+	src/push_swap/utils.c					\
+	src/push_swap/sorting_utils.c
 	
 
 PUSH_SWAP_INC_FILES= 						\
@@ -43,7 +46,8 @@ PUSH_SWAP_INC_FILES= 						\
 	src/push_swap/special_cases_sort.h		\
 	src/push_swap/insertion_sort.h			\
 	src/push_swap/bucket_sort.h				\
-	src/push_swap/utils.h
+	src/push_swap/utils.h					\
+	src/push_swap/sorting_utils.h
 
 CHECKER_FILES= 								\
 	src/checker/checker.c 					\
@@ -59,6 +63,7 @@ CHECKER_INC_FILES=	 						\
 
 TEST_FILES=									\
 	test/main.c 							\
+	test/tests.c							\
 	test/stack_test.c						\
 	test/processor_test.c					\
 	test/parser_test.c						\

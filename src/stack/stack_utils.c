@@ -21,12 +21,3 @@ t_bool	is_sorted(const t_stack *stack, t_compare compare)
 	}
 	return (TRUE);
 }
-
-t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
-{
-	const int	stack_size = size(stack_a);
-
-	if (stack_size != initial_size || !is_sorted(stack_a, is_ascending))
-		return (KO);
-	return (OK);
-}

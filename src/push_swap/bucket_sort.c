@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <assert.h>
+#include <stack/processor.h>
 
 t_bucket	create_bucket(int bucket_size, const int *sorted)
 {
@@ -95,7 +96,7 @@ t_optional_index	search_stack_bottom(const t_stack *stack,
 	return (element_index);
 }
 
-void	execute_operation(t_stack_pair *stacks,
+static void	execute_operation_bla(t_stack_pair *stacks,
 							int counter,
 							t_operation operation)
 {
@@ -106,7 +107,7 @@ void	execute_operation(t_stack_pair *stacks,
 	}
 }
 
-static int	move_element_to_stack_b(t_stack_pair *stacks,
+static int	move_element_to_stack_blah(t_stack_pair *stacks,
 							int element_index,
 							t_write_instruction write_instruction)
 {
@@ -118,13 +119,13 @@ static int	move_element_to_stack_b(t_stack_pair *stacks,
 	if (close_to_top)
 	{
 		num_moves = stacks->a.top - element_index;
-		execute_operation(stacks, num_moves, ra);
+		execute_operation_bla(stacks, num_moves, ra);
 		write_instruction(STR_RA, num_moves);
 	}
 	else
 	{
 		num_moves = element_index + 1;
-		execute_operation(stacks, num_moves, rra);
+		execute_operation_bla(stacks, num_moves, rra);
 		write_instruction(STR_RRA, num_moves);
 	}
 	pb(stacks);
@@ -158,7 +159,7 @@ static int	find_element_index_to_move(const t_stack_pair *stacks,
 	return (return_closest_index(stacks->a.top, bottom.index, top.index));
 }
 
-static	t_optional_index	find_element_index(t_stack *stack, int element)
+static	t_optional_index	find_element_index_blah(t_stack *stack, int element)
 {
 	t_optional_index	element_index;
 
@@ -179,7 +180,7 @@ static int	move_element_to_stack_a(t_stack_pair *stacks,
 							t_write_instruction write_instruction)
 {
 	const t_optional_index	element_index = \
-								find_element_index(&(stacks->b), element);
+								find_element_index_blah(&(stacks->b), element);
 	const int				num_moves = stacks->b.top - element_index.index;
 
 	execute_operation(stacks, num_moves, rb);
@@ -193,7 +194,7 @@ static int	move_element_to_stack_a(t_stack_pair *stacks,
 
 // receive bucket from outside
 int	bucket_sort(int elements_size,
-				int *elements,
+				const int *elements,
 				t_write_instruction write_instruction)
 {
 	const int		*sorted = sort_elements(elements_size, elements);
@@ -215,7 +216,7 @@ int	bucket_sort(int elements_size,
 			{
 				element_index = find_element_index_to_move(&stacks, &bucket);
 				num_moves += \
-				move_element_to_stack_b(&stacks, element_index, write_instruction);
+				move_element_to_stack_blah(&stacks, element_index, write_instruction);
 				--bucket.missing_elements;
 			}
 			bucket = get_next_bucket(bucket, bucket_size, sorted, elements_size);

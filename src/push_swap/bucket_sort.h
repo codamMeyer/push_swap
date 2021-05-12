@@ -1,6 +1,8 @@
 #ifndef BUCKET_SORT_H
 # define BUCKET_SORT_H
 # include "utils.h"
+# include <stack/stack.h>
+#include "sorting_utils.h"
 
 typedef struct s_bucket
 {
@@ -11,12 +13,6 @@ typedef struct s_bucket
 	int		end_index;
 	t_bool	is_valid;
 }	t_bucket;
-
-typedef struct s_optional_index
-{
-	int		index;
-	t_bool	initialized;
-}	t_optional_index;
 
 t_bucket			create_bucket(int bucket_size, \
 									const int *sorted);
@@ -30,7 +26,7 @@ t_optional_index	search_stack_top(const t_stack *stack, \
 t_optional_index	search_stack_bottom(const t_stack *stack, \
 										const t_bucket *bucket);
 int					bucket_sort(int num_elements, \
-								int *elements, \
+								const int *elements, \
 								t_write_instruction write_instruction);
 
 #endif

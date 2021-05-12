@@ -14,7 +14,7 @@ CTEST(is_stack_sorted_test, one_element)
 	int elements[1];
 	t_stack stack = {.elements = (int *)elements, .top = -1};
 	push(&stack, 1);
-	ASSERT_EQUAL(OK, is_stack_sorted(&stack, 1));
+	ASSERT_EQUAL(OK, is_valid_solution(&stack, 1));
 }
 
 CTEST(is_stack_sorted_test, three_sorted_elements)
@@ -24,7 +24,7 @@ CTEST(is_stack_sorted_test, three_sorted_elements)
 	push(&stack, 1);
 	push(&stack, 0);
 	push(&stack, -1);
-	ASSERT_EQUAL(OK, is_stack_sorted(&stack, 3));
+	ASSERT_EQUAL(OK, is_valid_solution(&stack, 3));
 }
 
 CTEST(is_stack_sorted_test, three_not_sorted_elements)
@@ -34,7 +34,7 @@ CTEST(is_stack_sorted_test, three_not_sorted_elements)
 	push(&stack, -1);
 	push(&stack, 0);
 	push(&stack, 2);
-	ASSERT_EQUAL(KO, is_stack_sorted(&stack, 3));
+	ASSERT_EQUAL(KO, is_valid_solution(&stack, 3));
 }
 
 //////////////////////////////////////////////

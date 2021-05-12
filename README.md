@@ -73,7 +73,7 @@
 - [x] On error, display Error followed by a ’\n’ on the standard error.
 
 # TODO
-- [ ] implement ceil and floor functions
+- [x] implement ceil and floor functions
 - [x] remove merge sort
 - [x] remove bubble sort
 - [ ] fix bucket size to work with odd numbers
