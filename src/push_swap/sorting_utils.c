@@ -1,7 +1,6 @@
 #include "sorting_utils.h"
 #include <utils/math_utils.h>
 #include <stdio.h>
-#include <assert.h>
 
 static t_bool	is_close_to_top(const t_stack_pair *stacks, int element_index)
 {

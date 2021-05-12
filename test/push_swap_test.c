@@ -397,9 +397,3 @@ CTEST2(find_middle_element, from_bottom)
     t_optional_index element = search_stack_bottom(&(data->stacks->b),&bucket);
     ASSERT_FALSE(element.initialized);
 }
-
-CTEST_SKIP(a, test)
-{
-    int elements[] = {19, 78, 47, 86, 53, 54, 38, 84, 94, 61, 29, 5, 68, 50, 3, 88, 66, 77, 26, 7, 30, 56, 92, 90, 83, 10, 87, 97, 17, 65, 55, 2, 9, 51, 20, 32, 48, 75, 71, 52, 14, 39, 74, 93, 46, 18, 11, 99, 96, 22, 70, 0, 33, 36, 73, 25, 72, 95, 13, 49, 69, 24, 37, 80, 45, 89, 8, 85, 58, 12, 43, 35, 34, 31, 1, 59, 41, 28, 82, 63, 6, 91, 57, 64, 62, 16, 40, 15, 27, 60, 76, 98, 4, 79, 23, 67, 44, 42, 81, 21};
-    bucket_sort(100, elements, write_inst);
-}

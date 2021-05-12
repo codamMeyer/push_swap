@@ -1,4 +1,5 @@
 #include "bucket.h"
+#include <utils/math_utils.h>
 
 t_bucket	create_bucket(int bucket_size, const int *sorted)
 {
@@ -30,6 +31,13 @@ t_bucket	get_next_bucket(t_bucket bucket,
 		new_bucket.min_value = sorted[new_bucket.start_index];
 		new_bucket.max_value = sorted[new_bucket.end_index];
 		new_bucket.is_valid = TRUE;
+	}
+	else if (new_bucket.start_index < num_elements)
+	{
+		new_bucket.min_value = sorted[new_bucket.start_index];
+		new_bucket.max_value = num_elements - 1;
+		if (new_bucket.min_value != new_bucket.max_value)
+			new_bucket.is_valid = TRUE;
 	}
 	return (new_bucket);
 }

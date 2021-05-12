@@ -233,12 +233,12 @@ def main():
     assert Path('./checker').is_file()
     assert Path('./push_swap').is_file()
 
-    CheckerErrorManagement().runTests()
-    CheckerFalseTests().runTests()
-    CheckerRightTests().runTests()
-    PushSwapIdentityTests().runTests()
-    PushSwapSortingTests("Simple Version Tests").runSimpleVersionTests()
-    PushSwapSortingTests("Middle Version Tests").runMiddleVersionTests()
+    # CheckerErrorManagement().runTests()
+    # CheckerFalseTests().runTests()
+    # CheckerRightTests().runTests()
+    # PushSwapIdentityTests().runTests()
+    # PushSwapSortingTests("Simple Version Tests").runSimpleVersionTests()
+    # PushSwapSortingTests("Middle Version Tests").runMiddleVersionTests()
     PushSwapSortingTests("Advanced Version Tests").runAdvancedVersionTests()
 
 

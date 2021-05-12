@@ -15,3 +15,10 @@ double	ft_ceil(double n)
 		return ((double)number + 1);
 	return ((double)number);
 }
+
+int ft_min(int a, int b) 
+{
+	if (a < b)
+		return (a);
+	return (b);
+}

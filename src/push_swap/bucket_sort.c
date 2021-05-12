@@ -1,10 +1,12 @@
 #include "bucket_sort.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 #include <stack/processor.h>
 #include <stack/stack_utils.h>
 #include <utils/math_utils.h>
+#include <libft.h>
+#include <fcntl.h>
+
 
 t_optional_index	search_stack_top(const t_stack *stack,
 									const t_bucket *bucket)
@@ -131,13 +133,12 @@ int	move_all_elements_back_to_a(t_stack_pair *stacks,
 	return (num_moves);
 }
 
-// receive bucket from outside
 int	bucket_sort(int num_elements,
 				const int *elements,
+				int bucket_size,
 				t_write_instruction write_instruction)
 {
 	const int		*sorted = sort_elements(num_elements, elements);
-	const int		bucket_size = 25;
 	t_bucket		bucket;
 	t_stack_pair	stacks;
 	int				num_moves;
@@ -161,3 +162,49 @@ int	bucket_sort(int num_elements,
 	destroy_stack_pair(&stacks);
 	return (num_moves);
 }
+
+static int	select_best_bucket_size(const int *sizes, int num_buckets, int results[])
+{
+	int	i;
+	int	index_min_value;
+
+	i = 1;
+	index_min_value = 0;
+	while (i < num_buckets)
+	{
+		if (results[i] < results[index_min_value])
+			index_min_value = i;
+		++i;
+	}
+	return (sizes[index_min_value]);
+}
+
+int	try_many_buckets(int num_elements,
+					const int *elements,
+					t_write_instruction write_instruction)
+{
+	const int	num_buckets = 10;
+	const int	sizes[10] = {10, 15, 20, 25, 30, 35, 40, 45, 50, 55};
+	int			results[10];
+	int			i;
+	i = 0;
+	while (i < num_buckets && sizes[i] < num_elements)
+	{
+		results[i] = bucket_sort(num_elements, elements, sizes[i], write_instruction);
+		++i;
+	}
+	return (select_best_bucket_size(sizes, num_buckets, results));
+}
+
+
+	// const int	fd = open("buckets", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	// i = 0;
+	// while (i < num_buckets)
+	// {
+	// 	ft_putnbr_fd(sizes[i], fd);
+	// 	ft_putstr_fd(" ", fd);
+	// 	ft_putnbr_fd(results[i], fd);
+	// 	ft_putendl_fd(" ", fd);
+	// 	++i;
+	// }
+	// close(fd);

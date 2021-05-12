@@ -33,6 +33,7 @@ static void	fake(const char *instruction, int times)
 static void	generate_algorthm(int num_elements, const int *elements)
 {
 	int	total_insertion;
+	int	bucket_size;
 	int	total_bucket;
 
 	total_insertion = 0;
@@ -41,14 +42,17 @@ static void	generate_algorthm(int num_elements, const int *elements)
 		return ;
 	if (is_descending_order(num_elements, elements))
 		from_descending_to_ascending_order(num_elements, print_instruction);
+	if (num_elements < 100)
+		insertion_sort(num_elements, elements, print_instruction);
 	else
 	{
 		total_insertion = insertion_sort(num_elements, elements, fake);
-		total_bucket = bucket_sort(num_elements, elements, fake);
-		if (total_insertion < total_bucket || num_elements < 100)
+		bucket_size = try_many_buckets(num_elements, elements, fake);
+		total_bucket = bucket_sort(num_elements, elements, bucket_size, fake);
+		if (total_insertion < total_bucket)
 			insertion_sort(num_elements, elements, print_instruction);
 		else
-			bucket_sort(num_elements, elements, print_instruction);
+			bucket_sort(num_elements, elements, bucket_size, print_instruction);
 	}
 }
 
