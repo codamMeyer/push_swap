@@ -1,12 +1,12 @@
 #include "sorting_utils.h"
 #include <utils/math_utils.h>
-#include <math.h>
 #include <stdio.h>
 #include <assert.h>
+
 static t_bool	is_close_to_top(const t_stack_pair *stacks, int element_index)
 {
 	const int		stack_size = size(&stacks->a);
-	const int		middle_of_stack = floor((double)stack_size / 2.0);
+	const int		middle_of_stack = ft_floor((double)stack_size / 2.0);
 
 	return (element_index >= middle_of_stack);
 }

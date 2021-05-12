@@ -18,7 +18,7 @@ t_bucket			get_next_bucket(t_bucket bucket, \
 									int bucket_size, \
 									const int *sorted, \
 									int num_elements);
-t_bool              is_part_of_bucket(const int element, \
-                                    const t_bucket *bucket);
+t_bool				is_part_of_bucket(const int element, \
+									const t_bucket *bucket);
 
 #endif

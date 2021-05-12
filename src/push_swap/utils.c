@@ -10,7 +10,6 @@ void	swap_elements(int *cur, int *prev)
 	*prev = tmp;
 }
 
-
 t_bool	is_descending_order(int num_elements, const int *elements)
 {
 	int	i;

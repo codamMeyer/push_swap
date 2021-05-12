@@ -1,6 +1,5 @@
 #include "bucket.h"
 
-
 t_bucket	create_bucket(int bucket_size, const int *sorted)
 {
 	const t_bucket	new_bucket = {
