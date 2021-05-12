@@ -5,7 +5,7 @@
 #include "verbose.h"
 #include "write_result.h"
 #include <utils/status.h>
-#include <stack/utils.h>
+#include <stack/stack_utils.h>
 #include <stdlib.h>
 #include <libft.h>
 #include <ft_printf.h>
@@ -65,6 +65,6 @@ t_status	run_checker(int size,
 	if (flags.file_output)
 		write_final_result_in_file(&(stacks.a));
 	destroy_stack_pair(&stacks);
-	free((void *)stack_elements);
+	free(stack_elements);
 	return (ret);
 }

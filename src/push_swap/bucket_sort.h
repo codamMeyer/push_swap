@@ -4,13 +4,13 @@
 
 typedef struct s_bucket
 {
-    int missing_elements;
-    int min_value;
-    int max_value;
-    int start_index;
-    int end_index;
-    t_bool is_valid;
-} t_bucket;
+	int		missing_elements;
+	int		min_value;
+	int		max_value;
+	int		start_index;
+	int		end_index;
+	t_bool	is_valid;
+}	t_bucket;
 
 typedef struct s_optional_index
 {
@@ -18,11 +18,19 @@ typedef struct s_optional_index
 	t_bool	initialized;
 }	t_optional_index;
 
-t_bucket        create_bucket(int bucket_size, const int *sorted);
-int             get_bucket_size(int num_elements);
-t_bucket        get_next_bucket(t_bucket bucket, int bucket_size, const int *sorted, int num_elements);
-t_optional_index  search_stack_top(const t_stack *stack, const t_bucket *bucket);
-t_optional_index  search_stack_bottom(const t_stack *stack, const t_bucket *bucket);
-int             bucket_sort(int num_elements,int *elements,t_write_instruction write_instruction);
+t_bucket			create_bucket(int bucket_size, \
+									const int *sorted);
+int					get_bucket_size(int num_elements);
+t_bucket			get_next_bucket(t_bucket bucket, \
+									int bucket_size, \
+									const int *sorted, \
+									int num_elements);
+t_optional_index	search_stack_top(const t_stack *stack, \
+									const t_bucket *bucket);
+t_optional_index	search_stack_bottom(const t_stack *stack, \
+										const t_bucket *bucket);
+int					bucket_sort(int num_elements, \
+								int *elements, \
+								t_write_instruction write_instruction);
 
 #endif

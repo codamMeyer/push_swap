@@ -5,50 +5,15 @@
 #include <parser/parse_instructions.h>
 #include <push_swap/push_swap.h>
 #include <utils/status.h>
+#include <stack/stack_utils.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-typedef t_bool (*t_compare)(int, int);
-
-t_bool is_ascending(int top, int bottom)
-{
-    return (top < bottom);
-}
-
-t_bool is_descending(int top, int bottom)
-{
-    return (top > bottom);
-}
-
-t_bool is_stack_sorted_test(const t_stack *stack, t_compare compare)
-{
-	const int	stack_size = size(stack);
-	int			i;
-
-	i = 1;
-	while (i < stack_size)
-	{
-		if (!compare(stack->elements[i], stack->elements[i - 1]))
-		{
-			return (FALSE);
-		}
-		++i;
-	}
-	return (TRUE);
-}
-
 t_bool is_stack_sorted_ascending(const t_stack *stack)
 {
-    return (is_stack_sorted_test(stack, is_ascending));
-}
-
-t_bool is_stack_sorted_descending(const t_stack *stack)
-{
-    return (is_stack_sorted_test(stack, is_descending));
+    return (is_sorted(stack, is_ascending));
 }
 
 ////////////////////////////////////////////
@@ -333,9 +298,9 @@ CTEST2(small_bucket_sort_test, find_element_from_bucket_at_top)
 CTEST2(small_bucket_sort_test, no_element_from_bucket_at_bottom)
 {
     t_bucket bucket = create_bucket(5, data->sorted);
-    bucket = get_next_bucket(bucket, 5, data->sorted);
-    bucket = get_next_bucket(bucket, 5, data->sorted);
-    bucket = get_next_bucket(bucket, 5, data->sorted);
+    bucket = get_next_bucket(bucket, 5, data->sorted, 20);
+    bucket = get_next_bucket(bucket, 5, data->sorted, 20);
+    bucket = get_next_bucket(bucket, 5, data->sorted, 20);
     t_optional_index element = search_stack_bottom(&(data->stacks->a),&bucket);
     ASSERT_FALSE(element.initialized);
 }
@@ -366,14 +331,14 @@ CTEST(small_bucket_sort_test, get_next_bucket_test)
     const int bucket_size = 5;
     t_bucket bucket = create_bucket(bucket_size, sorted);
     
-    bucket = get_next_bucket(bucket, bucket_size, sorted);
+    bucket = get_next_bucket(bucket, bucket_size, sorted, 15);
     ASSERT_EQUAL(5, bucket.start_index);
     ASSERT_EQUAL(9, bucket.end_index);
     ASSERT_EQUAL(6, bucket.min_value);
     ASSERT_EQUAL(10, bucket.max_value);
     ASSERT_EQUAL(bucket_size, bucket.missing_elements);
 
-    bucket = get_next_bucket(bucket, bucket_size, sorted);
+    bucket = get_next_bucket(bucket, bucket_size, sorted, 15);
     ASSERT_EQUAL(10, bucket.start_index);
     ASSERT_EQUAL(14, bucket.end_index);
     ASSERT_EQUAL(11, bucket.min_value);

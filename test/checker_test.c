@@ -2,7 +2,7 @@
 #include <parser/parse_numbers.h>
 #include <parser/parse_instructions.h>
 #include <stack/processor.h>
-#include <stack/utils.h>
+#include <stack/stack_utils.h>
 #include <checker/checker.h>
 
 //////////////////////////////////////////////

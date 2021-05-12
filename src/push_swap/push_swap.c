@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	fake_print_instruction(const char *instruction, int times)
+static void	fake(const char *instruction, int times)
 {
 	(void)instruction;
 	(void)times;
@@ -16,9 +16,9 @@ static void	fake_print_instruction(const char *instruction, int times)
 
 static void	generate_algorthm(int elements_size, int *elements)
 {
-	int total_insertion;
-	int total_bucket;
-	
+	int	total_insertion;
+	int	total_bucket;
+
 	total_insertion = 0;
 	total_bucket = 0;
 	if (is_list_sorted(elements_size, elements))
@@ -27,15 +27,13 @@ static void	generate_algorthm(int elements_size, int *elements)
 		from_descending_to_ascending_order(elements_size, print_instruction);
 	else
 	{
-		total_insertion = insertion_sort(elements_size, elements, fake_print_instruction);
-		total_bucket = bucket_sort(elements_size, elements, fake_print_instruction);
+		total_insertion = insertion_sort(elements_size, elements, fake);
+		total_bucket = bucket_sort(elements_size, elements, fake);
 		if (total_insertion < total_bucket)
 			insertion_sort(elements_size, elements, print_instruction);
 		else
 			bucket_sort(elements_size, elements, print_instruction);
 	}
-
-	// printf("insertion %d\nbucket %d\n", total_insertion, total_bucket);
 }
 
 t_status	run_push_swap(int elements_size, const char *elements[])

@@ -1,6 +1,6 @@
 #include "insertion_sort.h"
-#include <stack/utils.h>
 #include <stack/processor.h>
+#include <stack/stack_utils.h>
 #include <stddef.h>
 #include <libft.h>
 #include <unistd.h>
@@ -10,25 +10,6 @@
 #include <utils/status.h>
 #include <stdlib.h>
 #include <fcntl.h>
-
-static t_status	is_stack_sorted(const t_stack *stack_a, int initial_size)
-{
-	const int	stack_size = size(stack_a);
-	int			i;
-
-	i = 1;
-	if (stack_size != initial_size)
-		return (KO);
-	while (i < stack_size)
-	{
-		if (stack_a->elements[i] > stack_a->elements[i - 1])
-		{
-			return (KO);
-		}
-		++i;
-	}
-	return (OK);
-}
 
 int	find_element_index(t_stack *stack, int element)
 {
@@ -112,12 +93,14 @@ int	insertion_sort(int elements_size,
 	{
 		populate_stack_a(elements, elements_size, &stacks);
 		i = 0;
-		while (i < elements_size - 2 && is_stack_sorted(&stacks.a, elements_size) != OK)
+		while (i < elements_size - 2 && !is_sorted(&stacks.a, is_ascending))
 		{
-			num_moves += move_element_to_stack_b(&stacks, sorted[i], write_instruction);
+			num_moves += \
+			move_element_to_stack_b(&stacks, sorted[i], write_instruction);
 			++i;
 		}
-		if (stacks.a.elements[stacks.a.top] > stacks.a.elements[stacks.a.top - 1])
+		if (stacks.a.elements[stacks.a.top] > \
+			stacks.a.elements[stacks.a.top - 1])
 		{
 			sa(&stacks);
 			write_instruction(STR_SA, 1);
