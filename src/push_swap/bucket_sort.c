@@ -96,42 +96,31 @@ t_optional_index	search_stack_bottom(const t_stack *stack,
 	return (element_index);
 }
 
-static void	execute_operation_bla(t_stack_pair *stacks,
-							int counter,
-							t_operation operation)
-{
-	while (counter > 0)
-	{
-		operation(stacks);
-		--counter;
-	}
-}
+// static int	move_element_to_stack_blah(t_stack_pair *stacks,
+// 							int element_index,
+// 							t_write_instruction write_instruction)
+// {
+// 	const int		stack_size = size(&stacks->a);
+// 	const int		middle_of_stack = floor((double)stack_size / 2.0);
+// 	const t_bool	close_to_top = (element_index >= middle_of_stack);
+// 	int				num_moves;
 
-static int	move_element_to_stack_blah(t_stack_pair *stacks,
-							int element_index,
-							t_write_instruction write_instruction)
-{
-	const int		stack_size = size(&stacks->a);
-	const int		middle_of_stack = floor((double)stack_size / 2.0);
-	const t_bool	close_to_top = (element_index >= middle_of_stack);
-	int				num_moves;
-
-	if (close_to_top)
-	{
-		num_moves = stacks->a.top - element_index;
-		execute_operation_bla(stacks, num_moves, ra);
-		write_instruction(STR_RA, num_moves);
-	}
-	else
-	{
-		num_moves = element_index + 1;
-		execute_operation_bla(stacks, num_moves, rra);
-		write_instruction(STR_RRA, num_moves);
-	}
-	pb(stacks);
-	write_instruction(STR_PB, 1);
-	return (num_moves + 1);
-}
+// 	if (close_to_top)
+// 	{
+// 		num_moves = stacks->a.top - element_index;
+// 		execute_operation(stacks, num_moves, ra);
+// 		write_instruction(STR_RA, num_moves);
+// 	}
+// 	else
+// 	{
+// 		num_moves = element_index + 1;
+// 		execute_operation(stacks, num_moves, rra);
+// 		write_instruction(STR_RRA, num_moves);
+// 	}
+// 	pb(stacks);
+// 	write_instruction(STR_PB, 1);
+// 	return (num_moves + 1);
+// }
 
 static int	return_closest_index(int stack_top,
 								int bottom_index,
@@ -216,7 +205,7 @@ int	bucket_sort(int elements_size,
 			{
 				element_index = find_element_index_to_move(&stacks, &bucket);
 				num_moves += \
-				move_element_to_stack_blah(&stacks, element_index, write_instruction);
+				move_element_to_stack_b(&stacks, element_index, write_instruction);
 				--bucket.missing_elements;
 			}
 			bucket = get_next_bucket(bucket, bucket_size, sorted, elements_size);

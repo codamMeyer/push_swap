@@ -30,10 +30,11 @@ int	insertion_sort(int num_elements,
 					const int *elements,
 					t_write_instruction write_instruction)
 {
-	const int		*sorted = sort_elements(num_elements, elements);
-	t_stack_pair	stacks;
-	int				num_moves;
-	int				i;
+	const int			*sorted = sort_elements(num_elements, elements);
+	t_stack_pair		stacks;
+	t_optional_index	element_index;
+	int					num_moves;
+	int					i;
 
 	num_moves = 0;
 	stacks = create_stack_pair(num_elements);
@@ -43,8 +44,9 @@ int	insertion_sort(int num_elements,
 		i = 0;
 		while (i < num_elements - 2 && !is_sorted(&stacks.a, is_ascending))
 		{
+			element_index = find_element_index(&(stacks.a), sorted[i]);
 			num_moves += \
-			move_element_to_stack_b(&stacks, sorted[i], write_instruction);
+			move_element_to_stack_b(&stacks, element_index.index, write_instruction);
 			++i;
 		}
 		if (stacks.a.elements[stacks.a.top] > \
