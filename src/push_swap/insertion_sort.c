@@ -31,9 +31,9 @@ static int	move_to_stack_b_in_ascending_order(t_stack_pair *stacks,
 										const int *sorted,
 										t_write_instruction write_instruction)
 {
-	int					i;
-	t_index	index;
-	int					num_moves;
+	int			i;
+	t_index		index;
+	int			num_moves;
 
 	num_moves = 0;
 	i = 0;

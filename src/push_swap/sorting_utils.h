@@ -5,7 +5,6 @@
 # include <stack/stack.h>
 # include <stack/processor.h>
 
-
 typedef struct s_index
 {
 	int		value;
@@ -19,6 +18,7 @@ typedef struct s_optional_index
 
 typedef void(*t_operation)(t_stack_pair	*stack);
 
+t_bool				is_close_to_top(const t_stack *stack, t_index index);
 void				execute_operation(t_stack_pair *stacks, \
 										int counter, \
 										t_operation operation);

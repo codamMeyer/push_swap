@@ -1,6 +1,7 @@
 #include "ctest.h"
 #include <push_swap/insertion_sort.h>
 #include <push_swap/bucket_sort.h>
+#include <push_swap/bucket_sort_utils.h>
 #include <push_swap/special_cases_sort.h>
 #include <parser/parse_instructions.h>
 #include <push_swap/push_swap.h>

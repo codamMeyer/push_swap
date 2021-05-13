@@ -2,9 +2,9 @@
 #include <utils/math_utils.h>
 #include <stdio.h>
 
-static t_bool	is_close_to_top(const t_stack_pair *stacks, t_index index)
+t_bool	is_close_to_top(const t_stack *stack, t_index index)
 {
-	const int		stack_size = size(&stacks->a);
+	const int		stack_size = size(stack);
 	const int		middle_of_stack = ft_floor((double)stack_size / 2.0);
 
 	return (index.value >= middle_of_stack);
@@ -25,7 +25,7 @@ int	move_element_to_stack_b(t_stack_pair *stacks,
 							t_index index,
 							t_write_instruction write_instruction)
 {
-	const t_bool	close_to_top = is_close_to_top(stacks, index);
+	const t_bool	close_to_top = is_close_to_top(&stacks->a, index);
 	int				num_moves;
 
 	if (close_to_top)
