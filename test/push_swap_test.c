@@ -109,7 +109,7 @@ CTEST_TEARDOWN(find_element_index_test)
 CTEST2(find_element_index_test, element_8_index_2)
 {
     const int to_find = 8;
-    ASSERT_EQUAL(2, find_element_index(data->stack, to_find).index);
+    ASSERT_EQUAL(2, find_element_index(data->stack, to_find).value);
 }
 
 CTEST2(find_element_index_test, not_in_stack)
@@ -159,9 +159,10 @@ void write_inst(const char *instruction, int i)
 CTEST2(move_element_to_b_test, element_8_index_2)
 {
     const int element = 8;
+    const t_index index = {.value = 2};
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, 2, write_inst);
+    move_element_to_stack_b(data->stacks, index, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -170,9 +171,10 @@ CTEST2(move_element_to_b_test, element_8_index_2)
 CTEST2(move_element_to_b_test, element_0_at_top)
 {
     const int element = 0;
+    const t_index index = {.value = data->stacks->a.top};
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, data->stacks->a.top, write_inst);
+    move_element_to_stack_b(data->stacks, index, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -181,9 +183,10 @@ CTEST2(move_element_to_b_test, element_0_at_top)
 CTEST2(move_element_to_b_test, element_closer_to_bottom)
 {
     const int element = 4;
+    const t_index index = {.value = 1};
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, 1, write_inst);
+    move_element_to_stack_b(data->stacks, index, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -192,9 +195,10 @@ CTEST2(move_element_to_b_test, element_closer_to_bottom)
 CTEST2(move_element_to_b_test, element_at_bottom)
 {
     const int element = 5;
+    const t_index index = {.value = 0};
     ASSERT_EQUAL(0, size(&(data->stacks->b)));
     ASSERT_EQUAL(5, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, 0, write_inst);
+    move_element_to_stack_b(data->stacks, index, write_inst);
     ASSERT_EQUAL(1, size(&(data->stacks->b)));
     ASSERT_EQUAL(4, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -205,9 +209,10 @@ CTEST2(move_element_to_b_test, stack_a_with_3_elements_b_with_2)
     pb(data->stacks);
     pb(data->stacks);
     const int element = 5;
+    const t_index index = {.value = 0};
     ASSERT_EQUAL(2, size(&(data->stacks->b)));
     ASSERT_EQUAL(3, size(&(data->stacks->a)));
-    move_element_to_stack_b(data->stacks, 0, write_inst);
+    move_element_to_stack_b(data->stacks, index, write_inst);
     ASSERT_EQUAL(3, size(&(data->stacks->b)));
     ASSERT_EQUAL(2, size(&(data->stacks->a)));
     ASSERT_EQUAL(element, data->stacks->b.elements[data->stacks->b.top]);
@@ -292,7 +297,7 @@ CTEST2(small_bucket_sort_test, find_element_from_bucket_at_top)
     t_bucket bucket = create_bucket(5, data->sorted);
     t_optional_index element = search_stack_top(&(data->stacks->a),&bucket);
     ASSERT_TRUE(element.initialized);
-    ASSERT_EQUAL(19, element.index);
+    ASSERT_EQUAL(19, element.value);
 }
 
 CTEST2(small_bucket_sort_test, no_element_from_bucket_at_bottom)
@@ -310,7 +315,7 @@ CTEST2(small_bucket_sort_test, find_element_from_bucket_at_bottom)
     t_bucket bucket = create_bucket(5, data->sorted);
     t_optional_index element = search_stack_bottom(&(data->stacks->a),&bucket);
     ASSERT_TRUE(element.initialized);
-    ASSERT_EQUAL(1, element.index);
+    ASSERT_EQUAL(1, element.value);
 }
 
 CTEST(small_bucket_sort_test, create_bucket_test)
@@ -387,7 +392,7 @@ CTEST2(find_middle_element, from_top)
     t_bucket bucket = create_bucket(2, data->sorted);
     t_optional_index element = search_stack_top(&(data->stacks->a),&bucket);
     ASSERT_TRUE(element.initialized);
-    ASSERT_EQUAL(2, element.index);
+    ASSERT_EQUAL(2, element.value);
 }
 
 CTEST2(find_middle_element, from_bottom)

@@ -32,15 +32,15 @@ static int	move_to_stack_b_in_ascending_order(t_stack_pair *stacks,
 										t_write_instruction write_instruction)
 {
 	int					i;
-	t_optional_index	element_index;
+	t_index	index;
 	int					num_moves;
 
 	num_moves = 0;
 	i = 0;
 	while (i < num_elements - 2 && !is_sorted(&stacks->a, is_ascending))
 	{
-		element_index = find_element_index(&(stacks->a), sorted[i]);
-		num_moves += move_element_to_stack_b(stacks, element_index.index, \
+		index.value = find_element_index(&(stacks->a), sorted[i]).value;
+		num_moves += move_element_to_stack_b(stacks, index, \
 												write_instruction);
 		++i;
 	}

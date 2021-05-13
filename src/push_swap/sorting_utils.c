@@ -2,12 +2,12 @@
 #include <utils/math_utils.h>
 #include <stdio.h>
 
-static t_bool	is_close_to_top(const t_stack_pair *stacks, int element_index)
+static t_bool	is_close_to_top(const t_stack_pair *stacks, t_index index)
 {
 	const int		stack_size = size(&stacks->a);
 	const int		middle_of_stack = ft_floor((double)stack_size / 2.0);
 
-	return (element_index >= middle_of_stack);
+	return (index.value >= middle_of_stack);
 }
 
 void	execute_operation(t_stack_pair *stacks,
@@ -22,24 +22,21 @@ void	execute_operation(t_stack_pair *stacks,
 }
 
 int	move_element_to_stack_b(t_stack_pair *stacks,
-							int element_index,
+							t_index index,
 							t_write_instruction write_instruction)
 {
-	const t_bool	close_to_top = \
-							is_close_to_top(stacks, element_index);
+	const t_bool	close_to_top = is_close_to_top(stacks, index);
 	int				num_moves;
 
-	if (element_index == -1)
-		return (0);
 	if (close_to_top)
 	{
-		num_moves = stacks->a.top - element_index;
+		num_moves = stacks->a.top - index.value;
 		execute_operation(stacks, num_moves, ra);
 		write_instruction(STR_RA, num_moves);
 	}
 	else
 	{
-		num_moves = element_index + 1;
+		num_moves = index.value + 1;
 		execute_operation(stacks, num_moves, rra);
 		write_instruction(STR_RRA, num_moves);
 	}
@@ -50,17 +47,17 @@ int	move_element_to_stack_b(t_stack_pair *stacks,
 
 t_optional_index	find_element_index(t_stack *stack, int element)
 {
-	t_optional_index	element_index;
+	t_optional_index	index;
 
-	element_index.index = 0;
-	element_index.initialized = TRUE;
-	while (element_index.index <= stack->top)
+	index.value = 0;
+	index.initialized = TRUE;
+	while (index.value <= stack->top)
 	{
-		if (element == stack->elements[element_index.index])
-			return (element_index);
-		++element_index.index;
+		if (element == stack->elements[index.value])
+			return (index);
+		++index.value;
 	}
-	element_index.initialized = FALSE;
-	element_index.index = -1;
-	return (element_index);
+	index.initialized = FALSE;
+	index.value = -1;
+	return (index);
 }
