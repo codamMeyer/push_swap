@@ -1,9 +1,9 @@
 #ifndef SORTING_UTILS_H
 # define SORTING_UTILS_H
 # include "utils.h"
-# include <utils/defs.h>
-# include <stack/stack.h>
 # include <stack/processor.h>
+# include <stack/stack.h>
+# include <utils/defs.h>
 
 typedef struct s_index
 {

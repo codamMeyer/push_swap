@@ -1,6 +1,5 @@
 #include "sorting_utils.h"
 #include <utils/math_utils.h>
-#include <stdio.h>
 
 t_bool	is_close_to_top(const t_stack *stack, t_index index)
 {

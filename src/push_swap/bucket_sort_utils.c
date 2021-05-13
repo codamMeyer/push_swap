@@ -1,5 +1,4 @@
 #include "bucket_sort_utils.h"
-#include <stack/processor.h>
 #include <utils/math_utils.h>
 
 t_optional_index	search_stack_top(const t_stack *stack,
@@ -79,7 +78,13 @@ int	move_element_to_stack_a(t_stack_pair *stacks,
 	const t_bool	close_to_top = is_close_to_top(&stacks->b, index);
 	int				num_moves;
 
-	if (close_to_top)
+	num_moves = 1;
+	if (index.value == (stacks->b.top - 1))
+	{
+		execute_operation(stacks, num_moves, sb);
+		write_instruction(STR_SB, num_moves);
+	}
+	else if (close_to_top)
 	{
 		num_moves = stacks->b.top - index.value;
 		execute_operation(stacks, num_moves, rb);

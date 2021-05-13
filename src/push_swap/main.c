@@ -1,7 +1,7 @@
 #include "push_swap.h"
-#include <utils/status.h>
 #include <parser/parse_numbers.h>
 #include <stdlib.h>
+#include <utils/status.h>
 
 int	main(int argc, const char *argv[])
 {

@@ -18,6 +18,7 @@ COMMOM_FILES=								\
 	src/utils/defs.h 						\
 	src/utils/status.h						\
 	src/utils/math_utils.h					\
+	src/utils/instructions.h				\
 	src/parser/parse_instructions.h 		\
 	src/parser/parse_flags.h 				\
 	src/stack/stack_utils.c					\

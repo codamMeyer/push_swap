@@ -4,6 +4,13 @@
 # define FALSE 0
 
 typedef int	t_bool;
+
+typedef struct s_optional_int
+{
+	int		element;
+	t_bool	initialized;
+}	t_optional_int;
+
 typedef struct s_flags
 {
 	t_bool	verbose;

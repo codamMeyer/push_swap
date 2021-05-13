@@ -1,5 +1,4 @@
 #include "bucket.h"
-#include <utils/math_utils.h>
 
 t_bucket	create_bucket(int bucket_size, const int *sorted)
 {

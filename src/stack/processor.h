@@ -1,23 +1,7 @@
 #ifndef PROCESSOR_H
 # define PROCESSOR_H
 # include "stack.h"
-
-typedef enum e_instructions
-{
-	END_OF_INSTRUCTIONS = -1,
-	INVALID_INSTRUCTION = 0,
-	SA,
-	SB,
-	SS,
-	PA,
-	PB,
-	RA,
-	RB,
-	RR,
-	RRA,
-	RRB,
-	RRR,
-}	t_instructions;
+# include <utils/instructions.h>
 
 typedef struct s_stack_pair
 {

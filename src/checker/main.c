@@ -1,7 +1,7 @@
 #include "checker.h"
-#include <utils/status.h>
 #include <parser/parse_instructions.h>
 #include <stdlib.h>
+#include <utils/status.h>
 
 int	main(int argc, const char *argv[])
 {

@@ -1,15 +1,12 @@
 #include "checker.h"
+#include "verbose.h"
+#include "write_result.h"
+#include <ft_printf.h>
+#include <libft.h>
 #include <parser/parse_instructions.h>
 #include <parser/parse_numbers.h>
 #include <parser/parse_flags.h>
-#include "verbose.h"
-#include "write_result.h"
-#include <utils/status.h>
 #include <stack/stack_utils.h>
-#include <stdlib.h>
-#include <libft.h>
-#include <ft_printf.h>
-#include <stdio.h>
 
 static t_status	process_instructions_list(t_stack_pair *stacks, \
 									t_flags flags,

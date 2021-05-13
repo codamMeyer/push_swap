@@ -21,3 +21,17 @@ t_bool	is_sorted(const t_stack *stack, t_compare compare)
 	}
 	return (TRUE);
 }
+
+t_optional_int	top_element(t_stack *stack)
+{
+	t_optional_int	element;
+
+	if (!size(stack))
+	{
+		element.initialized = FALSE;
+		return (element);
+	}
+	element.element = stack->elements[stack->top];
+	element.initialized = TRUE;
+	return (element);
+}

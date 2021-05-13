@@ -1,8 +1,5 @@
 #include "verbose.h"
-#include <stack/processor.h>
-#include <stdio.h>
 #include <ft_printf.h>
-#include <fcntl.h>
 
 int	get_tallest_stack(t_stack_pair *stacks)
 {

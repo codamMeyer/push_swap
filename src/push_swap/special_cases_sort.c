@@ -1,4 +1,5 @@
 #include "special_cases_sort.h"
+#include <utils/instructions.h>
 
 int	from_descending_to_ascending_order(int num_elements,
 										t_write_instruction write_instruction)

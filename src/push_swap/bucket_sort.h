@@ -1,9 +1,9 @@
 #ifndef BUCKET_SORT_H
 # define BUCKET_SORT_H
+# include "bucket.h"
+# include "sorting_utils.h"
 # include "utils.h"
 # include <stack/stack.h>
-# include "sorting_utils.h"
-# include "bucket.h"
 
 int					bucket_sort(int num_elements, \
 								const int *elements, \

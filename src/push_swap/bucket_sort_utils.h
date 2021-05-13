@@ -1,8 +1,8 @@
 #ifndef BUCKET_SORT_UTILS_H
 # define BUCKET_SORT_UTILS_H
-# include <stack/processor.h>
-# include "sorting_utils.h"
 # include "bucket.h"
+# include "sorting_utils.h"
+# include <stack/processor.h>
 
 t_optional_index	search_stack_top(const t_stack *stack, \
 										const t_bucket *bucket);

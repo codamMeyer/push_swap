@@ -1,12 +1,10 @@
-#include "push_swap.h"
-#include "insertion_sort.h"
 #include "bucket_sort.h"
-#include "utils.h"
+#include "insertion_sort.h"
+#include "push_swap.h"
 #include "special_cases_sort.h"
-#include <utils/defs.h>
+#include "utils.h"
 #include <parser/parse_numbers.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 t_bool	is_list_sorted(int num_elements, const int *elements)
 {

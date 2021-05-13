@@ -1,13 +1,7 @@
 #include "bucket_sort.h"
-#include "sorting_utils.h"
 #include "bucket_sort_utils.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <stack/processor.h>
-#include <stack/stack_utils.h>
-#include <utils/math_utils.h>
-#include <libft.h>
-#include <fcntl.h>
 
 static int	select_best_bucket_size(const int *sizes,
 									int num_buckets,
@@ -113,15 +107,3 @@ int	bucket_sort(int num_elements,
 	destroy_stack_pair(&stacks);
 	return (num_moves);
 }
-
-// const int	fd = open("buckets", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-// i = 0;
-// while (i < num_buckets)
-// {
-// 	ft_putnbr_fd(sizes[i], fd);
-// 	ft_putstr_fd(" ", fd);
-// 	ft_putnbr_fd(results[i], fd);
-// 	ft_putendl_fd(" ", fd);
-// 	++i;
-// }
-// close(fd);

@@ -1,6 +1,6 @@
 #include "utils.h"
-#include <unistd.h>
 #include <libft.h>
+#include <unistd.h>
 
 void	swap_elements(int *cur, int *prev)
 {

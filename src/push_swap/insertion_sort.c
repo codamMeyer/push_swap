@@ -1,15 +1,7 @@
 #include "insertion_sort.h"
 #include "sorting_utils.h"
-#include <stack/processor.h>
 #include <stack/stack_utils.h>
-#include <stddef.h>
-#include <libft.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <utils/defs.h>
-#include <utils/status.h>
 #include <stdlib.h>
-#include <fcntl.h>
 
 static int	push_elements_back_to_stack_a(t_stack_pair *stacks,
 									t_write_instruction write_instruction)
