@@ -200,32 +200,39 @@ class PushSwapSortingTests:
     def __init__(self, name):
         self.name = name
 
-    def _runPushSwap(self, testName, inp, expected, maxMoves):
+    def _runPushSwap(self, testName, inp, expected, maxMoves, value):
         print("\nTest case: " + testName)
         Status.print(expected)
-        print("Expected less than {} moves\nGot:    ".format(maxMoves))
+        points = 1
+        if value != 0:
+            for i in range(0, 4):
+                print("Less than {} moves gets {} points".format(maxMoves, points))
+                maxMoves = maxMoves - value
+                points += 1
+        print("Less than {} moves gets {} points".format(maxMoves, 5))
+        print("")
         cmd = "./push_swap {} | ./checker -t {}".format(inp, inp)
         ret = subprocess.run(cmd, shell=True).returncode
         assert ret == expected
 
     def _testFiveElementes(self):
-        self._runPushSwap("Five Elements [{}]".format("5 1 2 4 3"), "5 1 2 4 3", Status.OK, 12)
+        self._runPushSwap("Five Elements [{}]".format("5 1 2 4 3"), "5 1 2 4 3", Status.OK, 12, 0)
 
     def runSimpleVersionTests(self):
         printTestBanner(self.name)
         self._testFiveElementes()
         stack = StackGenerator().run(5)
-        self._runPushSwap("Five Elements [{}]".format(stack), stack, Status.OK, 12)
+        self._runPushSwap("Five Elements [{}]".format(stack), stack, Status.OK, 12, 0)
 
     def runMiddleVersionTests(self):
         printTestBanner(self.name)
         stack = StackGenerator().run(100)
-        self._runPushSwap("100 Elements", stack, Status.OK, 1500)
+        self._runPushSwap("100 Elements", stack, Status.OK, 1500, 200)
 
     def runAdvancedVersionTests(self):
         printTestBanner(self.name)
         stack = StackGenerator().run(500)
-        self._runPushSwap("500 Elements", stack, Status.OK, 11500)
+        self._runPushSwap("500 Elements", stack, Status.OK, 11500, 1500)
 
 
 def main():
