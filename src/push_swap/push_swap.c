@@ -38,7 +38,7 @@ static void	generate_algorthm(int num_elements, const int *elements)
 	total_bucket = 0;
 	if (is_list_sorted(num_elements, elements))
 		return ;
-	if (is_descending_order(num_elements, elements))
+	else if (is_descending_order(num_elements, elements))
 		from_descending_to_ascending_order(num_elements, print_instruction);
 	else if (num_elements <= 5)
 		insertion_sort(num_elements, elements, print_instruction);
