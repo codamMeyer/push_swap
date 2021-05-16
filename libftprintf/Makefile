@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS= -Wall -Werror -Wextra
 
-NAME=libftprintf.a
+NAME=libftprintf
 CREATE_LIB=ar rcs
 
 INC_PATH=-I./
@@ -44,9 +44,11 @@ SRC_OBJ = $(SRC_FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): libft $(SRC_OBJ)
-		@cp ./libft/libft.a $(NAME)
-		ar rc $(NAME) $(SRC_OBJ)
+$(NAME): libft $(NAME).a
+
+$(NAME).a: $(SRC_OBJ)
+	cp ./libft/libft.a $(NAME).a
+	ar rc $(NAME).a $(SRC_OBJ)
 
 %.o: %.c $(HEADER_FILES)
 	$(CC) $(INC_PATH) -c $(CFLAGS) -o $@ $<
@@ -59,9 +61,9 @@ re: fclean all
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
-	rm -f $(NAME)
+	rm -f $(NAME).a
 
 libft:
-	$(MAKE) bonus -C ./libft
+	$(MAKE) -C ./libft
 
 .PHONY: all clean fclean re test libft run
