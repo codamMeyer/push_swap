@@ -7,7 +7,7 @@ TEST_CFLAGS=-ggdb3 $(CFLAGS)
 INC_PATH=-I./$(FT_PRINTF) -I./src -I./$(FT_PRINTF)/libft
 LDFLAGS=-L./$(FT_PRINTF) -lftprintf -lm
 
-COMMOM_SRC_FILES=								\
+COMMOM_SRC_FILES=							\
 	src/parser/parse_numbers.c 				\
 	src/utils/status.c 						\
 	src/utils/math_utils.c					\
@@ -22,20 +22,20 @@ COMMOM_SRC_FILES=								\
 	src/stack/processor_rotate.c			\
 	src/stack/processor_reverse_rotate.c
 
-COMMOM_INC_FILES=								\
+COMMOM_INC_FILES=							\
 	src/parser/parse_numbers.h 				\
 	src/utils/defs.h 						\
 	src/utils/status.h						\
 	src/utils/math_utils.h					\
 	src/utils/instructions.h				\
 	src/parser/parse_instructions.h 		\
-	src/parser/parse_flags.h 			\
+	src/parser/parse_flags.h 				\
 	src/stack/processor.h					\
 	src/stack/stack.h						\
 	src/stack/stack_utils.h					\
 
 
-PUSH_SWAP_SRC_FILES= 							\
+PUSH_SWAP_SRC_FILES= 						\
 	src/push_swap/push_swap.c				\
 	src/push_swap/insertion_sort.c			\
 	src/push_swap/bucket_sort.c				\
@@ -56,7 +56,7 @@ PUSH_SWAP_INC_FILES= 						\
 	src/push_swap/utils.h					\
 	src/push_swap/sorting_utils.h
 
-CHECKER_SRC_FILES= 								\
+CHECKER_SRC_FILES= 							\
 	src/checker/checker.c 					\
 	src/checker/verbose.c					\
 	src/checker/write_result.c				\
@@ -107,6 +107,9 @@ test: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER) $(TEST_FILES)
 
 clean:
 	$(MAKE) clean -C ./$(FT_PRINTF)
+	rm -f $(PUSH_SWAP_OBJS)
+	rm -f $(CHECKER_OBJS)
+	rm -f $(COMMON_OBJS)
 
 re: fclean all
 
