@@ -1,7 +1,7 @@
 #include "bucket_sort.h"
 #include "bucket_sort_utils.h"
+#include <utils/math_utils.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 static int	select_best_bucket_size(const int *sizes,
 									int num_buckets,
@@ -87,6 +87,7 @@ int	bucket_sort(int num_elements,
 	t_stack_pair	stacks;
 	int				num_moves;
 
+	bucket_size = ft_min(bucket_size, num_elements);
 	num_moves = 0;
 	stacks = create_stack_pair(num_elements);
 	if (stacks.initialized && sorted != NULL)

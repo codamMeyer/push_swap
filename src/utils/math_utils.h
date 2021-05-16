@@ -3,5 +3,6 @@
 
 double	ft_floor(double n);
 double	ft_ceil(double n);
+int		ft_min(int a, int b);
 
 #endif

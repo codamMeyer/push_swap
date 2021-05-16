@@ -20,7 +20,7 @@ static void	display_help_menu(void)
 	ft_printf("\nusage:  ./checker <flags> [numeric arguments]\n");
 	ft_printf("\n-v Print stacks on screen after each movement\n");
 	ft_printf("   and display manipulated numbers in different color\n");
-	ft_printf("\n-t Display the total of movement\n");
+	ft_printf("\n-t Display the total of movements\n");
 	ft_printf("\n-f Write the final stack to a file called result\n");
 }
 

@@ -403,3 +403,9 @@ CTEST2(find_middle_element, from_bottom)
     t_optional_index element = search_stack_bottom(&(data->stacks->b),&bucket);
     ASSERT_FALSE(element.initialized);
 }
+
+CTEST(bucket_sort_test, bucket_bigger_than_num_elements)
+{
+    const int elements[] = {1, 3, 5, 2, 7, 0};
+    bucket_sort(6, elements, 10, write_inst);
+}
