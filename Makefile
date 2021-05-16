@@ -4,7 +4,6 @@ FT_PRINTF=libftprintf
 CC=gcc
 CFLAGS= -O3 -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak
 TEST_CFLAGS=-ggdb3 $(CFLAGS)
-DEBUG_CFLAGS=-ggdb3 $(CFLAGS)
 INC_PATH=-I./$(FT_PRINTF) -I./src -I./$(FT_PRINTF)/libft
 LDFLAGS=-L./$(FT_PRINTF) -lftprintf -lm
 
@@ -104,7 +103,7 @@ test_integration: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER)
 	./test/integration_test.py
 
 test: $(FT_PRINTF) $(PUSH_SWAP) $(CHECKER) $(TEST_FILES)
-	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(COMMOM_FILES) $(CHECKER_FILES) $(PUSH_SWAP_FILES) $(TEST_FILES) $(LDFLAGS) -o tester
+	$(CC) $(TEST_CFLAGS) $(INC_PATH) $(COMMON_OBJS) $(CHECKER_OBJS) $(PUSH_SWAP_OBJS) $(TEST_FILES) -o tester $(LDFLAGS)
 
 clean:
 	$(MAKE) clean -C ./$(FT_PRINTF)
