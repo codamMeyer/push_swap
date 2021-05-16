@@ -58,6 +58,8 @@ t_status	run_checker(int size,
 	flags = parse_flags(argv, &size, &i);
 	if (!flags.is_valid)
 		return (ERROR);
+	if(size == 0)
+		return (NO_PARAMETERS);
 	ret = ERROR;
 	stack_elements = parse_numbers(size, &argv[i]);
 	stacks = create_stack_pair(size);
