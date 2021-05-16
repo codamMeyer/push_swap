@@ -94,7 +94,7 @@ $(FT_PRINTF):
 	$(MAKE) -C ./$(FT_PRINTF)
 
 %.o: %.c 
-		$(CC) -c -o $@ $< $(CFLAGS)
+		$(CC) $(CFLAGS) $(INC_PATH) -c -o $@ $< 
 
 test_run: test
 	./tester
