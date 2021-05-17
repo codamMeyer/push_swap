@@ -95,13 +95,15 @@ t_instructions process_sorted_elements()
 CTEST(run_test, sorted_elements)
 {	
 	const char *argv[] = {"1", "2", "3", "4"};
-	ASSERT_EQUAL(OK, run_checker(4, argv, process_sorted_elements));
+	int num_elements = 4;
+	ASSERT_EQUAL(OK, run_checker(&num_elements, argv, process_sorted_elements));
 }
 
 CTEST(run_test, invalid_number)
 {	
 	const char *argv[] = {"A1", "2", "3", "4"};
-	ASSERT_EQUAL(ERROR, run_checker(4, argv, process_sorted_elements));
+	int num_elements = 4;
+	ASSERT_EQUAL(ERROR, run_checker(&num_elements, argv, process_sorted_elements));
 }
 
 t_instructions process_invalid_instruction()
@@ -114,7 +116,8 @@ t_instructions process_invalid_instruction()
 CTEST(run_test, invalid_instruction)
 {	
 	const char *argv[] = {"1", "2", "3", "4"};
-	ASSERT_EQUAL(ERROR, run_checker(4, argv, process_invalid_instruction));
+	int num_elements = 4;
+	ASSERT_EQUAL(ERROR, run_checker(&num_elements, argv, process_invalid_instruction));
 }
 
 t_instructions process_unsorted_elements()
@@ -127,7 +130,8 @@ t_instructions process_unsorted_elements()
 CTEST(run_test, unsorted_elements_correct_set_of_instructions)
 {	
 	const char *argv[] = {"5", "2", "3", "4"};
-	ASSERT_EQUAL(OK, run_checker(4, argv, process_unsorted_elements));
+	int num_elements = 4;
+	ASSERT_EQUAL(OK, run_checker(&num_elements, argv, process_unsorted_elements));
 }
 
 t_instructions process_unsorted_elements_incorrect()
@@ -140,7 +144,8 @@ t_instructions process_unsorted_elements_incorrect()
 CTEST(run_test, unsorted_elements_incorrect_solution)
 {	
 	const char *argv[] = {"5", "2", "3", "4"};
-	ASSERT_EQUAL(KO, run_checker(4, argv, process_unsorted_elements_incorrect));
+	int num_elements = 4;
+	ASSERT_EQUAL(KO, run_checker(&num_elements, argv, process_unsorted_elements_incorrect));
 }
 
 t_instructions process_solution_set()
@@ -153,5 +158,6 @@ t_instructions process_solution_set()
 CTEST(run_test, solution_set_solution)
 {
 	const char *argv[] = {"5", "4", "1", "2", "3"};
-	ASSERT_EQUAL(OK, run_checker(5, argv, process_solution_set));
+	int num_elements = 5;
+	ASSERT_EQUAL(OK, run_checker(&num_elements, argv, process_solution_set));
 }

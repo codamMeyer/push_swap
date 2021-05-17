@@ -44,7 +44,7 @@ t_status	is_valid_solution(const t_stack *stack_a, int initial_size)
 	return (OK);
 }
 
-t_status	run_checker(int size,
+t_status	run_checker(int *size,
 						const char *argv[],
 						t_get_next_instruction next_instruction)
 {
@@ -55,21 +55,19 @@ t_status	run_checker(int size,
 	t_status		ret;
 
 	i = 0;
-	flags = parse_flags(argv, &size, &i);
-	if (!flags.is_valid)
+	flags = parse_flags(argv, size, &i);
+	if (!flags.is_valid || *size == 0)
 		return (ERROR);
-	if(size == 0)
-		return (NO_PARAMETERS);
 	ret = ERROR;
-	stack_elements = parse_numbers(size, &argv[i]);
-	stacks = create_stack_pair(size);
+	stack_elements = parse_numbers(*size, &argv[i]);
+	stacks = create_stack_pair(*size);
 	if (stack_elements && stacks.initialized)
 	{
-		populate_stack_a(stack_elements, size, &stacks);
+		populate_stack_a(stack_elements, *size, &stacks);
 		ret = process_instructions_list(&stacks, flags, next_instruction);
 	}
 	if (ret != ERROR)
-		ret = is_valid_solution(&(stacks.a), size);
+		ret = is_valid_solution(&(stacks.a), *size);
 	if (flags.file_output)
 		write_final_result_in_file(&(stacks.a));
 	destroy_stack_pair(&stacks);

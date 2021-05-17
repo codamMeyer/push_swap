@@ -74,6 +74,11 @@ class CheckerErrorManagement:
         assert subprocess.run("./checker", shell=True).returncode > 0
         print("\n")
 
+    def _testWithFlagsWithoutAnyInput(self):
+        print("\nWhitout any parameters, should just return")
+        assert subprocess.run("./checker -t", shell=True).returncode > 0
+        print("\n")
+
     def _testInvalidInstruction(self):
         self._runCheckerInstruction("Valid parameters, invalid instruction", "1 2 3", "r", Status.ERROR)
 
@@ -90,6 +95,7 @@ class CheckerErrorManagement:
         self._testNumericValueBiggerThanIntMax()
         self._testNumericValueSmallerThanIntMin()
         self._testWithoutAnyInput()
+        self._testWithFlagsWithoutAnyInput()
         self._testInvalidInstruction()
         self._testSpacesBeforeInstruction()
         self._testSpacesAfterInstruction()
@@ -157,11 +163,19 @@ class PushSwapIdentityTests:
     def _testWithSortedElements(self, inp):
         self._runPushSwap("Sorted elements '{}'".format(inp), inp)
 
+    def _testWithoutArgs(self, inp):
+        self._runPushSwap("No args", inp)
+
+    def _testWrongArgs(self, inp):
+        self._runPushSwap("Wrong args", inp, "\nError")
+
     def runTests(self):
         printTestBanner("Push Swap Identity tests")
         self._testOnlyOneElement()
         self._testWithSortedElements("0 1 2 3")
         self._testWithSortedElements("0 1 2 3 4 5 6 7 8 9")
+        self._testWithoutArgs("")
+        self._testWrongArgs("1 a")
 
 
 class StackGenerator:
